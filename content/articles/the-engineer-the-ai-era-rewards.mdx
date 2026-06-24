@@ -1,0 +1,63 @@
+---
+title: The Engineer the AI Era Rewards
+description: AI is not replacing engineers — it is repricing engineering skills. Here is what is going up in value, what is going down, and how to position your career.
+date: 2026-06-18
+author: Philip
+tags: ['AI', 'Career', 'Engineering']
+---
+
+For most of my career, the scarce resource in software was the ability to *produce* code. The person who could implement the feature, wire up the API, and get it shipped was valuable almost by definition. That world is ending — not with a bang, but with an autocomplete.
+
+I lead engineering teams, and I also run a startup where we ship with AI in the loop every day. From both seats, the same pattern is obvious: AI has not made engineers obsolete. It has **repriced** the skills that make up the job. Some went up. Some went to nearly zero. If you understand which is which, the next few years are the best career opportunity of your life.
+
+## What is going down in value
+
+Be honest about this part. The tasks AI does well are exactly the ones that used to be a moat:
+
+- **Boilerplate and glue code.** CRUD endpoints, form wiring, config, the tenth React component that looks like the last nine.
+- **Syntax recall.** Knowing the exact incantation for a library you use twice a year.
+- **First-draft anything.** A rough function, a test skeleton, a migration script.
+
+If your value to a team is mostly "I can type the code once we know what to build," that value is compressing fast. Not gone — compressing.
+
+## What is going up in value
+
+The work AI is *bad* at is the work that was always the hard part — it was just hidden behind the typing:
+
+1. **Judgment under ambiguity.** Deciding *what* to build, what to cut, and what "good enough" means for this specific business. AI will happily build the wrong thing very quickly.
+2. **System-level thinking.** Holding the whole architecture in your head, anticipating how a change ripples through it, knowing where the bodies are buried.
+3. **Verification and taste.** AI produces plausible code. Knowing whether plausible code is *correct, safe, and maintainable* is now a core skill, not a senior nicety.
+4. **Communication and leverage.** Turning a vague request into a crisp spec, and turning a team (human and AI) into shipped product.
+
+Notice that these are the things we used to call "senior." The AI era is pulling that bar *down the experience ladder* — junior engineers are now expected to operate at a level of judgment that used to take years to reach.
+
+## The practical shift: from author to editor
+
+The mental model that has helped my teams most: **you are moving from author to editor-in-chief.**
+
+```ts
+// The old loop: you wrote every line.
+function buildFeature() {
+  return writeCode(); // hours of typing
+}
+
+// The new loop: you direct, review, and own the outcome.
+async function buildFeature(intent: Spec) {
+  const draft = await ai.implement(intent);   // minutes
+  const review = verify(draft);               // YOUR judgment
+  return review.ok ? ship(draft) : iterate(draft, review.notes);
+}
+```
+
+The bottleneck moved. It is no longer "how fast can you type the code." It is "how good is your `intent`, and how sharp is your `verify`." Both are human skills, and both compound.
+
+## What to actually do about it
+
+- **Build verification muscle.** Read more code than you write. Get fast and ruthless at spotting the subtle bug, the security hole, the design that will not scale.
+- **Go up the stack of intent.** Practice turning fuzzy problems into precise specs. This is the skill that makes AI useful instead of dangerous.
+- **Learn systems, not just syntax.** Databases, distributed systems, how the browser actually works. AI fills in the syntax; it cannot fill in your mental model.
+- **Use the tools daily.** The engineers who will struggle are not the ones who use AI — they are the ones who refuse to, and the ones who trust it blindly. Be neither.
+
+The market is not shifting *against* engineers. It is shifting against a *narrow definition* of what an engineer does. Widen yours, and you will be more valuable in five years than you are today — not less.
+
+*Want to talk through where your career fits in all this? [Join our Discord](https://discord.gg/nekkolabs) — this is exactly the kind of thing the community is for.*

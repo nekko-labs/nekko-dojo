@@ -1,0 +1,52 @@
+---
+title: Practice Interview Questions
+description: A couple of real interview problems to practice with — and an open invitation to work through them together.
+order: 11
+section: Practice
+---
+
+Here are a couple of interview problems I like to use for practice. Work through them out loud, on a whiteboard, the way you would in a real loop — clarify, brute-force, improve, analyze. When you want to go deeper, **ask me** and we'll work through them together in [the Discord](https://discord.gg/nekkolabs).
+
+## 1. Spotify playlist shuffle
+
+You're shuffling a playlist. Start simple, then make it harder:
+
+- **Basic shuffle** — given a list of songs, return them in a random order. (Look up the Fisher–Yates shuffle once you've tried it yourself.)
+- **Unique shuffle** — now make it a *good* shuffle: avoid playing the same song twice in a row, and avoid clustering songs from the same artist. How would you define "feels random" to a user, and how would you implement it?
+
+Things to discuss: how do you guarantee fairness? What's the Big-O? How would you test that the shuffle is actually uniform?
+
+## 2. Minesweeper
+
+Build the logic behind Minesweeper.
+
+- **Find the bomb / don't blow up!** — model the board and figure out what happens when a cell is revealed.
+- The board is a **two-dimensional array** of cells. A reasonable cell shape:
+
+```ts
+type Cell = {
+  isBomb: boolean;
+  // distance to the nearest bomb (0 if this cell is a bomb,
+  // or the count/distance used to render the hint number)
+  nextClosestBombDistance: number;
+};
+
+type Board = Cell[][];
+```
+
+Things to discuss: how do you compute each cell's number from its neighbors? When the player reveals an empty cell, how do you "flood fill" to reveal the connected empty region (and which traversal — BFS or DFS — do you use)? What are the edge cases at the corners and borders?
+
+## How to practice these
+
+1. **Ask clarifying questions first** — board size, how bombs are placed, what the output should be.
+2. **Write the brute-force version**, then refine it.
+3. **State the time and space complexity.**
+4. **Talk through your test cases** — empty board, all bombs, a single cell, the borders.
+
+## Do this now
+
+Pick one of the two problems and solve it end-to-end on a whiteboard, talking out loud. Then bring your solution to [the Discord](https://discord.gg/nekkolabs) and let's do a mock interview on it together.
+
+---
+
+*That's the course. You've gone from "should I even try this?" to standing in front of a whiteboard with real projects behind you. The last and most important step is to keep going with other people — come build with us in [the Discord](https://discord.gg/nekkolabs) and on the [community projects](/community).*

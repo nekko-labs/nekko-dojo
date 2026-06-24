@@ -1,0 +1,25 @@
+'use client';
+
+/**
+ * Thin wrapper over PostHog capture. No-ops safely when PostHog isn't
+ * initialized (env unset / DNT), so call sites never need to null-check.
+ */
+
+import posthog from 'posthog-js';
+
+export type SkillEvent =
+  | 'skill_viewed'
+  | 'skill_install_clicked'
+  | 'skill_upvoted'
+  | 'skill_feedback_submitted';
+
+export function capture(event: SkillEvent, props?: Record<string, unknown>) {
+  try {
+    if (typeof window === 'undefined') return;
+    // __loaded is set once posthog.init has run.
+    if (!(posthog as unknown as { __loaded?: boolean }).__loaded) return;
+    posthog.capture(event, props);
+  } catch {
+    /* analytics must never break the UI */
+  }
+}

@@ -1,0 +1,81 @@
+---
+title: System Architecture
+description: How to prepare for the architecture/system-design interview — the building blocks, the scaling story, and how to reason out loud on a whiteboard.
+order: 8
+section: Interview Prep
+---
+
+The second interview skill is **system architecture** (a.k.a. system design). You'll be asked to design an application on a whiteboard and explain your choices. You don't need to be an expert — you need to reason clearly and ask the right questions.
+
+We'll walk through example architectures together; here's the map of what to study.
+
+## Know the vocabulary
+
+Be able to explain, in plain language, what each of these is and when you'd use it:
+
+> Caching · Scalability · Databases · Redundancy · Queues · Kafka · Service buses · APIs · Security
+
+You don't need deep expertise in all of them — you need to know what they're *for* so you can reach for the right one in a design.
+
+## Basic architecture designs
+
+Start here and get comfortable:
+
+- **N-tier architecture**
+  - **2-tier** — client talks directly to a database.
+  - **3-tier** — client → application/server layer → database. The workhorse of most web apps.
+  - **N-tier** — more layers as complexity grows.
+- **Event-based architecture** — components communicate through events/messages rather than direct calls. (An "advanced" design — know it exists and roughly how it works.)
+
+**How to study these:** Google "common application architectures." Then Google the software architectures of major companies you already know — **Walmart, Lowe's, Uber, Amazon, Google, Indeed, Best Buy, PayPal, PayPay, eBay**. Seeing how real companies are built is the fastest way to internalize the patterns.
+
+## The building blocks
+
+Every design is assembled from a small set of pieces. Know them:
+
+**Basic building blocks**
+
+- Web app
+- Web server
+- Native / mobile app
+- API
+- Services
+- Database
+
+**Advanced building blocks**
+
+- Caching
+- CDNs
+
+## Advanced topics
+
+Once the basics click, layer these on:
+
+- **Which API type:** REST vs GraphQL — and why you'd choose each.
+- **When do you actually need caching?**
+- **Scalability:**
+  - Scaling your instances / services / web servers (running **multiple instances**).
+  - **Global distribution** — serving users around the world.
+  - Scaling your **database** — including **sharding**.
+  - **Which database type:** SQL vs NoSQL (e.g. MongoDB, DynamoDB) — and the trade-offs.
+
+## What you actually need for the interview
+
+You need to be able to talk through how you'd build an app from scratch, drawing boxes on a whiteboard. You don't need to be super detailed — you need to be *structured*.
+
+A typical prompt: **"If you were to build Indeed from scratch, what would the whole application architecture look like?"**
+
+Remember: not every problem has the same answer. Drive the conversation:
+
+1. **Start by asking questions.**
+   - How many users?
+   - Is there a money/cost constraint?
+   - Do we need to store data, or is it just a basic web page?
+   - Will this be used globally, or primarily in one country?
+2. **Start small.** Design it for ~10 users first.
+3. **Then scale it up.** How does it change at 100,000 users? At 10 million? How would you expand globally?
+4. **Justify every choice.** Explain *why* you picked each piece. Avoid saying "I'm familiar with X" — instead, reason about what would be the best fit for *this* scenario.
+
+## Do this now
+
+Take one company you use daily and sketch its architecture on paper, starting from 10 users and scaling to 10 million. Ask yourself the four questions above as you go. Then bring it to [the Discord](https://discord.gg/nekkolabs) — I'm happy to walk through it with you.
