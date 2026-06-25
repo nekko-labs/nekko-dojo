@@ -1,0 +1,62 @@
+---
+title: 'Spec-Driven Development: The Workflow That Makes AI Coding Actually Work'
+description: Vibe-coding falls apart the moment a project gets real. The fix is spec-driven development — let the spec, not the chat history, be the source of truth. Here is how it works and which tools to use.
+date: 2026-06-25
+author: Philip
+tags: ['AI', 'Engineering', 'Workflow']
+---
+
+If you have built anything non-trivial with an AI coding agent, you have felt the wall. The first hour is magic — you describe what you want, code appears, it runs. Then somewhere around the fifth feature the agent starts contradicting itself. It rebuilds something it already built. It "fixes" a bug by reintroducing one from three prompts ago. The context window fills up, the conversation gets summarized, and the thing that knew what you were building quietly forgets.
+
+I lead engineering teams and I run a startup where we ship with AI in the loop every single day. The pattern is consistent: **the bottleneck in AI development is not code generation, it is shared understanding.** The model can write the code. What it lacks is a durable, authoritative answer to "what are we actually building, and why." Chat history is a terrible place to keep that answer. It is long, contradictory, and gets truncated exactly when you need it most.
+
+The fix has a name now, and it is becoming the way serious teams build with AI: **spec-driven development.**
+
+## What spec-driven development is
+
+The idea is simple. Instead of treating the conversation as the source of truth, you treat a **living specification** as the source of truth. The spec is a document (or a small set of them) that always describes the system as it actually is and intends to be. Every change updates the spec first. The code is downstream of the spec — not the other way around.
+
+It breaks into four phases:
+
+1. **Specify.** You describe *what* you are building and *why* — at a high level. Not stacks, not file layouts. User journeys, experiences, and what success looks like. Who uses this? What problem does it solve? How do they interact with it? What outcomes matter? The agent fleshes out the details into a real specification, and crucially, this becomes a *living artifact* that evolves as you learn more about your users.
+
+2. **Plan.** Now you get technical. You hand the agent your desired stack, architecture, and constraints, and it produces a comprehensive technical plan. Company standardizes on certain technologies? Say so here. Legacy systems, compliance requirements, performance targets? All of it goes here. The agent needs to know the rules of the game before it starts playing.
+
+3. **Tasks.** The agent takes the spec and the plan and breaks them into actual work — small, reviewable chunks that each solve one specific piece. Each task should be something you can implement and test in isolation. Not "build authentication," but "create a user-registration endpoint that validates email format." This is almost test-driven development for your AI: each task is a thing the agent can validate and stay on track against.
+
+4. **Implement.** The agent tackles tasks one at a time, or in parallel where they are independent. And here is what is different: instead of reviewing thousand-line code dumps, you review focused changes that each solve a specific problem. The agent knows *what* to build because the spec told it, *how* to build it because the plan told it, and *what to work on* because the task told it.
+
+## Why this is an industry shift, not a fad
+
+Watch what the tooling is doing and the direction is unmistakable. AWS shipped **Kiro**, an agentic IDE built entirely around specs and hooks. GitHub released **Spec Kit**, an open-source toolkit that drops a `/specify`, `/plan`, and `/tasks` workflow into your agent of choice. These are not weekend experiments — they are bets from the biggest platforms in the industry that the future of AI development is spec-first.
+
+The reason is structural. As models get better, raw code generation stops being the constraint. What scales — and what does not — is *intent management*. A spec is how you give an agent persistent, reviewable, version-controlled intent. It is the same reason senior engineers were always valuable: the hard part was never typing the code, it was deciding what to build and keeping everyone aligned on it. Spec-driven development is that discipline, made legible to an AI.
+
+It also fixes the review problem. Reviewing AI output is exhausting when you are staring at a huge diff with no anchor. When the spec is the source of truth, review becomes "does this change match the spec?" — a question you can actually answer.
+
+## The tools — and what we recommend
+
+You have options, and they sit on a spectrum:
+
+- **[Open Paw](https://github.com/nekko-labs/open-paw)** — this is what we build and what we recommend. It is an open-source, local-first AI coding assistant, and it treats the spec as a first-class citizen. Any chat can synthesize a `spec.md` in your workspace from the conversation, and with **Live** mode on, that spec is *rebuilt after every turn* so it tracks your design changes and new features automatically. You get the spec-driven workflow without having to babysit a document by hand — and because it runs local-first with your choice of model (local or cloud), your code and your spec stay yours. If you want to actually feel the workflow described in this article, start here.
+
+- **[GitHub Spec Kit](https://github.com/github/spec-kit)** — open-source, works with Copilot, Claude Code, and others. A great way to adopt the `specify → plan → tasks` loop if you already live in an existing agent.
+
+- **[Kiro](https://kiro.dev)** — AWS's spec-driven IDE. Heavier, more opinionated, strong if you want the full IDE experience built around specs and automated hooks.
+
+Any of them will get you there. The point is not the tool — it is the discipline. Pick one and commit to letting the spec, not the chat, be the thing that knows what you are building.
+
+## How to actually start
+
+You do not need to boil the ocean. Next time you start a project with an AI agent:
+
+- **Write the spec before you write code.** Two paragraphs on what it is and who it is for beats zero. Make the agent help you expand it.
+- **Update the spec every time the product changes.** This is the whole game. If the spec drifts behind the code, you are back to vibe-coding with extra steps. Treat "update the spec" as part of the definition of done.
+- **Make the agent break work into small, testable tasks** — and review at the task level, not the dump level.
+- **Keep the plan separate from the spec.** What/why in one place, how in another. It keeps both readable and lets you change your stack without rewriting your product vision.
+
+The engineers and builders who win the next few years will not be the ones who type the fastest or even prompt the cleverest. They will be the ones who are best at *specifying intent* and *keeping it true*. That is a human skill, it compounds, and spec-driven development is how you practice it.
+
+If you are learning to build — this is exactly the kind of workflow [The Guide](/guide) is preparing you for. Start treating the spec as the source of truth now, while the habit is cheap to form.
+
+*Building something with AI and want to talk through how to structure it? [Join our Discord](https://discord.gg/nekkolabs) — the community is full of people figuring this out in real time.*
