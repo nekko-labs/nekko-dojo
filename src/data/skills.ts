@@ -9,7 +9,7 @@
  *                       attribution, NOT re-hosted — install from their source.
  *
  * Installable skills (nekko-official + community) live in the marketplace repo
- * `nekkolabs/nekko-dojo-skills` and carry an `installCommand`. Curated entries
+ * `nekko-labs/nekko-dojo-skills` and carry an `installCommand`. Curated entries
  * link out via `sourceUrl` and have no install command in our channel.
  *
  * This is structured, typed data (v1). A future enhancement can generate it
@@ -53,8 +53,8 @@ export type Skill = {
 /** The marketplace these skills install from. */
 export const skillsMarketplace = {
   name: 'nekko-dojo-skills',
-  repoUrl: 'https://github.com/nekkolabs/nekko-dojo-skills',
-  addCommand: '/plugin marketplace add nekkolabs/nekko-dojo-skills',
+  repoUrl: 'https://github.com/nekko-labs/nekko-dojo-skills',
+  addCommand: '/plugin marketplace add nekko-labs/nekko-dojo-skills',
 } as const;
 
 export const sourceLabels: Record<SkillSource, string> = {
@@ -87,7 +87,7 @@ export const skills: Skill[] = [
     source: 'nekko-official',
     author: 'Nekko Labs',
     sourceUrl:
-      'https://github.com/nekkolabs/nekko-dojo-skills/tree/main/plugins/domain-finder',
+      'https://github.com/nekko-labs/nekko-dojo-skills/tree/main/plugins/domain-finder',
     installCommand: '/plugin install domain-finder@nekko-dojo-skills',
     beginnerFriendly: true,
     featured: true,

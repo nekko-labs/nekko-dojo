@@ -19,7 +19,12 @@ export function initPostHog() {
   if (initialized || typeof window === 'undefined') return;
   const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
   if (!key) return;
-  if (navigator.doNotTrack === '1' || window.doNotTrack === '1') return;
+  // Respect Do Not Track across its (non-standard, browser-specific) locations.
+  const dnt =
+    navigator.doNotTrack ??
+    (window as { doNotTrack?: string }).doNotTrack ??
+    (navigator as { msDoNotTrack?: string }).msDoNotTrack;
+  if (dnt === '1' || dnt === 'yes') return;
   posthog.init(key, {
     api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST ?? 'https://eu.i.posthog.com',
     autocapture: false,
