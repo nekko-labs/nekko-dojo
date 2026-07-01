@@ -73,7 +73,7 @@ A curated directory of OSS projects and communities (starting with findadoc.jp a
 A persistent CTA throughout the site to join the Nekko Labs Discord community. *Why:* converts readers into an engaged community and support network.
 
 - Reusable Discord CTA block used on home, article/chapter footers, and community `[shipped]`
-- Wire the real Discord invite URL (`NEXT_PUBLIC_DISCORD_URL` — currently a placeholder) `[planned]`
+- Real Discord invite URL wired via `NEXT_PUBLIC_DISCORD_URL` (set on Vercel) `[shipped]`
 
 ### Cross-cutting
 - Home page: orient + route to all four pillars, hero, four-pillar cards, latest articles, Discord CTA `[shipped]`
@@ -91,8 +91,8 @@ This project is NOT:
 
 ## Open Questions
 
-- Discord invite URL still needs to be set (`NEXT_PUBLIC_DISCORD_URL`).
-- Coordination with `nekko-labs-website` for the `/dojo` subpath routing/rewrite and shared brand.
-- Travis brand/visual pass — v1 ships a re-skinnable default theme, not a final brand spec.
-- Hosting decision (Vercel vs same host as main site, separate project) + CI.
+- Hosting decided: deployed on Vercel (nekkolabs team, project `nekko-dojo`), GitHub-connected for auto-deploy. Still pending: the Cloudflare edge rewrite that maps `nekkolabs.com/dojo/*` to the Vercel deployment (subdirectory strategy, chosen over a subdomain for SEO/brand consolidation).
+- Travis brand/visual pass: v1 ships a re-skinnable default theme, not a final brand spec.
+- The Skills directory (`/skills`) page is not built yet: `src/data/skills.ts` and the `/api/vote` + `/api/feedback` routes exist, but there is no page consuming them, so `/dojo/skills` 404s despite being advertised.
+- Supabase env not yet set on Vercel (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `VOTE_SALT`); votes/feedback stay inert until then.
 - Dependencies still open: importing remaining Guide source TODOs; expanding the Community directory.
