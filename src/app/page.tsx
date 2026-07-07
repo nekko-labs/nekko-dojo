@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getAllArticles, getAllGuideChapters } from '@/lib/content';
-import { getFeaturedCommunities } from '@/data/communities';
+import { getFeaturedProjects } from '@/data/communities';
 import { ArticleCard } from '@/components/ArticleCard';
 import { DiscordCTA } from '@/components/DiscordCTA';
 import { ArrowRightIcon } from '@/components/icons';
@@ -30,7 +30,7 @@ const pillars = [
 export default function HomePage() {
   const latestArticles = getAllArticles().slice(0, 3);
   const chapterCount = getAllGuideChapters().length;
-  const featured = getFeaturedCommunities();
+  const featured = getFeaturedProjects();
 
   return (
     <div className="mx-auto max-w-5xl px-4 sm:px-6">

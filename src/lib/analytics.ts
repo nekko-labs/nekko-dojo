@@ -7,13 +7,14 @@
 
 import posthog from 'posthog-js';
 
-export type SkillEvent =
+export type AnalyticsEvent =
   | 'skill_viewed'
   | 'skill_install_clicked'
   | 'skill_upvoted'
-  | 'skill_feedback_submitted';
+  | 'skill_feedback_submitted'
+  | 'community_link_clicked';
 
-export function capture(event: SkillEvent, props?: Record<string, unknown>) {
+export function capture(event: AnalyticsEvent, props?: Record<string, unknown>) {
   try {
     if (typeof window === 'undefined') return;
     // __loaded is set once posthog.init has run.
