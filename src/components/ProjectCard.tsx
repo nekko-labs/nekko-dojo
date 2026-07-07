@@ -1,19 +1,20 @@
 import type { Project } from '@/data/communities';
-import { ExternalLinkIcon } from './icons';
+import { DiscordIcon, GitHubIcon, GlobeIcon, SlackIcon } from './icons';
 import { TrackedLink } from './TrackedLink';
 
 /**
- * A contribute-to-me OSS project. The whole card is one large tap target
- * (better on mobile) and fires a tracked click on navigation.
+ * A contribute-to-me OSS project. Each project surfaces up to three explicit
+ * links — its GitHub repo, website, and community server (Discord/Slack) —
+ * shown only when that resource exists. Every link fires a tracked click.
  */
 export function ProjectCard({ project }: { project: Project }) {
+  // A Slack invite gets the Slack glyph; anything else (Discord) is a server.
+  const isSlack = project.community?.includes('slack.com');
+  const CommunityIcon = isSlack ? SlackIcon : DiscordIcon;
+  const communityLabel = isSlack ? 'Slack' : 'Discord';
+
   return (
-    <TrackedLink
-      href={project.url}
-      section="projects"
-      name={project.name}
-      kind="project"
-      aria-label={`${project.name} (opens in a new tab)`}
+    <div
       className={`group flex h-full flex-col rounded-2xl border bg-surface p-5 transition-colors hover:border-accent sm:p-6 ${
         project.featured ? 'border-accent/50' : 'border-border'
       }`}
@@ -45,10 +46,47 @@ export function ProjectCard({ project }: { project: Project }) {
         ))}
       </ul>
 
-      <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent group-hover:text-accent-hover">
-        Visit
-        <ExternalLinkIcon className="h-3.5 w-3.5" />
-      </span>
-    </TrackedLink>
+      <div className="mt-5 flex flex-wrap gap-2 border-t border-border pt-4 text-sm">
+        {project.github && (
+          <TrackedLink
+            href={project.github}
+            section="projects"
+            name={project.name}
+            kind="project-github"
+            aria-label={`${project.name} on GitHub (opens in a new tab)`}
+            className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 font-medium text-muted transition-colors hover:border-accent hover:text-fg"
+          >
+            <GitHubIcon className="h-4 w-4" />
+            GitHub
+          </TrackedLink>
+        )}
+        {project.website && (
+          <TrackedLink
+            href={project.website}
+            section="projects"
+            name={project.name}
+            kind="project-website"
+            aria-label={`${project.name} website (opens in a new tab)`}
+            className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 font-medium text-muted transition-colors hover:border-accent hover:text-fg"
+          >
+            <GlobeIcon className="h-4 w-4" />
+            Website
+          </TrackedLink>
+        )}
+        {project.community && (
+          <TrackedLink
+            href={project.community}
+            section="projects"
+            name={project.name}
+            kind="project-community"
+            aria-label={`${project.name} ${communityLabel} community (opens in a new tab)`}
+            className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 font-medium text-muted transition-colors hover:border-accent hover:text-fg"
+          >
+            <CommunityIcon className="h-4 w-4" />
+            {communityLabel}
+          </TrackedLink>
+        )}
+      </div>
+    </div>
   );
 }

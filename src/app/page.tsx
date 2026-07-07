@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getAllArticles, getAllGuideChapters } from '@/lib/content';
-import { getFeaturedProjects } from '@/data/communities';
+import { getFeaturedProjects, projectPrimaryUrl } from '@/data/communities';
 import { ArticleCard } from '@/components/ArticleCard';
 import { DiscordCTA } from '@/components/DiscordCTA';
 import { ArrowRightIcon } from '@/components/icons';
@@ -114,7 +114,7 @@ export default function HomePage() {
             {featured.map((community) => (
               <li key={community.id}>
                 <a
-                  href={community.url}
+                  href={projectPrimaryUrl(community)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block rounded-2xl border border-border bg-surface p-6 transition-colors hover:border-accent"
