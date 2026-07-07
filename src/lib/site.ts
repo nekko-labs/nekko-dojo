@@ -13,6 +13,8 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://dojo.nekkolabs.com',
   discordUrl:
     process.env.NEXT_PUBLIC_DISCORD_URL ?? 'https://discord.gg/nekkolabs',
+  githubUrl:
+    process.env.NEXT_PUBLIC_GITHUB_URL ?? 'https://github.com/nekko-labs',
   parentName: 'Nekko Labs',
   parentUrl: 'https://nekkolabs.com',
 } as const;

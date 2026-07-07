@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { nav, site } from '@/lib/site';
 import { DiscordCTA } from './DiscordCTA';
+import { GitHubIcon } from './icons';
 
 export function SiteHeader() {
   return (
@@ -23,7 +24,16 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
-          <DiscordCTA variant="button" className="ml-1 hidden sm:inline-flex" />
+          <a
+            href={site.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Nekko Labs on GitHub"
+            className="ml-1 inline-flex items-center rounded-full p-2 text-muted transition-colors hover:bg-surface-2 hover:text-fg"
+          >
+            <GitHubIcon className="h-5 w-5" />
+          </a>
+          <DiscordCTA variant="button" className="hidden sm:inline-flex" />
         </nav>
       </div>
     </header>
