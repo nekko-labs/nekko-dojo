@@ -10,6 +10,7 @@ import posthog from 'posthog-js';
 export type AnalyticsEvent =
   | 'skill_viewed'
   | 'skill_install_clicked'
+  | 'skill_downloaded'
   | 'skill_upvoted'
   | 'skill_feedback_submitted'
   | 'community_link_clicked';
