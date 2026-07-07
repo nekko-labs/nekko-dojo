@@ -63,6 +63,22 @@ export const sourceLabels: Record<SkillSource, string> = {
   curated: 'Curated',
 };
 
+/** Emoji marker per tier, matching the marketplace repo's trust-tier table. */
+export const sourceBadges: Record<SkillSource, string> = {
+  'nekko-official': '🟣',
+  community: '🟢',
+  curated: '🔗',
+};
+
+/**
+ * A skill is installable from our marketplace when it carries an install
+ * command (nekko-official + community). Curated entries link out instead, and
+ * only installable skills expose a downloadable `.zip`.
+ */
+export function isInstallable(skill: Skill): boolean {
+  return Boolean(skill.installCommand);
+}
+
 export const categoryLabels: Record<SkillCategory, string> = {
   research: 'Research',
   writing: 'Writing',
@@ -90,6 +106,31 @@ export const skills: Skill[] = [
       'https://github.com/nekko-labs/nekko-dojo-skills/tree/main/plugins/domain-finder',
     installCommand: '/plugin install domain-finder@nekko-dojo-skills',
     beginnerFriendly: true,
+    featured: true,
+  },
+  {
+    id: 'nyaa',
+    name: 'nyaa',
+    slug: 'nyaa',
+    description:
+      'Convene a council of four reviewer cats (security, deps/supply-chain, correctness/concurrency, style) over a PR or working diff, pulling in external bot reviews too.',
+    longDescription:
+      'A code-review skill that summons a council of four specialist reviewer “cats”, each with a distinct lens: security, dependencies and supply-chain, correctness and concurrency, and style. Point it at a GitHub pull request or your uncommitted working diff and it produces a consolidated review, folding in any external bot reviews (e.g. Codex) already posted on the PR. Ships a `/cr` command so you can summon the council in one line.',
+    category: 'coding',
+    tags: [
+      'code-review',
+      'pull-request',
+      'security',
+      'dependencies',
+      'supply-chain',
+      'concurrency',
+      'lint',
+    ],
+    source: 'nekko-official',
+    author: 'Nekko Labs',
+    sourceUrl:
+      'https://github.com/nekko-labs/nekko-dojo-skills/tree/main/plugins/nyaa',
+    installCommand: '/plugin install nyaa@nekko-dojo-skills',
     featured: true,
   },
   // --- Curated external skills (link-only, attributed) ---

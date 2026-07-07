@@ -66,7 +66,7 @@ A curated directory of OSS projects and communities (starting with findadoc.jp a
 
 - Directory page rendering typed community/project data `[shipped]` — findadoc.jp, Nekko OSS, Nekko Notes featured
 - Filter by type / location `[in progress]`
-- Skills directory with community feedback (skill votes + feedback, Supabase-backed) `[shipped]`
+- Skills directory (`/skills`): filterable catalog (search + tier + category) and per-skill detail pages, with trust tiers, install commands, community feedback (skill votes + feedback, Supabase-backed), and **per-skill `.zip` download** (assembled from the marketplace repo on demand, CDN-cached) `[shipped]`
 - Expand beyond findadoc.jp + Nekko OSS to more Japan-focused projects/communities `[planned]`
 
 ### Discord
@@ -93,6 +93,6 @@ This project is NOT:
 
 - Hosting decided: deployed on Vercel (nekkolabs team, project `nekko-dojo`), GitHub-connected for auto-deploy. Served at its own subdomain `dojo.nekkolabs.com` (DNS via Cloudflare → Vercel), no basePath.
 - Travis brand/visual pass: v1 ships a re-skinnable default theme, not a final brand spec.
-- The Skills directory (`/skills`) page is not built yet: `src/data/skills.ts` and the `/api/vote` + `/api/feedback` routes exist, but there is no page consuming them, so `dojo.nekkolabs.com/skills` 404s despite being advertised.
+- The Skills directory is built: `/skills` (filterable catalog) and `/skills/[slug]` (detail with install, download, vote, feedback) consume `src/data/skills.ts`, the `/api/vote` + `/api/feedback` routes, and the `/api/skills/[slug]/download` zip route. Catalog data (`skills.ts`) is still hand-maintained in sync with the marketplace's `catalog.json`; a future step can generate it from that file.
 - Supabase env not yet set on Vercel (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `VOTE_SALT`); votes/feedback stay inert until then.
 - Dependencies still open: importing remaining Guide source TODOs; expanding the Community directory.
