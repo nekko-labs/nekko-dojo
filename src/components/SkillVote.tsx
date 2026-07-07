@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { UpvoteIcon } from './icons';
 import { capture } from '@/lib/analytics';
-import { withBasePath } from '@/lib/site';
 
 /**
  * Upvote button. Best-effort one-vote-per-browser via a localStorage token +
@@ -48,7 +47,7 @@ export function SkillVote({
     setVoted(true);
     try {
       localStorage.setItem(`nekko-voted-${skillId}`, '1');
-      const res = await fetch(withBasePath('/api/vote'), {
+      const res = await fetch('/api/vote', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ skillId, token: getToken() }),

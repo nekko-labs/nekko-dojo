@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { capture } from '@/lib/analytics';
-import { withBasePath } from '@/lib/site';
 
 /**
  * "Was this helpful?" + optional comment. Posts to /api/feedback. Used on the
@@ -19,7 +18,7 @@ export function SkillFeedback({ skillId }: { skillId: string }) {
     if (busy) return;
     setBusy(true);
     try {
-      const res = await fetch(withBasePath('/api/feedback'), {
+      const res = await fetch('/api/feedback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

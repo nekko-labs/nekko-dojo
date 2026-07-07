@@ -24,11 +24,11 @@ owner: Philip
 - **Content / MDX:** `next-mdx-remote` (RSC) + `gray-matter` (frontmatter) + `shiki` / `rehype-pretty-code` (syntax highlighting), plus `remark-gfm`, `rehype-slug`, `rehype-autolink-headings`.
 - **Backend bits:** Supabase (skill votes + feedback via `/api/vote`, `/api/feedback`, `supabase/schema.sql`); PostHog analytics.
 - **Package manager: npm** (matches `nekko-notes`, `open-paw`), Node 20+. Lockfile is `package-lock.json`. This overrides the global pnpm default — do not relitigate.
-- Served at `nekkolabs.com/dojo` via `basePath: '/dojo'` (separate, standalone deploy).
+- Served at `dojo.nekkolabs.com` on its own subdomain (separate, standalone deploy; no basePath).
 
 ## Architecture Overview
 
-Nekko Dojo is a statically-renderable Next.js (App Router) content site. Content is authored as **MDX files in the repo** and compiled at request/build time; there is no CMS in v1 (Supabase backs only the skill votes/feedback). It deploys as a **standalone app** served under the `/dojo` path of `nekkolabs.com` via Next.js `basePath` plus a rewrite/proxy on the main site (multi-zone pattern).
+Nekko Dojo is a statically-renderable Next.js (App Router) content site. Content is authored as **MDX files in the repo** and compiled at request/build time; there is no CMS in v1 (Supabase backs only the skill votes/feedback). It deploys as a **standalone app** served at its own subdomain `dojo.nekkolabs.com` (DNS via Cloudflare → Vercel), living at the domain root.
 
 ```
 content/ (MDX + data)  ──►  lib/content.ts (load + parse)  ──►  App Router pages (RSC)  ──►  static HTML
@@ -62,7 +62,7 @@ Routing:
 - `/articles` — index; `/articles/[slug]` — article
 - `/guide` — overview/TOC; `/guide/[slug]` — chapter (prev/next nav)
 - `/community` — projects + communities directory
-- All prefixed by `basePath: '/dojo'` in production.
+- All served at the domain root of `dojo.nekkolabs.com` (no basePath).
 
 ## Integrations & APIs
 
@@ -70,11 +70,11 @@ Routing:
 - **PostHog** — analytics.
 - **Nekko Labs Discord** — invite-link CTA.
 - External links out to findadoc.jp, Nekko Labs OSS repos/community.
-- `nekko-labs-website` — for the `/dojo` subpath rewrite.
+- Cloudflare — DNS record for the `dojo.nekkolabs.com` subdomain pointing at Vercel.
 
 ## Infrastructure & Deployment
 
-- **Hosting:** standalone deploy (Vercel or the same host as the main site, separate project — TBD). Served at `nekkolabs.com/dojo` via a rewrite from the main site to this app.
+- **Hosting:** standalone deploy on Vercel (nekkolabs team, project `nekko-dojo`). Served at its own subdomain `dojo.nekkolabs.com` (DNS via Cloudflare → Vercel).
 - **Build:** `next build`; statically rendered where possible (`generateStaticParams` for articles/guide). Latest verified build prerenders ~21 routes.
 - **CI/CD:** TODO — match Nekko repo conventions (GitHub Actions).
 - **Env:** `NEXT_PUBLIC_DISCORD_URL`, `NEXT_PUBLIC_SITE_URL` (plus Supabase/PostHog keys). Provide sensible fallbacks so the site builds without env set.
@@ -111,7 +111,7 @@ Routing:
 Extends `../../knowledgebase/principles/coding.md` (these deltas override it).
 
 - **Content:** all content lives under `content/` as MDX; communities are typed data under `data/`. Guide chapters use a `NN-` filename prefix to define order; keep it in sync with the `order` frontmatter. Article/guide slugs derive from the filename (sans `.mdx`, and sans the `NN-` prefix for guide).
-- **Routing / deploy:** the app runs under `basePath: '/dojo'`. Never hardcode `/dojo` in links — use Next `<Link href="/articles">` (basePath applied automatically) and the `lib/site.ts` helper for asset/absolute URLs. External links: `target="_blank"` + `rel="noopener noreferrer"`.
+- **Routing / deploy:** the app is served at the root of its own subdomain (`dojo.nekkolabs.com`), no basePath. Use Next `<Link href="/articles">` for internal links and the `lib/site.ts` `site.url` for absolute/metadata URLs. External links: `target="_blank"` + `rel="noopener noreferrer"`.
 - **Components:** named exports, one component per file, file named to match (default kebab-case filenames). Keep the server/client boundary tight; data loading stays in server components / `lib/`.
 - **Env:** public config via `NEXT_PUBLIC_*`; provide sensible fallbacks so the site builds without env set.
 
@@ -120,12 +120,12 @@ Extends `../../knowledgebase/principles/coding.md` (these deltas override it).
 - Must build and render without env vars set (fallbacks required).
 - No `any` in content schemas; TypeScript strict throughout.
 - Color contrast AA on both light and dark themes.
-- Independently deployable — Dojo must not depend on the main site at build time (only the rewrite at the edge).
+- Independently deployable — Dojo must not depend on the main site at build time; it stands alone on its own subdomain.
 
 ## Key Technical Decisions
 
 - **MDX in-repo over CMS (v1):** zero cost, git-versioned, fast DX for a solo/small team; the content layer (`lib/content.ts`) is abstracted so a CMS could replace it later without touching pages.
-- **Standalone app at `/dojo` via basePath:** keeps Dojo independently deployable while presenting as part of nekkolabs.com (multi-zone rewrite from the main site).
+- **Standalone app on its own subdomain (`dojo.nekkolabs.com`):** keeps Dojo independently deployable as a distinct property, DNS pointed at Vercel via Cloudflare.
 - **npm (not pnpm):** matches existing Nekko repos despite the global default favoring pnpm.
 - **Gotchas (from build):** `next-mdx-remote` `compileMDX` options need `PluggableList`-typed plugin arrays (fixed in `lib/mdx.ts`); stray lockfiles up the tree mis-infer the workspace root → set `outputFileTracingRoot` in `next.config.mjs`. See `memory.md`.
 
@@ -148,7 +148,7 @@ Extends `../../knowledgebase/principles/coding.md` (these deltas override it).
 
 - [ ] **T3** — Fill remaining Guide source-doc TODOs (Supabase signup link, git guide link, the missing walkthrough) with real content. See `features/initial-scaffold`. · [spec](SPEC.md#the-guide-flagship) · Added: 2026-06-29
 - [ ] **T4** — Expand the Community directory beyond findadoc.jp + Nekko OSS + Nekko Notes (more Japan-focused OSS projects/communities). → feature `community-directory-expansion`. · [spec](SPEC.md#community--projects) · Added: 2026-06-29
-- [ ] **T5** — Coordinate the `/dojo` subpath rewrite on `nekko-labs-website` (multi-zone wiring). → feature `dojo-subpath-wiring`. · Added: 2026-06-29
+- [ ] **T5** — Add the `dojo` CNAME in Cloudflare pointing `dojo.nekkolabs.com` at Vercel, then verify the domain resolves. (Superseded the earlier `/dojo` subpath-rewrite plan.) · Added: 2026-06-29 · Updated: 2026-07-07
 - [ ] **T6** — Decide hosting (Vercel vs same host as main site, separate project) and stand up CI/CD (GitHub Actions, match Nekko conventions). · Added: 2026-06-29
 - [ ] **T7** — Travis brand/visual pass over the v1 default theme. → feature `brand-pass`. · Added: 2026-06-29
 - [ ] **T8** — Optional newsletter / email capture for new articles. → feature `newsletter-capture`. · [spec](SPEC.md#cross-cutting) · Added: 2026-06-29
@@ -156,7 +156,7 @@ Extends `../../knowledgebase/principles/coding.md` (these deltas override it).
 
 ## Shipped
 
-- [x] **T10** — Greenfield Next.js scaffold: config, content layer, all four pillars + sample content; `tsc` clean, `next build` prerenders routes, all routes 200 under `/dojo`. (feature `initial-scaffold`)
+- [x] **T10** — Greenfield Next.js scaffold: config, content layer, all four pillars + sample content; `tsc` clean, `next build` prerenders routes, all routes 200. (feature `initial-scaffold`)
 - [x] **T11** — Home page: hero, four-pillar cards, latest articles, Discord CTA; plus 404 page. · [spec](SPEC.md#cross-cutting)
 - [x] **T12** — Articles pillar: index with cards + reading page (prose, TOC anchors, author, Discord CTA footer); 2 sample essays. · [spec](SPEC.md#articles)
 - [x] **T13** — The Guide: overview/TOC grouped by section + chapter reading page with prev/next nav. · [spec](SPEC.md#the-guide-flagship)

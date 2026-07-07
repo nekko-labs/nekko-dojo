@@ -2,7 +2,7 @@
   "name": "nekko-dojo",
   "version": "0.1.0",
   "private": true,
-  "description": "Nekko Dojo — a learning/content platform: director-level engineering & AI-career perspective, a guide for switching into software development in Japan, and a directory of real-world OSS projects/communities. Served at nekkolabs.com/dojo.",
+  "description": "Nekko Dojo — a learning/content platform: director-level engineering & AI-career perspective, a guide for switching into software development in Japan, and a directory of real-world OSS projects/communities. Served at dojo.nekkolabs.com.",
   "license": "MIT",
   "author": "ermish",
   "engines": {
