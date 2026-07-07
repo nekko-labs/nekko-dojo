@@ -86,13 +86,13 @@ A persistent CTA throughout the site to join the Nekko Labs Discord community. *
 This project is NOT:
 - A full LMS with accounts, quizzes, or progress tracking (at least initially — content-first)
 - A job board or recruiting platform
-- The Nekko Labs corporate site (that's `nekko-labs-website`; Dojo is a subpath but a distinct property)
+- The Nekko Labs corporate site (that's `nekko-labs-website`; Dojo is a distinct property on its own subdomain)
 - A general dev tutorial farm — content is opinionated and experience-backed, not exhaustive reference
 
 ## Open Questions
 
-- Hosting decided: deployed on Vercel (nekkolabs team, project `nekko-dojo`), GitHub-connected for auto-deploy. Still pending: the Cloudflare edge rewrite that maps `nekkolabs.com/dojo/*` to the Vercel deployment (subdirectory strategy, chosen over a subdomain for SEO/brand consolidation).
+- Hosting decided: deployed on Vercel (nekkolabs team, project `nekko-dojo`), GitHub-connected for auto-deploy. Served at its own subdomain `dojo.nekkolabs.com` (DNS via Cloudflare → Vercel), no basePath.
 - Travis brand/visual pass: v1 ships a re-skinnable default theme, not a final brand spec.
-- The Skills directory (`/skills`) page is not built yet: `src/data/skills.ts` and the `/api/vote` + `/api/feedback` routes exist, but there is no page consuming them, so `/dojo/skills` 404s despite being advertised.
+- The Skills directory (`/skills`) page is not built yet: `src/data/skills.ts` and the `/api/vote` + `/api/feedback` routes exist, but there is no page consuming them, so `dojo.nekkolabs.com/skills` 404s despite being advertised.
 - Supabase env not yet set on Vercel (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `VOTE_SALT`); votes/feedback stay inert until then.
 - Dependencies still open: importing remaining Guide source TODOs; expanding the Community directory.

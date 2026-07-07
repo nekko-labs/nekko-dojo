@@ -9,8 +9,8 @@ export const site = {
   tagline: 'Train into tech. Grow your engineering career.',
   description:
     'Director-level perspective on engineering and AI, a step-by-step guide for switching into software development in Japan, and a directory of real-world open-source projects and communities to learn on a real team.',
-  // Absolute URL used for metadata. Dojo lives under /dojo on the main domain.
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nekkolabs.com',
+  // Absolute URL used for metadata. Dojo lives at its own subdomain.
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://dojo.nekkolabs.com',
   discordUrl:
     process.env.NEXT_PUBLIC_DISCORD_URL ?? 'https://discord.gg/nekkolabs',
   parentName: 'Nekko Labs',
@@ -23,12 +23,3 @@ export const nav: ReadonlyArray<{ label: string; href: string }> = [
   { label: 'Skills', href: '/skills' },
   { label: 'Community', href: '/community' },
 ];
-
-// The app is served under /dojo (see next.config.mjs `basePath`). Next applies
-// basePath automatically to <Link> and assets, but NOT to plain `fetch()`. Use
-// this when calling our own API routes from client components.
-export const basePath = '/dojo';
-
-export function withBasePath(path: string): string {
-  return `${basePath}${path.startsWith('/') ? '' : '/'}${path}`;
-}

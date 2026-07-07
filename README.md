@@ -8,7 +8,7 @@ A learning / content platform from [Nekko Labs](https://nekkolabs.com). Three th
 
 …all funneling into the **Nekko Labs Discord**.
 
-Served in production at **nekkolabs.com/dojo** (standalone app deployed separately; `basePath: '/dojo'`).
+Served in production at **dojo.nekkolabs.com** (standalone app on its own subdomain).
 
 ## Stack
 
@@ -21,7 +21,7 @@ Served in production at **nekkolabs.com/dojo** (standalone app deployed separate
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000/dojo
+npm run dev      # http://localhost:3000
 ```
 
 Other scripts:
@@ -57,8 +57,8 @@ src/
 Copy `.env.example` to `.env.local` and set:
 
 - `NEXT_PUBLIC_DISCORD_URL` — Discord invite link (CTA target)
-- `NEXT_PUBLIC_SITE_URL` — absolute site URL for metadata (default `https://nekkolabs.com`)
+- `NEXT_PUBLIC_SITE_URL` — absolute site URL for metadata (default `https://dojo.nekkolabs.com`)
 
 ## Deployment
 
-Deployed as its own app and surfaced at `nekkolabs.com/dojo` via a rewrite on the main Nekko Labs site. The `basePath` in `next.config.mjs` makes all routes/assets live under `/dojo`.
+Deployed as its own app on Vercel and served at its own subdomain, `dojo.nekkolabs.com` (DNS via Cloudflare → Vercel). No basePath — the app lives at the domain root.
