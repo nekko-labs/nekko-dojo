@@ -17,7 +17,12 @@ export type Region = 'Japan' | 'Global';
 export type Project = {
   id: string;
   name: string;
-  url: string;
+  /** Source repository, when it lives on GitHub. */
+  github?: string;
+  /** Project website / homepage, when it has one. */
+  website?: string;
+  /** Community server (Discord or Slack invite) to chat with maintainers. */
+  community?: string;
   description: string;
   region: Region;
   tags: string[];
@@ -26,6 +31,15 @@ export type Project = {
   /** Pin to the top of the directory and surface on the home page. */
   featured?: boolean;
 };
+
+/**
+ * The single best link to open for a project (GitHub first, then website, then
+ * community server). Used for the home-page featured surface. Every project has
+ * at least one of these, so this always returns a real URL.
+ */
+export function projectPrimaryUrl(p: Project): string {
+  return p.github ?? p.website ?? p.community ?? '#';
+}
 
 /** A community to meet people and network. */
 export type NetworkCommunity = {
@@ -54,7 +68,10 @@ export const projects: Project[] = [
   {
     id: 'findadoc',
     name: 'Find a Doc Japan',
-    url: 'https://github.com/ourjapanlife/findadoc-web',
+    github: 'https://github.com/ourjapanlife/findadoc-web',
+    website: 'https://findadoc.jp',
+    community:
+      'https://find-a-doc.slack.com/join/shared_invite/zt-2lb3j2t1z-O9F4thzcFktqsIXNzzjzHw',
     description:
       'An open-source, NPO-run directory helping people in Japan find healthcare providers who can support them in their language. A welcoming, well-organized codebase (TypeScript/Vue/GraphQL) that has helped 225+ engineers learn by contributing — several landed jobs through it. The best place to get real team experience as a career-changer.',
     region: 'Japan',
@@ -65,7 +82,8 @@ export const projects: Project[] = [
   {
     id: 'open-paw',
     name: 'Open Paw',
-    url: 'https://github.com/nekko-labs/open-paw',
+    github: 'https://github.com/nekko-labs/open-paw',
+    community: 'https://discord.gg/nekkolabs',
     description:
       'Nekko Labs’ local-first AI coding & cowork desktop app, with first-class support for local models (Ollama, LM Studio, vLLM). A modern TypeScript codebase and a great place to contribute alongside our team — say hi in the Discord.',
     region: 'Japan',
@@ -76,7 +94,8 @@ export const projects: Project[] = [
   {
     id: 'nekko-mcp',
     name: 'Nekko MCP',
-    url: 'https://github.com/nekko-labs/nekko-mcp',
+    github: 'https://github.com/nekko-labs/nekko-mcp',
+    community: 'https://discord.gg/nekkolabs',
     description:
       'A local-first runtime and manager for MCP servers — run them securely (process or Docker), supervise them, and expose one gateway for any agent harness. TypeScript, developed fully in the open.',
     region: 'Japan',
@@ -86,7 +105,8 @@ export const projects: Project[] = [
   {
     id: 'nekko-journal',
     name: 'Nekko Journal',
-    url: 'https://github.com/nekko-labs/nekko-journal',
+    github: 'https://github.com/nekko-labs/nekko-journal',
+    community: 'https://discord.gg/nekkolabs',
     description:
       'A calm, anti-streak monthly journaling and goal-tracking app — local-first. Set yearly goals, break them into months, and capture highlights, struggles, and photos. A friendly TypeScript project to get started on.',
     region: 'Japan',
@@ -96,7 +116,9 @@ export const projects: Project[] = [
   {
     id: 'nekko-dojo-skills',
     name: 'Nekko Dojo Skills',
-    url: 'https://github.com/nekko-labs/nekko-dojo-skills',
+    github: 'https://github.com/nekko-labs/nekko-dojo-skills',
+    website: 'https://dojo.nekkolabs.com/skills',
+    community: 'https://discord.gg/nekkolabs',
     description:
       'The Agent Skills hub behind this site — official and community Claude skills, installable as a Claude Code plugin marketplace. A low-barrier way to make your first open-source contribution by adding a skill, not just code.',
     region: 'Japan',
@@ -106,7 +128,9 @@ export const projects: Project[] = [
   {
     id: 'misskey',
     name: 'Misskey',
-    url: 'https://github.com/misskey-dev/misskey',
+    github: 'https://github.com/misskey-dev/misskey',
+    website: 'https://misskey-hub.net',
+    community: 'https://discord.gg/Wp8gVStHW3',
     description:
       'A popular Japan-origin, decentralized social platform built with TypeScript/Vue. A large, active OSS project with issues across the difficulty spectrum — good for stretching beyond beginner work once you have your footing.',
     region: 'Japan',
@@ -115,7 +139,7 @@ export const projects: Project[] = [
   {
     id: 'good-first-issue',
     name: 'Good First Issue',
-    url: 'https://goodfirstissue.dev',
+    website: 'https://goodfirstissue.dev',
     description:
       'An aggregator of beginner-friendly issues across popular open-source projects worldwide. A solid way to find your very first contribution if nothing above fits yet.',
     region: 'Global',
