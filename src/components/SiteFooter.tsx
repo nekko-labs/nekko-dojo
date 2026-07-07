@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { nav, site } from '@/lib/site';
-import { DiscordIcon } from './icons';
+import { DiscordIcon, GitHubIcon } from './icons';
 
 export function SiteFooter() {
   return (
@@ -28,6 +28,15 @@ export function SiteFooter() {
           >
             <DiscordIcon className="h-4 w-4" />
             Discord
+          </a>
+          <a
+            href={site.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-muted hover:text-fg"
+          >
+            <GitHubIcon className="h-4 w-4" />
+            GitHub
           </a>
         </nav>
       </div>
