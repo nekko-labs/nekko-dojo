@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { getAllArticles, getAllGuideChapters } from '@/lib/content';
 import { formatDate } from '@/lib/format';
 import { DiscordIcon } from '@/components/icons';
@@ -47,11 +48,11 @@ const belts = [
   { emoji: '♾️', title: 'Keep growing', rank: 'beyond belts · forever', color: 'var(--belt-infinity)', bg: 'var(--gate)' },
 ];
 
-/** Photo slots for the cat mascot — styled placeholders until real photos land. */
+/** Photo slots for the cat mascot — the sensei in training. */
 const photos = [
-  { caption: 'Tuesday sparring 🥋', tilt: '-3deg', lift: '0px' },
-  { caption: 'Morning kata: one problem a day ✍️', tilt: '2deg', lift: '-16px' },
-  { caption: 'After practice, tea & questions 🍵', tilt: '-2deg', lift: '0px' },
+  { caption: 'Tuesday sparring 🥋', tilt: '-3deg', lift: '0px', src: '/mascot/nekko-men.png', alt: 'Orange tabby in kendo bogu mid overhead strike' },
+  { caption: 'Morning kata: one problem a day ✍️', tilt: '2deg', lift: '-16px', src: '/mascot/nekko-kamae.png', alt: 'Orange tabby in a ready kendo stance holding a shinai' },
+  { caption: 'After practice, tea & questions 🍵', tilt: '-2deg', lift: '0px', src: '/mascot/nekko-walk.png', alt: 'Orange tabby walking with a shinai resting on its shoulder' },
 ];
 
 /** How the community carries you — the "you don't train alone" band. */
@@ -113,6 +114,18 @@ export default function HomePage() {
             Meet the community
           </Link>
         </div>
+
+        {/* The sensei — dual-wielding mascot */}
+        <div className="mt-14 flex justify-center sm:mt-16">
+          <Image
+            src="/mascot/nekko-sensei.png"
+            alt="Nekko, the orange tabby kendo sensei, dual-wielding two shinai"
+            width={1984}
+            height={1200}
+            priority
+            className="h-auto w-full max-w-2xl drop-shadow-2xl"
+          />
+        </div>
       </section>
 
       {/* Photo strip */}
@@ -125,13 +138,18 @@ export default function HomePage() {
               style={{ transform: `rotate(${photo.tilt}) translateY(${photo.lift})` }}
             >
               <div
-                className="flex h-40 w-56 items-center justify-center rounded-md text-4xl sm:h-52 sm:w-72"
+                className="relative flex h-40 w-56 items-end justify-center overflow-hidden rounded-md sm:h-52 sm:w-72"
                 style={{
                   background: 'linear-gradient(135deg, var(--dusk-2), var(--dusk-3))',
                 }}
-                aria-hidden
               >
-                🐱
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  fill
+                  sizes="(min-width: 640px) 18rem, 14rem"
+                  className="object-contain object-bottom p-2"
+                />
               </div>
               <figcaption className="mx-1 mt-2.5 text-sm font-bold text-accent-fg">
                 {photo.caption}
