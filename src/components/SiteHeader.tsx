@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { nav, site } from '@/lib/site';
 import { DiscordIcon, GitHubIcon } from './icons';
 
@@ -7,9 +8,14 @@ export function SiteHeader() {
     <header className="sticky top-0 z-30 border-b border-border bg-bg/70 backdrop-blur">
       <div className="mx-auto flex h-20 max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
         <Link href="/" className="flex items-center gap-2.5 text-lg font-black tracking-tight">
-          <span aria-hidden className="text-xl">
-            🐱⛩️
-          </span>
+          <Image
+            src="/dojo.png"
+            alt=""
+            width={1100}
+            height={683}
+            priority
+            className="h-9 w-auto sm:h-10"
+          />
           <span>{site.name}</span>
         </Link>
 
