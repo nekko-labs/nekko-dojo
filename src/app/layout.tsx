@@ -1,9 +1,19 @@
 import type { Metadata } from 'next';
+import { Zen_Maru_Gothic } from 'next/font/google';
 import './globals.css';
 import { SiteHeader } from '@/components/SiteHeader';
 import { SiteFooter } from '@/components/SiteFooter';
 import { PostHogProvider } from '@/components/PostHogProvider';
 import { site } from '@/lib/site';
+
+// Rounded, friendly type — the dojo's voice. Latin subset only (content is
+// English); Japanese glyphs still resolve via the system fallback stack.
+const zenMaru = Zen_Maru_Gothic({
+  subsets: ['latin'],
+  weight: ['400', '500', '700', '900'],
+  variable: '--font-zen-maru',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -22,8 +32,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={zenMaru.variable}>
       <body className="min-h-screen bg-bg text-fg antialiased">
+        {/* Decorative dusk glow behind everything */}
+        <div data-dusk-glow aria-hidden="true">
+          <span className="glow-1" />
+          <span className="glow-2" />
+          <span className="glow-3" />
+        </div>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-fg"

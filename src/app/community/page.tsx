@@ -10,45 +10,90 @@ import { LinkTile } from '@/components/LinkTile';
 import { DiscordCTA } from '@/components/DiscordCTA';
 
 export const metadata: Metadata = {
-  title: 'Community, Networking & Jobs',
+  title: 'Community',
   description:
-    'Open-source projects to contribute to, developer communities to network in, and foreigner-friendly job boards and companies hiring junior engineers in Japan.',
+    'You don’t train alone. Get unstuck fast, ship on real open-source teams, practice interviews with the community, then mentor the next person — plus job boards and companies hiring junior engineers in Japan.',
 };
+
+/** What the dojo community actually gives you, in order of the journey. */
+const benefits = [
+  {
+    emoji: '🆘',
+    title: 'Get unstuck, fast',
+    body: 'Ask anything in the Discord — someone a few steps ahead has hit your exact wall.',
+  },
+  {
+    emoji: '🚢',
+    title: 'Ship with real teams',
+    body: 'Find a Doc Japan, Open Paw and more — open-source projects where 225+ people have gained real team experience.',
+  },
+  {
+    emoji: '🎓',
+    title: 'Practice with the sensei',
+    body: 'Mock interviews, whiteboarding sessions, and résumé reviews — free, run by the community.',
+  },
+  {
+    emoji: '🔁',
+    title: 'Then give it back',
+    body: 'Hired members stick around to mentor, review, and answer — that’s what makes it a dojo.',
+    accent: true,
+  },
+];
 
 export default function CommunityPage() {
   const projects = getAllProjects();
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-16">
+    <div className="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16">
       <header className="max-w-2xl">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          Community &amp; Careers
+        <h1 className="text-3xl font-black tracking-tight sm:text-5xl">
+          You don&apos;t train alone. 🤝
         </h1>
-        <p className="mt-3 text-base text-muted sm:text-lg">
-          The fastest way to grow is to work with other people. Contribute to a
-          real open-source project, network with developers already in the
-          industry, then find your first role — the resources below are
-          especially useful for engineers building a career in Japan.
+        <p className="mt-4 text-base font-medium leading-relaxed text-muted sm:text-lg">
+          Struggling solo is the #1 way people quit. In the dojo you get unstuck
+          in minutes, ship on real open-source teams, and — once you&apos;re
+          further along — help the next person through the door. Everything below
+          is especially useful for engineers building a career in Japan.
         </p>
       </header>
 
+      {/* How the community carries you */}
+      <ul className="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+        {benefits.map((benefit) => (
+          <li key={benefit.title} className="flex items-start gap-4 border-t border-border pt-5">
+            <span className="text-xl" aria-hidden>
+              {benefit.emoji}
+            </span>
+            <div>
+              <p
+                className="text-base font-black"
+                style={benefit.accent ? { color: 'var(--accent)' } : undefined}
+              >
+                {benefit.title}
+              </p>
+              <p className="mt-1 text-sm font-medium leading-relaxed text-muted">{benefit.body}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+
       {/* On-page section nav — handy on mobile */}
-      <nav className="mt-6 flex flex-wrap gap-2 text-sm">
+      <nav className="mt-12 flex flex-wrap gap-2 text-sm font-bold">
         <a
           href="#projects"
-          className="rounded-full border border-border bg-surface px-3 py-1.5 text-muted transition-colors hover:border-accent hover:text-fg"
+          className="rounded-full border border-border bg-surface px-3.5 py-1.5 text-muted transition-colors hover:border-accent hover:text-fg"
         >
           Projects
         </a>
         <a
           href="#networking"
-          className="rounded-full border border-border bg-surface px-3 py-1.5 text-muted transition-colors hover:border-accent hover:text-fg"
+          className="rounded-full border border-border bg-surface px-3.5 py-1.5 text-muted transition-colors hover:border-accent hover:text-fg"
         >
           Networking
         </a>
         <a
           href="#jobs"
-          className="rounded-full border border-border bg-surface px-3 py-1.5 text-muted transition-colors hover:border-accent hover:text-fg"
+          className="rounded-full border border-border bg-surface px-3.5 py-1.5 text-muted transition-colors hover:border-accent hover:text-fg"
         >
           Job boards
         </a>
@@ -56,7 +101,7 @@ export default function CommunityPage() {
 
       {/* 1. Projects */}
       <section id="projects" className="mt-12 scroll-mt-20">
-        <h2 className="text-2xl font-semibold tracking-tight">Projects to contribute to</h2>
+        <h2 className="text-2xl font-black tracking-tight">Projects to contribute to</h2>
         <p className="mt-2 max-w-2xl text-sm text-muted">
           Real GitHub / open-source projects where you can work on a team, ship
           code that ships, and build a portfolio that actually counts.
@@ -70,7 +115,7 @@ export default function CommunityPage() {
 
       {/* 2. Networking */}
       <section id="networking" className="mt-14 scroll-mt-20">
-        <h2 className="text-2xl font-semibold tracking-tight">Networking</h2>
+        <h2 className="text-2xl font-black tracking-tight">Networking</h2>
         <p className="mt-2 max-w-2xl text-sm text-muted">
           Communities where you can ask questions, hear about openings before
           they hit the boards, and meet people already working in tech here.
@@ -92,7 +137,7 @@ export default function CommunityPage() {
 
       {/* 3. Jobs */}
       <section id="jobs" className="mt-14 scroll-mt-20">
-        <h2 className="text-2xl font-semibold tracking-tight">
+        <h2 className="text-2xl font-black tracking-tight">
           Where to search for a job
         </h2>
         <p className="mt-2 max-w-2xl text-sm text-muted">
