@@ -312,3 +312,111 @@ body {
 .prose pre code span {
   color: var(--shiki-dark, inherit) !important;
 }
+
+/* ---------------------------------------------------------------------------
+   "You don't train alone" — interactive, auto-rotating, parallax band.
+--------------------------------------------------------------------------- */
+.train-glow {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  pointer-events: none;
+  z-index: 0;
+}
+.train-glow-a {
+  width: 340px;
+  height: 340px;
+  top: -130px;
+  right: -70px;
+  background: radial-gradient(circle, var(--accent), transparent 70%);
+  opacity: 0.22;
+  transform: translateY(calc(var(--p, 0) * -55px));
+}
+.train-glow-b {
+  width: 320px;
+  height: 320px;
+  bottom: -150px;
+  left: -60px;
+  background: radial-gradient(circle, var(--belt-green), transparent 70%);
+  opacity: 0.16;
+  transform: translateY(calc(var(--p, 0) * 45px));
+}
+.train-emoji {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 0;
+  font-size: 200px;
+  line-height: 1;
+  opacity: 0.12;
+  pointer-events: none;
+  transform: translate(-50%, calc(-50% + var(--p, 0) * -34px));
+}
+.train-fade {
+  position: relative;
+  z-index: 1;
+  animation: train-fade 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes train-fade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+.train-underline {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation-name: train-progress;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+.train-underline[data-paused='true'] { animation-play-state: paused; }
+@keyframes train-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* ---------------------------------------------------------------------------
+   Footer torii-gate separator — a bold ink line that becomes a gate.
+--------------------------------------------------------------------------- */
+.torii-sep { color: var(--fg); }
+.torii {
+  display: block;
+  width: min(460px, 76%);
+  height: auto;
+  aspect-ratio: 520 / 232; /* guarantee height even if intrinsic sizing is odd */
+  margin: 0 auto -4px;
+}
+.torii-line {
+  height: 6px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: center;
+}
+.torii-sep[data-drawn='true'] .torii-line {
+  animation: torii-line 1s cubic-bezier(0.22, 1, 0.36, 1) 0.05s forwards;
+}
+@keyframes torii-line { to { transform: scaleX(1); } }
+.torii .t { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.torii-sep[data-drawn='true'] .torii .t {
+  animation: torii-draw 0.9s ease forwards;
+}
+.torii-sep[data-drawn='true'] .torii .t4,
+.torii-sep[data-drawn='true'] .torii .t5 { animation-delay: 0.15s; }
+.torii-sep[data-drawn='true'] .torii .t1 { animation-delay: 0.5s; }
+.torii-sep[data-drawn='true'] .torii .t2 { animation-delay: 0.75s; }
+.torii-sep[data-drawn='true'] .torii .t3 { animation-delay: 0.95s; }
+@keyframes torii-draw { to { stroke-dashoffset: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .train-fade { animation: none; }
+  .train-underline { display: none; }
+  .train-emoji, .train-glow-a, .train-glow-b { transform: none !important; }
+  .torii .t { stroke-dashoffset: 0 !important; animation: none !important; }
+  .torii-line { transform: none !important; animation: none !important; }
+}

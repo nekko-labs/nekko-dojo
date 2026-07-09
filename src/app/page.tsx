@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { getAllArticles, getAllGuideChapters } from '@/lib/content';
 import { formatDate } from '@/lib/format';
 import { DiscordIcon } from '@/components/icons';
+import { TrainTogether } from '@/components/TrainTogether';
 import { site } from '@/lib/site';
 
 /** "Where are you now?" — the dojo meets you at any stage. Each stage carries a
@@ -51,31 +52,6 @@ const belts = [
   { emoji: '🧠', title: 'Interview Prep', rank: 'brown belt · steps 7–9', color: 'var(--belt-brown)', bg: 'var(--node-bg)' },
   { emoji: '⛩️', title: 'Hired — milestone one', rank: 'black belt · steps 10–11', color: 'var(--gate)', bg: 'var(--accent)', gate: true },
   { emoji: '♾️', title: 'Keep growing', rank: 'beyond belts · forever', color: 'var(--belt-infinity)', bg: 'var(--gate)' },
-];
-
-/** How the community carries you — the "you don't train alone" band. */
-const benefits = [
-  {
-    emoji: '🆘',
-    title: 'Get unstuck, fast',
-    body: 'Ask anything — someone a few steps ahead has hit your exact wall.',
-  },
-  {
-    emoji: '🚢',
-    title: 'Ship with real teams',
-    body: 'Find a Doc Japan, Open Paw and more — open-source projects where 225+ people have gained real team experience.',
-  },
-  {
-    emoji: '🎓',
-    title: 'Practice with the sensei',
-    body: 'Mock interviews, whiteboarding sessions, résumé reviews — free, in the community.',
-  },
-  {
-    emoji: '🔁',
-    title: 'Then give it back',
-    body: 'Hired members stick around to mentor, review, and answer — that’s what makes it a dojo.',
-    accent: true,
-  },
 ];
 
 export default function HomePage() {
@@ -217,55 +193,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* You don't train alone */}
-      <section className="mt-32 sm:mt-40">
-        <div className="grid gap-12 lg:grid-cols-[400px_1fr] lg:gap-20">
-          <div>
-            <h2 className="text-3xl font-black leading-tight">You don&apos;t train alone. 🤝</h2>
-            <p className="mt-4 text-base font-medium leading-relaxed text-muted">
-              Struggling solo is the #1 way people quit. In the dojo you get
-              unstuck in minutes, ship on real open-source teams, and — once
-              you&apos;re further along — help the next person through the door.
-            </p>
-            <a
-              href={site.discordUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-7 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-bold text-accent-fg transition-transform hover:-translate-y-0.5"
-            >
-              <DiscordIcon className="h-4 w-4" />
-              Join the Discord
-            </a>
-          </div>
-          <ul>
-            {benefits.map((benefit) => (
-              <li
-                key={benefit.title}
-                className="flex items-start gap-4 border-t border-border py-5 last:border-b"
-              >
-                <span className="text-xl" aria-hidden>
-                  {benefit.emoji}
-                </span>
-                <div>
-                  <p
-                    className="text-base font-black"
-                    style={benefit.accent ? { color: 'var(--accent)' } : undefined}
-                  >
-                    {benefit.title}
-                  </p>
-                  <p className="mt-1 text-sm font-medium leading-relaxed text-muted">{benefit.body}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      {/* You don't train alone — interactive, auto-rotating, parallax hero */}
+      <TrainTogether />
 
       {/* Training never stops — latest articles */}
       {latestArticles.length > 0 && (
         <section className="mt-32 sm:mt-40">
           <div className="flex items-baseline justify-between">
-            <h2 className="text-2xl font-black">Training never stops 📖</h2>
+            <h2 className="text-2xl font-black">Check out some articles from our team 📖</h2>
             <Link href="/articles" className="text-sm font-bold text-accent hover:underline">
               All articles →
             </Link>

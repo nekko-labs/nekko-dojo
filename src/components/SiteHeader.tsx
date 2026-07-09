@@ -27,7 +27,7 @@ export function SiteHeader() {
             href={site.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Nekko Labs on GitHub"
+            aria-label="Nekko Dojo on GitHub"
             className="ml-1 inline-flex items-center rounded-full p-2 text-muted transition-colors hover:bg-surface-2 hover:text-fg"
           >
             <GitHubIcon className="h-5 w-5" />
