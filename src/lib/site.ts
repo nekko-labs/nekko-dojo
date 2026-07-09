@@ -10,11 +10,13 @@ export const site = {
   description:
     'Director-level perspective on engineering and AI, a step-by-step guide for switching into software development in Japan, and a directory of real-world open-source projects and communities to learn on a real team.',
   // Absolute URL used for metadata. Dojo lives at its own subdomain.
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://dojo.nekkolabs.com',
+  // Use `||` (not `??`) so an empty-string env var falls back too — Vercel
+  // currently has these set to "", which `??` would pass straight through.
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://dojo.nekkolabs.com',
   discordUrl:
-    process.env.NEXT_PUBLIC_DISCORD_URL ?? 'https://discord.gg/nekkolabs',
+    process.env.NEXT_PUBLIC_DISCORD_URL || 'https://discord.gg/nekkolabs',
   githubUrl:
-    process.env.NEXT_PUBLIC_GITHUB_URL ?? 'https://github.com/nekko-labs',
+    process.env.NEXT_PUBLIC_GITHUB_URL || 'https://github.com/nekko-labs',
   parentName: 'Nekko Labs',
   parentUrl: 'https://nekkolabs.com',
 } as const;

@@ -14,7 +14,7 @@ const stages = [
     body: 'Find out if you even like it — one free evening, zero commitment.',
     cta: 'Try code tonight',
     href: '/guide',
-    photo: { src: '/mascot/nekko-walk.png', alt: 'Orange tabby walking in, shinai resting on its shoulder' },
+    photo: { src: '/mascot/nekko-kamae.png', alt: 'Orange tabby in a ready kendo stance holding a shinai' },
   },
   {
     emoji: '⚒️',
@@ -22,7 +22,7 @@ const stages = [
     body: 'Trade tutorials for building — real projects, a portfolio, a real team.',
     cta: 'Start building',
     href: '/guide',
-    photo: { src: '/mascot/nekko-kamae.png', alt: 'Orange tabby in a ready kendo stance holding a shinai' },
+    photo: { src: '/mascot/nekko-men.png', alt: 'Orange tabby in kendo bogu mid overhead strike' },
   },
   {
     emoji: '🎯',
@@ -30,7 +30,7 @@ const stages = [
     body: 'Post-bootcamp to signed offer: interviews, résumé, strategy, practice.',
     cta: 'Prep the interviews',
     href: '/guide',
-    photo: { src: '/mascot/nekko-men.png', alt: 'Orange tabby in kendo bogu mid overhead strike' },
+    photo: { src: '/mascot/nekko-walk.png', alt: 'Orange tabby walking in, shinai resting on its shoulder' },
   },
   {
     emoji: '🌱',
@@ -88,10 +88,7 @@ export default function HomePage() {
       <section className="grid items-center gap-10 pt-20 sm:pt-28 lg:grid-cols-2 lg:gap-6">
         {/* Copy — left of the sensei on desktop, centered on mobile */}
         <div className="text-center lg:text-left">
-          <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-bold text-subtle">
-            🥋 A dojo, not a course — you don&apos;t graduate, you keep training
-          </span>
-          <h1 className="mx-auto mt-8 max-w-3xl text-5xl font-black leading-[1.12] tracking-tight sm:text-6xl lg:mx-0">
+          <h1 className="mx-auto max-w-3xl text-5xl font-black leading-[1.12] tracking-tight sm:text-6xl lg:mx-0">
             Start from anywhere.
             <br />
             Never stop <span className="text-accent">growing.</span>
@@ -100,20 +97,6 @@ export default function HomePage() {
             Learn to code, land your first engineering job, and keep leveling up.
             Join our community where you don&apos;t have to do it alone.
           </p>
-          <div className="mt-9 flex flex-wrap justify-center gap-3.5 lg:justify-start">
-            <Link
-              href="/guide"
-              className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-base font-bold text-accent-fg transition-transform hover:-translate-y-0.5"
-            >
-              Step onto the path
-            </Link>
-            <Link
-              href="/community"
-              className="inline-flex items-center gap-2 rounded-full border-2 border-border px-6 py-3 text-base font-bold transition-colors hover:border-fg"
-            >
-              Meet the community
-            </Link>
-          </div>
         </div>
 
         {/* The sensei — dual-wielding mascot, to the right of the title */}
@@ -130,7 +113,7 @@ export default function HomePage() {
       </section>
 
       {/* Where are you now? */}
-      <section className="mt-28 sm:mt-36">
+      <section className="mt-44 sm:mt-60">
         <h2 className="text-center text-3xl font-black">Where are you now?</h2>
         <p className="mx-auto mt-3 max-w-lg text-center text-base font-medium leading-relaxed text-muted">
           The dojo meets you wherever you are — there&apos;s a mat for every stage.
@@ -158,22 +141,24 @@ export default function HomePage() {
               >
                 {stage.cta} →
               </Link>
-              {/* the sensei-in-training, one pose per stage */}
-              <div
-                className="relative mt-5 h-40 overflow-hidden rounded-lg"
-                style={{
-                  background: 'linear-gradient(135deg, var(--dusk-2), var(--dusk-3))',
-                  boxShadow: stage.accent ? '0 0 0 2px var(--accent)' : undefined,
-                }}
+              {/* the sensei-in-training, one pose per stage — polaroid framed */}
+              <figure
+                className="mt-5 rounded-xl bg-fg p-2.5 pb-3 shadow-xl"
+                style={stage.accent ? { boxShadow: '0 0 0 2px var(--accent)' } : undefined}
               >
-                <Image
-                  src={stage.photo.src}
-                  alt={stage.photo.alt}
-                  fill
-                  sizes="(min-width: 1024px) 15rem, (min-width: 640px) 45vw, 90vw"
-                  className="object-contain object-bottom p-2"
-                />
-              </div>
+                <div
+                  className="relative h-36 overflow-hidden rounded-md"
+                  style={{ background: 'linear-gradient(135deg, var(--dusk-2), var(--dusk-3))' }}
+                >
+                  <Image
+                    src={stage.photo.src}
+                    alt={stage.photo.alt}
+                    fill
+                    sizes="(min-width: 1024px) 15rem, (min-width: 640px) 45vw, 90vw"
+                    className="object-contain object-bottom p-2"
+                  />
+                </div>
+              </figure>
             </div>
           ))}
         </div>
