@@ -1,14 +1,13 @@
 import Link from 'next/link';
 import { nav, site } from '@/lib/site';
-import { DiscordCTA } from './DiscordCTA';
-import { GitHubIcon } from './icons';
+import { DiscordIcon, GitHubIcon } from './icons';
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-30 border-b border-border bg-bg/85 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 px-4 sm:px-6">
-        <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-          <span aria-hidden className="text-lg">
+    <header className="sticky top-0 z-30 border-b border-border bg-bg/70 backdrop-blur">
+      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
+        <Link href="/" className="flex items-center gap-2.5 text-lg font-black tracking-tight">
+          <span aria-hidden className="text-xl">
             🐱⛩️
           </span>
           <span>{site.name}</span>
@@ -19,7 +18,7 @@ export function SiteHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-full px-3 py-1.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-fg"
+              className="rounded-full px-3 py-1.5 text-sm font-bold text-muted transition-colors hover:bg-surface-2 hover:text-fg"
             >
               {item.label}
             </Link>
@@ -33,7 +32,15 @@ export function SiteHeader() {
           >
             <GitHubIcon className="h-5 w-5" />
           </a>
-          <DiscordCTA variant="button" className="hidden sm:inline-flex" />
+          <a
+            href={site.discordUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-1 hidden items-center gap-2 rounded-full bg-fg px-5 py-2.5 text-sm font-bold text-bg transition-transform hover:-translate-y-0.5 sm:inline-flex"
+          >
+            <DiscordIcon className="h-4 w-4" />
+            Join the Discord
+          </a>
         </nav>
       </div>
     </header>

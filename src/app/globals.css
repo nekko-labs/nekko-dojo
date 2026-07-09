@@ -1,10 +1,12 @@
 @import "tailwindcss";
 
 /*
-  Nekko Dojo theme — v1 default (re-skinnable; Travis to do brand pass).
-  Semantic colors live as CSS vars on :root and flip with prefers-color-scheme.
-  @theme maps them to Tailwind utilities (bg-bg, text-fg, text-muted, border-border,
-  text-accent, bg-accent, ...).
+  Nekko Dojo theme — "Dusk Dojo".
+  A single evening-training palette (neither light nor dark): a dusk-purple
+  gradient page, warm-cream ink, amber accent, and a set of belt colours for
+  the training path. Semantic colours live as CSS vars on :root; @theme maps
+  them to Tailwind utilities (bg-bg, text-fg, text-muted, border-border,
+  text-accent, bg-accent, ...) so the whole site re-skins from here.
 */
 
 @theme {
@@ -13,45 +15,57 @@
   --color-surface-2: var(--surface-2);
   --color-fg: var(--fg);
   --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
   --color-border: var(--border);
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-fg: var(--accent-fg);
 
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    Helvetica, Arial, "Hiragino Sans", "Noto Sans JP", sans-serif;
-  --font-mono: ui-monospace, "SF Mono", Menlo, Monaco, "Cascadia Code",
-    "Roboto Mono", monospace;
+  /* Belt colours for the training path */
+  --color-belt-white: var(--belt-white);
+  --color-belt-yellow: var(--belt-yellow);
+  --color-belt-green: var(--belt-green);
+  --color-belt-brown: var(--belt-brown);
+  --color-belt-infinity: var(--belt-infinity);
+
+  --font-sans: var(--font-zen-maru), "Zen Maru Gothic", ui-sans-serif,
+    system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    "Hiragino Sans", "Noto Sans JP", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Monaco,
+    "Cascadia Code", "Roboto Mono", monospace;
 }
 
 :root {
-  --bg: #faf9f7;
-  --surface: #ffffff;
-  --surface-2: #f2f0ec;
-  --fg: #1a1a1a;
-  --muted: #6b6b6b;
-  --border: #e6e3dd;
-  --accent: #5b54e6;
-  --accent-hover: #4a43d6;
-  --accent-fg: #ffffff;
-}
+  color-scheme: dark;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0f0f12;
-    --surface: #16161a;
-    --surface-2: #1d1d22;
-    --fg: #ededed;
-    --muted: #9a9aa2;
-    --border: #2a2a31;
-    --accent: #8b85ff;
-    --accent-hover: #a29cff;
-    --accent-fg: #14141a;
-  }
+  /* Dusk gradient stops (top → bottom) */
+  --dusk-1: #2e2b47;
+  --dusk-2: #3b365c;
+  --dusk-3: #443e68;
+
+  --bg: var(--dusk-1);
+  --surface: #3b365c;
+  --surface-2: #4a4570;
+  --fg: #f4f1ea;
+  --muted: #b5aecf;
+  --subtle: #d9d3ea;
+  --border: rgba(244, 241, 234, 0.2);
+  --accent: #f2b46c;
+  --accent-hover: #f7c288;
+  --accent-fg: #2e2b47;
+
+  --belt-white: #f4f1ea;
+  --belt-yellow: #f5c144;
+  --belt-green: #5fd68a;
+  --belt-brown: #b07a3f;
+  --belt-infinity: #b3aaff;
+  --node-bg: #3b365c;
+  --gate: #17151f;
 }
 
 html {
   scroll-behavior: smooth;
+  background-color: var(--dusk-1);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -61,11 +75,90 @@ html {
 }
 
 body {
+  position: relative;
+  min-height: 100vh;
   background-color: var(--bg);
+  background-image: linear-gradient(
+    var(--dusk-1) 0%,
+    var(--dusk-2) 45%,
+    var(--dusk-3) 100%
+  );
+  background-attachment: fixed;
   color: var(--fg);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* ---------------------------------------------------------------------------
+   Dusk glow — soft animated light behind the page. Decorative only; sits in a
+   fixed layer (rendered in layout.tsx as [data-dusk-glow]) behind all content.
+--------------------------------------------------------------------------- */
+[data-dusk-glow] {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+[data-dusk-glow] span {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  will-change: transform;
+}
+[data-dusk-glow] .glow-1 {
+  top: -220px;
+  left: 4%;
+  width: 720px;
+  height: 720px;
+  background: radial-gradient(circle, rgba(179, 170, 255, 0.3), transparent 65%);
+  animation: duskDrift1 26s ease-in-out infinite alternate;
+}
+[data-dusk-glow] .glow-2 {
+  top: 40px;
+  right: -160px;
+  width: 620px;
+  height: 620px;
+  background: radial-gradient(circle, rgba(242, 180, 108, 0.2), transparent 65%);
+  animation: duskDrift2 32s ease-in-out infinite alternate;
+}
+[data-dusk-glow] .glow-3 {
+  top: 55%;
+  left: 26%;
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(126, 196, 207, 0.14), transparent 65%);
+  animation: duskDrift3 38s ease-in-out infinite alternate;
+}
+
+@keyframes duskDrift1 {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(120px, 60px) scale(1.15); }
+}
+@keyframes duskDrift2 {
+  from { transform: translate(0, 0) scale(1.1); }
+  to { transform: translate(-140px, 40px) scale(0.95); }
+}
+@keyframes duskDrift3 {
+  from { transform: translate(0, 0); }
+  to { transform: translate(80px, -70px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-dusk-glow] span {
+    animation: none;
+  }
+}
+
+/* Training-path belts zigzag along the dotted connector on wide layouts. */
+@media (min-width: 1024px) {
+  [data-belt-row="down"] {
+    margin-top: 58px;
+  }
+  [data-belt-row="up"] {
+    margin-top: -2px;
+  }
 }
 
 a {
@@ -207,12 +300,10 @@ a {
   color: inherit;
 }
 
-/* Use the dark shiki theme variables when in dark mode */
-@media (prefers-color-scheme: dark) {
-  .prose pre code span {
-    color: var(--shiki-dark, inherit) !important;
-  }
-  .prose pre {
-    background: #16161a;
-  }
+/* Dusk is a dark-leaning theme, so always use shiki's dark palette. */
+.prose pre {
+  background: var(--gate);
+}
+.prose pre code span {
+  color: var(--shiki-dark, inherit) !important;
 }
