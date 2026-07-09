@@ -5,7 +5,8 @@ import { formatDate } from '@/lib/format';
 import { DiscordIcon } from '@/components/icons';
 import { site } from '@/lib/site';
 
-/** "Where are you now?" — the dojo meets you at any stage. */
+/** "Where are you now?" — the dojo meets you at any stage. Each stage carries a
+ *  photo of the sensei-in-training, so the cat grows up alongside you. */
 const stages = [
   {
     emoji: '🐣',
@@ -13,6 +14,7 @@ const stages = [
     body: 'Find out if you even like it — one free evening, zero commitment.',
     cta: 'Try code tonight',
     href: '/guide',
+    photo: { src: '/mascot/nekko-walk.png', alt: 'Orange tabby walking in, shinai resting on its shoulder' },
   },
   {
     emoji: '⚒️',
@@ -20,6 +22,7 @@ const stages = [
     body: 'Trade tutorials for building — real projects, a portfolio, a real team.',
     cta: 'Start building',
     href: '/guide',
+    photo: { src: '/mascot/nekko-kamae.png', alt: 'Orange tabby in a ready kendo stance holding a shinai' },
   },
   {
     emoji: '🎯',
@@ -27,6 +30,7 @@ const stages = [
     body: 'Post-bootcamp to signed offer: interviews, résumé, strategy, practice.',
     cta: 'Prep the interviews',
     href: '/guide',
+    photo: { src: '/mascot/nekko-men.png', alt: 'Orange tabby in kendo bogu mid overhead strike' },
   },
   {
     emoji: '🌱',
@@ -35,6 +39,7 @@ const stages = [
     cta: 'Keep training',
     href: '/articles',
     accent: true,
+    photo: { src: '/mascot/nekko-sensei.png', alt: 'Orange tabby kendo sensei dual-wielding two shinai' },
   },
 ];
 
@@ -46,13 +51,6 @@ const belts = [
   { emoji: '🧠', title: 'Interview Prep', rank: 'brown belt · steps 7–9', color: 'var(--belt-brown)', bg: 'var(--node-bg)' },
   { emoji: '⛩️', title: 'Hired — milestone one', rank: 'black belt · steps 10–11', color: 'var(--gate)', bg: 'var(--accent)', gate: true },
   { emoji: '♾️', title: 'Keep growing', rank: 'beyond belts · forever', color: 'var(--belt-infinity)', bg: 'var(--gate)' },
-];
-
-/** Photo slots for the cat mascot — the sensei in training. */
-const photos = [
-  { caption: 'Tuesday sparring 🥋', tilt: '-3deg', lift: '0px', src: '/mascot/nekko-men.png', alt: 'Orange tabby in kendo bogu mid overhead strike' },
-  { caption: 'Morning kata: one problem a day ✍️', tilt: '2deg', lift: '-16px', src: '/mascot/nekko-kamae.png', alt: 'Orange tabby in a ready kendo stance holding a shinai' },
-  { caption: 'After practice, tea & questions 🍵', tilt: '-2deg', lift: '0px', src: '/mascot/nekko-walk.png', alt: 'Orange tabby walking with a shinai resting on its shoulder' },
 ];
 
 /** How the community carries you — the "you don't train alone" band. */
@@ -87,75 +85,47 @@ export default function HomePage() {
   return (
     <div className="mx-auto max-w-6xl px-5 sm:px-8">
       {/* Hero */}
-      <section className="pt-20 text-center sm:pt-28">
-        <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-bold text-subtle">
-          🥋 A dojo, not a course — you don&apos;t graduate, you keep training
-        </span>
-        <h1 className="mx-auto mt-8 max-w-3xl text-5xl font-black leading-[1.12] tracking-tight sm:text-6xl">
-          Start from anywhere.
-          <br />
-          Never stop <span className="text-accent">growing.</span>
-        </h1>
-        <p className="mx-auto mt-6 max-w-xl text-lg font-medium leading-relaxed text-muted">
-          Learn to code, land your first engineering job, and keep leveling up.
-          Join our community where you don&apos;t have to do it alone.
-        </p>
-        <div className="mt-9 flex flex-wrap justify-center gap-3.5">
-          <Link
-            href="/guide"
-            className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-base font-bold text-accent-fg transition-transform hover:-translate-y-0.5"
-          >
-            Step onto the path
-          </Link>
-          <Link
-            href="/community"
-            className="inline-flex items-center gap-2 rounded-full border-2 border-border px-6 py-3 text-base font-bold transition-colors hover:border-fg"
-          >
-            Meet the community
-          </Link>
+      <section className="grid items-center gap-10 pt-20 sm:pt-28 lg:grid-cols-2 lg:gap-6">
+        {/* Copy — left of the sensei on desktop, centered on mobile */}
+        <div className="text-center lg:text-left">
+          <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-bold text-subtle">
+            🥋 A dojo, not a course — you don&apos;t graduate, you keep training
+          </span>
+          <h1 className="mx-auto mt-8 max-w-3xl text-5xl font-black leading-[1.12] tracking-tight sm:text-6xl lg:mx-0">
+            Start from anywhere.
+            <br />
+            Never stop <span className="text-accent">growing.</span>
+          </h1>
+          <p className="mx-auto mt-6 max-w-xl text-lg font-medium leading-relaxed text-muted lg:mx-0">
+            Learn to code, land your first engineering job, and keep leveling up.
+            Join our community where you don&apos;t have to do it alone.
+          </p>
+          <div className="mt-9 flex flex-wrap justify-center gap-3.5 lg:justify-start">
+            <Link
+              href="/guide"
+              className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-base font-bold text-accent-fg transition-transform hover:-translate-y-0.5"
+            >
+              Step onto the path
+            </Link>
+            <Link
+              href="/community"
+              className="inline-flex items-center gap-2 rounded-full border-2 border-border px-6 py-3 text-base font-bold transition-colors hover:border-fg"
+            >
+              Meet the community
+            </Link>
+          </div>
         </div>
 
-        {/* The sensei — dual-wielding mascot */}
-        <div className="mt-14 flex justify-center sm:mt-16">
+        {/* The sensei — dual-wielding mascot, to the right of the title */}
+        <div className="flex justify-center lg:justify-end">
           <Image
             src="/mascot/nekko-sensei.png"
             alt="Nekko, the orange tabby kendo sensei, dual-wielding two shinai"
             width={1984}
             height={1200}
             priority
-            className="h-auto w-full max-w-2xl drop-shadow-2xl"
+            className="h-auto w-full max-w-md drop-shadow-2xl lg:max-w-none"
           />
-        </div>
-      </section>
-
-      {/* Photo strip */}
-      <section className="mt-24 sm:mt-28">
-        <div className="flex flex-wrap items-end justify-center gap-8 sm:gap-9">
-          {photos.map((photo) => (
-            <figure
-              key={photo.caption}
-              className="rounded-xl bg-fg p-3 pb-3.5 shadow-2xl"
-              style={{ transform: `rotate(${photo.tilt}) translateY(${photo.lift})` }}
-            >
-              <div
-                className="relative flex h-40 w-56 items-end justify-center overflow-hidden rounded-md sm:h-52 sm:w-72"
-                style={{
-                  background: 'linear-gradient(135deg, var(--dusk-2), var(--dusk-3))',
-                }}
-              >
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  sizes="(min-width: 640px) 18rem, 14rem"
-                  className="object-contain object-bottom p-2"
-                />
-              </div>
-              <figcaption className="mx-1 mt-2.5 text-sm font-bold text-accent-fg">
-                {photo.caption}
-              </figcaption>
-            </figure>
-          ))}
         </div>
       </section>
 
@@ -165,11 +135,11 @@ export default function HomePage() {
         <p className="mx-auto mt-3 max-w-lg text-center text-base font-medium leading-relaxed text-muted">
           The dojo meets you wherever you are — there&apos;s a mat for every stage.
         </p>
-        <div className="mt-12 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid items-stretch gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
           {stages.map((stage) => (
             <div
               key={stage.title}
-              className="border-t-2 pt-5"
+              className="flex h-full flex-col border-t-2 pt-5"
               style={{ borderColor: stage.accent ? 'var(--accent)' : 'var(--border)' }}
             >
               <span className="text-2xl" aria-hidden>
@@ -188,6 +158,22 @@ export default function HomePage() {
               >
                 {stage.cta} →
               </Link>
+              {/* the sensei-in-training, one pose per stage */}
+              <div
+                className="relative mt-5 h-40 overflow-hidden rounded-lg"
+                style={{
+                  background: 'linear-gradient(135deg, var(--dusk-2), var(--dusk-3))',
+                  boxShadow: stage.accent ? '0 0 0 2px var(--accent)' : undefined,
+                }}
+              >
+                <Image
+                  src={stage.photo.src}
+                  alt={stage.photo.alt}
+                  fill
+                  sizes="(min-width: 1024px) 15rem, (min-width: 640px) 45vw, 90vw"
+                  className="object-contain object-bottom p-2"
+                />
+              </div>
             </div>
           ))}
         </div>
