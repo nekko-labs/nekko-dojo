@@ -5,6 +5,7 @@ import { SiteHeader } from '@/components/SiteHeader';
 import { SiteFooter } from '@/components/SiteFooter';
 import { PostHogProvider } from '@/components/PostHogProvider';
 import { site } from '@/lib/site';
+import { Analytics } from '@vercel/analytics/next';
 
 // Rounded, friendly type — the dojo's voice. Latin subset only (content is
 // English); Japanese glyphs still resolve via the system fallback stack.
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main id="main">{children}</main>
           <SiteFooter />
         </PostHogProvider>
+        <Analytics />
       </body>
     </html>
   );
