@@ -61,6 +61,7 @@
   --belt-infinity: #b3aaff;
   --node-bg: #3b365c;
   --gate: #17151f;
+  --torii-red: #e2483b; /* vermilion (shu-iro) for the torii gate */
 }
 
 html {
@@ -148,16 +149,6 @@ body {
 @media (prefers-reduced-motion: reduce) {
   [data-dusk-glow] span {
     animation: none;
-  }
-}
-
-/* Training-path belts zigzag along the dotted connector on wide layouts. */
-@media (min-width: 1024px) {
-  [data-belt-row="down"] {
-    margin-top: 58px;
-  }
-  [data-belt-row="up"] {
-    margin-top: -2px;
   }
 }
 
@@ -390,6 +381,7 @@ body {
   gap: 0;
 }
 .torii {
+  color: var(--torii-red); /* the gate is vermilion; the ink lines stay cream */
   display: block;
   flex: 0 0 auto;
   width: min(150px, 30%);

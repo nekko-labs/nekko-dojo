@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getAllArticles, getAllGuideChapters } from "@/lib/content";
-import { formatDate } from "@/lib/format";
+import { ArticleCard } from "@/components/ArticleCard";
 import { DiscordIcon } from "@/components/icons";
 import { TrainTogether } from "@/components/TrainTogether";
 import { site } from "@/lib/site";
@@ -10,7 +10,7 @@ import { site } from "@/lib/site";
  *  photo of the sensei-in-training, so the cat grows up alongside you. */
 const stages = [
   {
-    emoji: "🐣",
+    belt: { src: "/belts/belt-white.png", name: "white belt" },
     title: "I've never coded",
     body: "Find out if you even like it — one free evening, zero commitment.",
     cta: "Try code tonight",
@@ -21,7 +21,7 @@ const stages = [
     },
   },
   {
-    emoji: "⚒️",
+    belt: { src: "/belts/belt-green.png", name: "green belt" },
     title: "I'm learning",
     body: "Trade tutorials for building — real projects, a portfolio, a real team.",
     cta: "Start building",
@@ -32,7 +32,7 @@ const stages = [
     },
   },
   {
-    emoji: "🎯",
+    belt: { src: "/belts/belt-brown.png", name: "brown belt" },
     title: "I'm job hunting",
     body: "Post-bootcamp to signed offer: interviews, résumé, strategy, practice.",
     cta: "Prep the interviews",
@@ -43,7 +43,7 @@ const stages = [
     },
   },
   {
-    emoji: "🌱",
+    belt: { src: "/belts/belt-black.png", name: "black belt" },
     title: "I'm already an engineer",
     body: "Sharpen your craft in the AI era, mentor someone a step behind you.",
     cta: "Keep training",
@@ -56,59 +56,12 @@ const stages = [
   },
 ];
 
-/** The training path — belts from first line of code to lifelong practice. */
-const belts = [
-  {
-    emoji: "👋",
-    title: "Getting Started",
-    rank: "white belt · steps 0–2",
-    color: "var(--belt-white)",
-    bg: "var(--node-bg)",
-  },
-  {
-    emoji: "📚",
-    title: "Foundations",
-    rank: "yellow belt · step 3",
-    color: "var(--belt-yellow)",
-    bg: "var(--node-bg)",
-  },
-  {
-    emoji: "🔨",
-    title: "Building Real Things",
-    rank: "green belt · steps 4–6",
-    color: "var(--belt-green)",
-    bg: "var(--node-bg)",
-  },
-  {
-    emoji: "🧠",
-    title: "Interview Prep",
-    rank: "brown belt · steps 7–9",
-    color: "var(--belt-brown)",
-    bg: "var(--node-bg)",
-  },
-  {
-    emoji: "⛩️",
-    title: "Hired — milestone one",
-    rank: "black belt · steps 10–11",
-    color: "var(--gate)",
-    bg: "var(--accent)",
-    gate: true,
-  },
-  {
-    emoji: "♾️",
-    title: "Keep growing",
-    rank: "beyond belts · forever",
-    color: "var(--belt-infinity)",
-    bg: "var(--gate)",
-  },
-];
-
 export default function HomePage() {
   const latestArticles = getAllArticles().slice(0, 3);
   const chapterCount = getAllGuideChapters().length;
 
   return (
-    <div className="max-w-6xl px-5 sm:px-8">
+    <div className="mx-auto max-w-6xl px-5 sm:px-8">
       {/* Hero */}
       <section className="grid items-center gap-12 pb-14 pt-24 sm:pb-20 sm:pt-32 lg:min-h-[72vh] lg:grid-cols-[1fr_1.12fr] lg:gap-10">
         {/* Copy — left of the sensei on desktop, centered on mobile */}
@@ -137,64 +90,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* The path */}
-      <section className="mt-44 sm:mt-60">
-        <div className="flex flex-col items-baseline justify-between gap-2 sm:flex-row">
-          <h2 className="text-3xl font-black">The path 🐾</h2>
-          <p className="text-sm font-bold text-muted">
-            Hired is the gate ⛩️ — not the end of the road.
-          </p>
-        </div>
-        <div className="relative mt-14">
-          {/* Dotted connector — only meaningful on the 6-across layout */}
-          <svg
-            viewBox="0 0 1080 150"
-            preserveAspectRatio="none"
-            className="pointer-events-none absolute left-0 top-0 hidden h-[150px] w-full lg:block"
-            aria-hidden
-          >
-            <path
-              d="M 90 100 C 180 100 200 40 270 40 C 340 40 360 100 450 100 C 540 100 560 40 630 40 C 700 40 720 100 810 100 C 900 100 920 40 990 40"
-              fill="none"
-              stroke="rgba(244,241,234,0.3)"
-              strokeWidth="3"
-              strokeDasharray="2 10"
-              strokeLinecap="round"
-            />
-          </svg>
-          <ol className="relative grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-6 lg:items-start lg:gap-4">
-            {belts.map((belt, i) => (
-              <li
-                key={belt.title}
-                data-belt-row={i % 2 === 0 ? "down" : "up"}
-                className="text-center"
-              >
-                <span
-                  className="mx-auto flex h-[76px] w-[76px] items-center justify-center rounded-full text-3xl"
-                  style={{
-                    background: belt.bg,
-                    border: `4px solid ${belt.color}`,
-                  }}
-                  aria-hidden
-                >
-                  {belt.emoji}
-                </span>
-                <p
-                  className="mt-4 text-sm font-black"
-                  style={belt.gate ? { color: "var(--accent)" } : undefined}
-                >
-                  {belt.title}
-                </p>
-                <p className="mt-1 text-xs font-bold text-muted">{belt.rank}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
       {/* Where are you now? — a flowing path, the sensei switching sides at
           each stage, threaded together by a dotted spine */}
-      <section className="mt-32 sm:mt-40">
+      <section className="mt-40 sm:mt-56">
         <h2 className="text-center text-3xl font-black">Where are you now?</h2>
         <p className="mx-auto mt-3 max-w-lg text-center text-base font-medium leading-relaxed text-muted">
           The dojo meets you wherever you are — there&apos;s a mat for every
@@ -202,59 +100,64 @@ export default function HomePage() {
         </p>
 
         <div className="relative mx-auto mt-16 max-w-4xl">
-          {/* the dotted spine that threads the stages together */}
-          <div
-            className="pointer-events-none absolute inset-y-6 left-1/2 hidden w-px -translate-x-1/2 sm:block"
-            style={{
-              backgroundImage:
-                "repeating-linear-gradient(to bottom, var(--border) 0 3px, transparent 3px 12px)",
-            }}
+          {/* the dotted path, weaving down the page. Its swing points land at
+              each belt's row (right, left, right, left) so a belt sits on the
+              line out toward its cat. non-scaling-stroke keeps the dots round. */}
+          <svg
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            className="pointer-events-none absolute inset-0 hidden h-full w-full sm:block"
             aria-hidden
-          />
-          <div className="flex flex-col gap-14 sm:gap-6">
+          >
+            <path
+              d="M 68 12.5 C 68 25 32 25 32 37.5 C 32 50 68 50 68 62.5 C 68 75 32 75 32 87.5"
+              fill="none"
+              stroke="rgba(244,241,234,0.3)"
+              strokeWidth="2"
+              strokeDasharray="2 9"
+              strokeLinecap="round"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <div className="flex flex-col gap-16 sm:block">
             {stages.map((stage, i) => {
+              // even rows swing right, odd rows swing left — matching the path
               const flip = i % 2 === 1;
               return (
                 <div
                   key={stage.title}
-                  className="relative grid items-center gap-5 sm:grid-cols-2 sm:gap-16"
+                  className={
+                    "relative flex flex-col items-center gap-4 sm:h-[300px] sm:flex-row sm:gap-0 " +
+                    (flip ? "sm:justify-start" : "sm:justify-end")
+                  }
                 >
-                  {/* emoji node sitting on the spine */}
+                  {/* the rank belt, sitting on the dotted line at its swing point */}
                   <span
-                    className="z-10 mx-auto flex h-14 w-14 items-center justify-center rounded-full text-2xl sm:absolute sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2"
-                    style={{
-                      background: "var(--node-bg)",
-                      border: `3px solid ${stage.accent ? "var(--accent)" : "var(--border)"}`,
-                    }}
+                    className={
+                      "z-10 flex flex-col items-center sm:absolute sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 " +
+                      (flip ? "sm:left-[32%]" : "sm:left-[68%]")
+                    }
                     aria-hidden
                   >
-                    {stage.emoji}
+                    <Image
+                      src={stage.belt.src}
+                      alt=""
+                      width={200}
+                      height={170}
+                      className="w-20 drop-shadow-lg"
+                    />
+                    <span className="mt-1 text-[11px] font-bold uppercase tracking-wide text-muted">
+                      {stage.belt.name}
+                    </span>
                   </span>
 
-                  {/* the sensei-in-training, borderless, switching sides */}
+                  {/* copy — to the inner side of the belt, toward the centre */}
                   <div
                     className={
-                      flip
-                        ? "sm:order-1 sm:flex sm:justify-end"
-                        : "sm:order-3 sm:flex sm:justify-start"
-                    }
-                  >
-                    <Image
-                      src={stage.photo.src}
-                      alt={stage.photo.alt}
-                      width={480}
-                      height={360}
-                      sizes="(min-width: 640px) 15rem, 60vw"
-                      className="mx-auto h-auto w-full max-w-[14rem] drop-shadow-xl"
-                    />
-                  </div>
-
-                  {/* copy — hugging the spine on the opposite side */}
-                  <div
-                    className={
-                      flip
-                        ? "text-center sm:order-3 sm:pl-14 sm:text-left"
-                        : "text-center sm:order-1 sm:pr-14 sm:text-right"
+                      "text-center sm:absolute sm:top-1/2 sm:max-w-[38%] sm:-translate-y-1/2 " +
+                      (flip
+                        ? "sm:left-[38%] sm:text-left"
+                        : "sm:right-[38%] sm:text-right")
                     }
                   >
                     <h3
@@ -275,6 +178,19 @@ export default function HomePage() {
                       {stage.cta} →
                     </Link>
                   </div>
+
+                  {/* the sensei-in-training — same side as the belt swing, just
+                      beyond it so the line reaches the cat */}
+                  <div className="w-full sm:w-auto">
+                    <Image
+                      src={stage.photo.src}
+                      alt={stage.photo.alt}
+                      width={480}
+                      height={360}
+                      sizes="(min-width: 640px) 14rem, 60vw"
+                      className="mx-auto h-auto w-full max-w-[13rem] drop-shadow-xl sm:max-h-[270px] sm:w-auto"
+                    />
+                  </div>
                 </div>
               );
             })}
@@ -285,43 +201,27 @@ export default function HomePage() {
       {/* You don't train alone — interactive, auto-rotating, parallax hero */}
       <TrainTogether />
 
-      {/* Training never stops — latest articles */}
+      {/* Training never stops — latest articles, in full detail */}
       {latestArticles.length > 0 && (
         <section className="mt-32 sm:mt-40">
-          <div className="flex items-baseline justify-between">
-            <h2 className="text-2xl font-black">
-              Check out some articles from our team 📖
-            </h2>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h2 className="text-3xl font-black">Fresh from the dojo 📖</h2>
+              <p className="mt-2 max-w-xl text-base font-medium leading-relaxed text-muted">
+                Field notes on engineering, AI, and building a career in Japan,
+                written by people doing the work.
+              </p>
+            </div>
             <Link
               href="/articles"
-              className="text-sm font-bold text-accent hover:underline"
+              className="shrink-0 text-sm font-bold text-accent hover:underline"
             >
               All articles →
             </Link>
           </div>
-          <div className="mt-5">
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {latestArticles.map((article) => (
-              <Link
-                key={article.slug}
-                href={`/articles/${article.slug}`}
-                className="group flex items-baseline justify-between gap-8 border-t border-border py-5 last:border-b"
-              >
-                <p className="text-base font-bold leading-snug transition-colors group-hover:text-accent sm:text-lg">
-                  {article.title}
-                </p>
-                <div className="flex shrink-0 items-baseline gap-4">
-                  {article.tags[0] && (
-                    <span className="hidden rounded-full border border-border px-3 py-0.5 text-xs font-bold text-subtle sm:inline">
-                      {article.tags[0]}
-                    </span>
-                  )}
-                  {article.date && (
-                    <span className="text-sm font-medium text-muted">
-                      {formatDate(article.date)}
-                    </span>
-                  )}
-                </div>
-              </Link>
+              <ArticleCard key={article.slug} article={article} />
             ))}
           </div>
         </section>
@@ -329,10 +229,14 @@ export default function HomePage() {
 
       {/* Closing CTA */}
       <section className="mt-36 pb-28 text-center sm:mt-44">
-        <p className="text-4xl" aria-hidden>
-          🐱⛩️
-        </p>
-        <h2 className="mx-auto mt-5 max-w-2xl text-4xl font-black leading-tight">
+        <Image
+          src="/dojo.png"
+          alt=""
+          width={1100}
+          height={683}
+          className="mx-auto h-auto w-full max-w-[16rem] drop-shadow-2xl"
+        />
+        <h2 className="mx-auto mt-6 max-w-2xl text-4xl font-black leading-tight">
           Wherever you are on the path, the dojo door is open.
         </h2>
         <p className="mx-auto mt-4 max-w-md text-base font-medium leading-relaxed text-muted">
