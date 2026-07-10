@@ -61,7 +61,7 @@ export default function HomePage() {
   return (
     <div className="mx-auto max-w-6xl px-5 sm:px-8">
       {/* Hero */}
-      <section className="grid items-center gap-10 pt-20 sm:pt-28 lg:grid-cols-2 lg:gap-6">
+      <section className="grid items-center gap-10 pb-14 pt-24 sm:pb-20 sm:pt-32 lg:min-h-[72vh] lg:grid-cols-[1fr_1.12fr] lg:gap-10">
         {/* Copy — left of the sensei on desktop, centered on mobile */}
         <div className="text-center lg:text-left">
           <h1 className="mx-auto max-w-3xl text-5xl font-black leading-[1.12] tracking-tight sm:text-6xl lg:mx-0">
@@ -83,7 +83,7 @@ export default function HomePage() {
             width={1984}
             height={1200}
             priority
-            className="h-auto w-full max-w-md drop-shadow-2xl lg:max-w-none"
+            className="h-auto w-full max-w-lg drop-shadow-2xl lg:max-w-none"
           />
         </div>
       </section>
