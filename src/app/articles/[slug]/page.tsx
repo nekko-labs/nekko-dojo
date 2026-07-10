@@ -5,6 +5,7 @@ import { getAllArticles, getArticle } from '@/lib/content';
 import { Mdx } from '@/components/Mdx';
 import { DiscordCTA } from '@/components/DiscordCTA';
 import { formatDate } from '@/lib/format';
+import { Reveal } from '@/components/motion';
 
 type Params = { slug: string };
 
@@ -39,7 +40,9 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
         ← All articles
       </Link>
 
-      <header className="mt-6">
+      {/* Title/meta fade up gently on load; the article body below stays
+          static so the content is instantly readable. */}
+      <Reveal as="header" load distance={16} className="mt-6">
         <div className="flex flex-wrap items-center gap-2 text-sm text-muted">
           {meta.date && <time dateTime={meta.date}>{formatDate(meta.date)}</time>}
           <span aria-hidden>·</span>
@@ -61,7 +64,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
             ))}
           </ul>
         )}
-      </header>
+      </Reveal>
 
       <hr className="my-8 border-border" />
 

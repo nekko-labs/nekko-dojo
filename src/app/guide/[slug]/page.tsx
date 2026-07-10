@@ -8,6 +8,7 @@ import {
 } from '@/lib/content';
 import { Mdx } from '@/components/Mdx';
 import { DiscordCTA } from '@/components/DiscordCTA';
+import { Reveal } from '@/components/motion';
 
 type Params = { slug: string };
 
@@ -43,12 +44,14 @@ export default async function GuideChapterPage({ params }: { params: Promise<Par
         ← The Guide
       </Link>
 
-      <header className="mt-6">
+      {/* Title/meta fade up gently on load; the chapter body below stays
+          static so the content is instantly readable. */}
+      <Reveal as="header" load distance={16} className="mt-6">
         <p className="text-sm font-medium text-accent">{meta.section}</p>
         <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">{meta.title}</h1>
         {meta.description && <p className="mt-3 text-lg text-muted">{meta.description}</p>}
         <p className="mt-3 text-sm text-muted">{meta.readingMinutes} min read</p>
-      </header>
+      </Reveal>
 
       <hr className="my-8 border-border" />
 

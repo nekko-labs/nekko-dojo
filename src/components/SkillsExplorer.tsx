@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   categoryLabels,
   sourceBadges,
@@ -10,6 +10,7 @@ import {
   type SkillSource,
 } from '@/data/skills';
 import { SkillCard } from './SkillCard';
+import { Stagger, StaggerItem } from './motion';
 
 export type SkillWithVotes = { skill: Skill; voteCount: number };
 
@@ -28,6 +29,15 @@ export function SkillsExplorer({
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState<SkillCategory | 'all'>('all');
   const [source, setSource] = useState<SkillSource | 'all'>('all');
+
+  // The grid staggers in once on first render; after the entrance settles,
+  // cards added by filtering/searching appear instantly so filtering never
+  // feels sluggish.
+  const [settled, setSettled] = useState(false);
+  useEffect(() => {
+    const t = window.setTimeout(() => setSettled(true), 900);
+    return () => window.clearTimeout(t);
+  }, []);
 
   const sources: SkillSource[] = useMemo(() => {
     const present = new Set(items.map((i) => i.skill.source));
@@ -112,11 +122,13 @@ export function SkillsExplorer({
       {filtered.length === 0 ? (
         <p className="mt-8 text-muted">No skills match your filters yet.</p>
       ) : (
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <Stagger className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" gap={0.06}>
           {filtered.map(({ skill, voteCount }) => (
-            <SkillCard key={skill.id} skill={skill} voteCount={voteCount} />
+            <StaggerItem key={skill.id} className="h-full" instant={settled}>
+              <SkillCard skill={skill} voteCount={voteCount} />
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       )}
     </div>
   );

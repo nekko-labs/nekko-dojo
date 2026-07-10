@@ -4,6 +4,8 @@ import { getAllArticles, getAllGuideChapters } from "@/lib/content";
 import { ArticleCard } from "@/components/ArticleCard";
 import { DiscordIcon } from "@/components/icons";
 import { TrainTogether } from "@/components/TrainTogether";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion";
+import { StagePath } from "@/components/StagePath";
 import { site } from "@/lib/site";
 
 /** "Where are you now?" — the dojo meets you at any stage. Each stage carries a
@@ -66,19 +68,23 @@ export default function HomePage() {
       <section className="grid items-center gap-12 pb-14 pt-24 sm:pb-20 sm:pt-32 lg:min-h-[72vh] lg:grid-cols-[1fr_1.12fr] lg:gap-10">
         {/* Copy — left of the sensei on desktop, centered on mobile */}
         <div className="text-center lg:text-left">
-          <h1 className="max-w-2xl text-4xl font-black leading-[1.12] tracking-tight sm:text-5xl">
-            Start from anywhere.
-            <br />
-            Never stop <span className="text-accent">growing.</span>
-          </h1>
-          <p className="mx-auto mt-6 max-w-xl text-lg font-medium leading-relaxed text-muted lg:mx-0">
-            Learn to code, land your first engineering job, and keep leveling
-            up. Join our community where you don&apos;t have to do it alone.
-          </p>
+          <Reveal load>
+            <h1 className="max-w-2xl text-4xl font-black leading-[1.12] tracking-tight sm:text-5xl">
+              Start from anywhere.
+              <br />
+              Never stop <span className="text-accent">growing.</span>
+            </h1>
+          </Reveal>
+          <Reveal load delay={0.12}>
+            <p className="mx-auto mt-6 max-w-xl text-lg font-medium leading-relaxed text-muted lg:mx-0">
+              Learn to code, land your first engineering job, and keep leveling
+              up. Join our community where you don&apos;t have to do it alone.
+            </p>
+          </Reveal>
         </div>
 
         {/* The sensei — dual-wielding mascot, to the right of the title */}
-        <div className="flex justify-end">
+        <Reveal load spring delay={0.2} className="flex justify-end">
           <Image
             src="/mascot/nekko-sensei.png"
             alt="Nekko, the orange tabby kendo sensei, dual-wielding two shinai"
@@ -87,38 +93,28 @@ export default function HomePage() {
             priority
             className="h-auto w-full max-w-lg drop-shadow-2xl lg:max-w-none"
           />
-        </div>
+        </Reveal>
       </section>
 
       {/* Where are you now? — a flowing path, the sensei switching sides at
           each stage, threaded together by a dotted spine */}
       <section className="mt-40 sm:mt-56">
-        <h2 className="text-center text-3xl font-black">Where are you now?</h2>
-        <p className="mx-auto mt-3 max-w-lg text-center text-base font-medium leading-relaxed text-muted">
-          The dojo meets you wherever you are — there&apos;s a mat for every
-          stage.
-        </p>
+        <Reveal>
+          <h2 className="text-center text-3xl font-black">Where are you now?</h2>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <p className="mx-auto mt-3 max-w-lg text-center text-base font-medium leading-relaxed text-muted">
+            The dojo meets you wherever you are — there&apos;s a mat for every
+            stage.
+          </p>
+        </Reveal>
 
         <div className="relative mx-auto mt-16 max-w-4xl">
           {/* the dotted path, weaving down the page. Its swing points land at
               each belt's row (right, left, right, left) so a belt sits on the
-              line out toward its cat. non-scaling-stroke keeps the dots round. */}
-          <svg
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
-            className="pointer-events-none absolute inset-0 hidden h-full w-full sm:block"
-            aria-hidden
-          >
-            <path
-              d="M 68 12.5 C 68 25 32 25 32 37.5 C 32 50 68 50 68 62.5 C 68 75 32 75 32 87.5"
-              fill="none"
-              stroke="rgba(244,241,234,0.3)"
-              strokeWidth="2"
-              strokeDasharray="2 9"
-              strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
+              line out toward its cat. non-scaling-stroke keeps the dots round.
+              StagePath draws it in as the user scrolls through the section. */}
+          <StagePath />
           <div className="flex flex-col gap-16 sm:block">
             {stages.map((stage, i) => {
               // even rows swing right, odd rows swing left — matching the path
@@ -139,20 +135,31 @@ export default function HomePage() {
                     }
                     aria-hidden
                   >
-                    <Image
-                      src={stage.belt.src}
-                      alt=""
-                      width={200}
-                      height={170}
-                      className="w-20 drop-shadow-lg"
-                    />
-                    <span className="mt-1 text-[11px] font-bold uppercase tracking-wide text-muted">
-                      {stage.belt.name}
-                    </span>
+                    <Reveal
+                      as="span"
+                      className="flex flex-col items-center"
+                      spring
+                      direction="down"
+                      distance={18}
+                      rotate={flip ? 4 : -4}
+                      delay={0.15}
+                    >
+                      <Image
+                        src={stage.belt.src}
+                        alt=""
+                        width={200}
+                        height={170}
+                        className="w-20 drop-shadow-lg"
+                      />
+                      <span className="mt-1 text-[11px] font-bold uppercase tracking-wide text-muted">
+                        {stage.belt.name}
+                      </span>
+                    </Reveal>
                   </span>
 
                   {/* copy — to the inner side of the belt, toward the centre */}
-                  <div
+                  <Reveal
+                    direction={flip ? "right" : "left"}
                     className={
                       "text-center sm:absolute sm:top-1/2 sm:max-w-[38%] sm:-translate-y-1/2 " +
                       (flip
@@ -177,11 +184,11 @@ export default function HomePage() {
                     >
                       {stage.cta} →
                     </Link>
-                  </div>
+                  </Reveal>
 
                   {/* the sensei-in-training — same side as the belt swing, just
                       beyond it so the line reaches the cat */}
-                  <div className="w-full sm:w-auto">
+                  <Reveal className="w-full sm:w-auto" delay={0.08}>
                     <Image
                       src={stage.photo.src}
                       alt={stage.photo.alt}
@@ -190,7 +197,7 @@ export default function HomePage() {
                       sizes="(min-width: 640px) 14rem, 60vw"
                       className="mx-auto h-auto w-full max-w-[13rem] drop-shadow-xl sm:max-h-[270px] sm:w-auto"
                     />
-                  </div>
+                  </Reveal>
                 </div>
               );
             })}
@@ -204,7 +211,7 @@ export default function HomePage() {
       {/* Training never stops — latest articles, in full detail */}
       {latestArticles.length > 0 && (
         <section className="mt-32 sm:mt-40">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <Reveal className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <h2 className="text-3xl font-black">Fresh from the dojo 📖</h2>
               <p className="mt-2 max-w-xl text-base font-medium leading-relaxed text-muted">
@@ -218,41 +225,53 @@ export default function HomePage() {
             >
               All articles →
             </Link>
-          </div>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          </Reveal>
+          <Stagger className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {latestArticles.map((article) => (
-              <ArticleCard key={article.slug} article={article} />
+              <StaggerItem key={article.slug}>
+                <ArticleCard article={article} />
+              </StaggerItem>
             ))}
-          </div>
+          </Stagger>
         </section>
       )}
 
       {/* Closing CTA */}
       <section className="mt-36 pb-28 text-center sm:mt-44">
-        <Image
-          src="/dojo.png"
-          alt=""
-          width={1100}
-          height={683}
-          className="mx-auto h-auto w-full max-w-[16rem] drop-shadow-2xl"
-        />
-        <h2 className="mx-auto mt-6 max-w-2xl text-4xl font-black leading-tight">
-          Wherever you are on the path, the dojo door is open.
-        </h2>
-        <p className="mx-auto mt-4 max-w-md text-base font-medium leading-relaxed text-muted">
-          Total beginners, job hunters, and working engineers — same mat, same
-          community.
-          {chapterCount > 0 ? ` ${chapterCount} chapters and counting.` : ""}
-        </p>
-        <a
-          href={site.discordUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-8 inline-flex items-center gap-2 rounded-full bg-fg px-8 py-3.5 text-base font-bold text-bg transition-transform hover:-translate-y-0.5"
-        >
-          <DiscordIcon className="h-5 w-5" />
-          Join the Discord
-        </a>
+        <Stagger gap={0.1}>
+          <StaggerItem>
+            <Image
+              src="/dojo.png"
+              alt=""
+              width={1100}
+              height={683}
+              className="mx-auto h-auto w-full max-w-[16rem] drop-shadow-2xl"
+            />
+          </StaggerItem>
+          <StaggerItem>
+            <h2 className="mx-auto mt-6 max-w-2xl text-4xl font-black leading-tight">
+              Wherever you are on the path, the dojo door is open.
+            </h2>
+          </StaggerItem>
+          <StaggerItem>
+            <p className="mx-auto mt-4 max-w-md text-base font-medium leading-relaxed text-muted">
+              Total beginners, job hunters, and working engineers — same mat,
+              same community.
+              {chapterCount > 0 ? ` ${chapterCount} chapters and counting.` : ""}
+            </p>
+          </StaggerItem>
+          <StaggerItem>
+            <a
+              href={site.discordUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-fg px-8 py-3.5 text-base font-bold text-bg transition-transform hover:-translate-y-0.5"
+            >
+              <DiscordIcon className="h-5 w-5" />
+              Join the Discord
+            </a>
+          </StaggerItem>
+        </Stagger>
       </section>
     </div>
   );

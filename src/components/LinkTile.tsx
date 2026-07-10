@@ -28,7 +28,7 @@ export function LinkTile({
       name={name}
       kind={kind}
       aria-label={`${name} (opens in a new tab)`}
-      className="group flex h-full flex-col rounded-2xl border border-border bg-surface p-5 transition-colors hover:border-accent"
+      className="group flex h-full flex-col rounded-2xl border border-border bg-surface p-5 transition hover:-translate-y-0.5 hover:border-accent"
     >
       <div className="flex items-start justify-between gap-3">
         <h3 className="text-base font-semibold tracking-tight">{name}</h3>

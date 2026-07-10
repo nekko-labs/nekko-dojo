@@ -4,6 +4,7 @@ import './globals.css';
 import { SiteHeader } from '@/components/SiteHeader';
 import { SiteFooter } from '@/components/SiteFooter';
 import { PostHogProvider } from '@/components/PostHogProvider';
+import { MotionProvider } from '@/components/motion';
 import { site } from '@/lib/site';
 import { Analytics } from '@vercel/analytics/next';
 
@@ -49,7 +50,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <PostHogProvider>
           <SiteHeader />
-          <main id="main">{children}</main>
+          <main id="main">
+            <MotionProvider>{children}</MotionProvider>
+          </main>
           <SiteFooter />
         </PostHogProvider>
         <Analytics />
