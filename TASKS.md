@@ -69,7 +69,7 @@ Routing:
 - **Supabase** — skill votes + feedback (`/api/vote`, `/api/feedback`, schema in `supabase/schema.sql`).
 - **PostHog** — analytics.
 - **Nekko Labs Discord** — invite-link CTA.
-- External links out to findadoc.jp, Nekko Labs OSS repos/community.
+- External links out to Nekko Labs OSS repos/community and other Japan-origin OSS projects.
 - Cloudflare — DNS record for the `dojo.nekkolabs.com` subdomain pointing at Vercel.
 
 ## Infrastructure & Deployment
@@ -100,7 +100,7 @@ Routing:
 | `/articles/[slug]` | Read an essay | Prose, headings TOC anchors, author, Discord CTA footer |
 | `/guide` | Guide overview / TOC | Intro, ordered chapter list grouped by section, "start here" |
 | `/guide/[slug]` | Read a chapter | Prose, prev/next chapter nav, progress context |
-| `/community` | Discover real projects | Featured projects (findadoc.jp, Nekko OSS), filter by type/location, Discord CTA |
+| `/community` | Discover real projects | Featured projects (Open Paw, Nekko OSS), filter by type/location, Discord CTA |
 
 **Components:** `SiteHeader` (logo/wordmark, nav, Discord button), `SiteFooter` (links, Discord, Nekko Labs attribution), `DiscordCTA` (reusable), `ArticleCard`, `ProjectCard`, `SkillVote`, `SkillFeedback`.
 
@@ -147,7 +147,7 @@ Extends `../../knowledgebase/principles/coding.md` (these deltas override it).
 ## Backlog / Planned
 
 - [ ] **T3** — Fill remaining Guide source-doc TODOs (Supabase signup link, git guide link, the missing walkthrough) with real content. See `features/initial-scaffold`. · [spec](SPEC.md#the-guide-flagship) · Added: 2026-06-29
-- [ ] **T4** — Expand the Community directory beyond findadoc.jp + Nekko OSS + Nekko Notes (more Japan-focused OSS projects/communities). → feature `community-directory-expansion`. · [spec](SPEC.md#community--projects) · Added: 2026-06-29
+- [ ] **T4** — Expand the Community directory beyond Nekko OSS + Nekko Notes (more Japan-focused OSS projects/communities). → feature `community-directory-expansion`. · [spec](SPEC.md#community--projects) · Added: 2026-06-29
 - [ ] **T5** — Add the `dojo` CNAME in Cloudflare pointing `dojo.nekkolabs.com` at Vercel, then verify the domain resolves. (Superseded the earlier `/dojo` subpath-rewrite plan.) · Added: 2026-06-29 · Updated: 2026-07-07
 - [ ] **T6** — Decide hosting (Vercel vs same host as main site, separate project) and stand up CI/CD (GitHub Actions, match Nekko conventions). · Added: 2026-06-29
 - [ ] **T7** — Travis brand/visual pass over the v1 default theme. → feature `brand-pass`. · Added: 2026-06-29
@@ -166,3 +166,5 @@ Extends `../../knowledgebase/principles/coding.md` (these deltas override it).
 - [x] **T17** — Skills directory with community feedback: skill votes + feedback (`/api/vote`, `/api/feedback`, `supabase/schema.sql`, `SkillVote`/`SkillFeedback`, `src/data/skills.ts`). · [spec](SPEC.md#community--projects)
 - [x] **T18** — PostHog analytics integrated. · [spec](SPEC.md#cross-cutting)
 - [x] **T19** — Initialize git, connect to `nekko-labs/nekko-dojo` (internal), merge remote stub history, push `main`.
+- [x] **T20** — Landing polish: footer torii separator reworked so the ink line rises *into* the gate (no beam under it, pillars poke through the lintel); flipped "The path" ahead of "Where are you now?"; reworded the footer blurb around mission + community + learning from experienced leaders. · [spec](SPEC.md#cross-cutting) · Done: 2026-07-10
+- [x] **T21** — Removed Find a Doc Japan from the site at the maintainers' request: dropped the directory entry, home/community "ship with real teams" copy, the guide's community bullet, and the article mentions. · [spec](SPEC.md#community--projects) · Done: 2026-07-10

@@ -8,7 +8,7 @@ export const site = {
   name: 'Nekko Dojo',
   tagline: 'Train into tech. Grow your engineering career.',
   description:
-    'Director-level perspective on engineering and AI, a step-by-step guide for switching into software development in Japan, and a directory of real-world open-source projects and communities to learn on a real team.',
+    'On a mission to help you break into software engineering and never stop growing. Learn in a community of career-changers and working engineers, guided by experienced leaders who have done the hiring.',
   // Absolute URL used for metadata. Dojo lives at its own subdomain.
   // Use `||` (not `??`) so an empty-string env var falls back too — Vercel
   // currently has these set to "", which `??` would pass straight through.

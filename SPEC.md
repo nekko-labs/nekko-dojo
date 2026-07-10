@@ -18,7 +18,7 @@ The feel is focused, editorial, and dev-credible: a calm "training hall" for peo
 
 There's a large, motivated population — especially English teachers and other career-changers in Japan — who want to break into software development but lack (a) a trustworthy, experience-backed roadmap and (b) a path to *real* team experience beyond solo toy projects. Separately, the AI shift is rapidly changing what it means to be a valuable engineer, and there's little senior/director-level perspective written for people navigating that change.
 
-Philip has both: a proven course/workflow that has helped many people switch careers (Findadoc has helped 225+ engineers learn, several landing jobs), and 10+ years culminating in principal/director-level experience. Nekko Dojo packages that into an opinionated, experience-backed resource — not an exhaustive tutorial farm.
+Philip has both: a proven course/workflow that has helped many people switch careers (the open-source communities he has run have helped hundreds of engineers learn on a real team, several landing jobs), and 10+ years culminating in principal/director-level experience. Nekko Dojo packages that into an opinionated, experience-backed resource — not an exhaustive tutorial farm.
 
 ## Who It's For
 
@@ -30,7 +30,7 @@ Philip has both: a proven course/workflow that has helped many people switch car
 
 1. **Career-changer path:** Home → Guide overview → start chapter 1 → progress chapter-to-chapter via prev/next → Community (apply learning to a real project) → Discord for help and accountability.
 2. **Reader/subscriber path:** Home → Articles → read an essay → Discord CTA at the footer.
-3. **Contributor path:** Home/Community → pick a project (e.g. findadoc.jp) → external link out + "join Discord for help".
+3. **Contributor path:** Home/Community → pick a project (e.g. Open Paw) → external link out + "join Discord for help".
 
 Interacting with the site should feel like reading a trusted senior engineer's notes: generous reading width for long-form content, clean typography, syntax-highlighted code, and a recurring, low-pressure nudge toward the community.
 
@@ -38,7 +38,7 @@ Interacting with the site should feel like reading a trusted senior engineer's n
 
 - Guide completion / chapter progression (readers moving through chapters)
 - Discord joins attributed to the site
-- Clickthroughs to featured projects/communities (findadoc.jp, Nekko OSS)
+- Clickthroughs to featured projects/communities (Open Paw, Nekko OSS)
 - Article readership and returning visitors
 - Qualitative: career-changers reporting they landed roles / made first OSS contributions
 
@@ -62,12 +62,12 @@ A structured, multi-chapter guide expanding Philip's existing course/workflow fo
 - Fill remaining source-doc TODOs (Supabase signup link, git guide link, a walkthrough) `[planned]`
 
 ### Community & Projects
-A curated directory of OSS projects and communities (starting with findadoc.jp and the Nekko Labs OSS community) where learners contribute to real teams. *Why:* bridges the gap between learning and employable, collaborative experience.
+A curated directory of OSS projects and communities (starting with the Nekko Labs OSS community and Japan-origin projects) where learners contribute to real teams. *Why:* bridges the gap between learning and employable, collaborative experience.
 
-- Directory page rendering typed community/project data `[shipped]` — findadoc.jp, Nekko OSS, Nekko Notes featured
+- Directory page rendering typed community/project data `[shipped]` — Open Paw, Nekko OSS, Misskey featured/listed
 - Filter by type / location `[in progress]`
 - Skills directory (`/skills`): filterable catalog (search + tier + category) and per-skill detail pages, with trust tiers, install commands, community feedback (skill votes + feedback, Supabase-backed), and **per-skill `.zip` download** (assembled from the marketplace repo on demand, CDN-cached) `[shipped]`
-- Expand beyond findadoc.jp + Nekko OSS to more Japan-focused projects/communities `[planned]`
+- Expand beyond the Nekko Labs OSS community to more Japan-focused projects/communities `[planned]`
 
 ### Discord
 A persistent CTA throughout the site to join the Nekko Labs Discord community. *Why:* converts readers into an engaged community and support network.

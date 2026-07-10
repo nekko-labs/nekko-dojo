@@ -66,20 +66,6 @@ export type JobResource = {
 // 1. Projects — actual OSS/GitHub projects you can contribute to.
 export const projects: Project[] = [
   {
-    id: 'findadoc',
-    name: 'Find a Doc Japan',
-    github: 'https://github.com/ourjapanlife/findadoc-web',
-    website: 'https://findadoc.jp',
-    community:
-      'https://find-a-doc.slack.com/join/shared_invite/zt-2lb3j2t1z-O9F4thzcFktqsIXNzzjzHw',
-    description:
-      'An open-source, NPO-run directory helping people in Japan find healthcare providers who can support them in their language. A welcoming, well-organized codebase (TypeScript/Vue/GraphQL) that has helped 225+ engineers learn by contributing — several landed jobs through it. The best place to get real team experience as a career-changer.',
-    region: 'Japan',
-    tags: ['TypeScript', 'Vue', 'GraphQL', 'NPO', 'good first issue'],
-    beginnerFriendly: true,
-    featured: true,
-  },
-  {
     id: 'open-paw',
     name: 'Open Paw',
     github: 'https://github.com/nekko-labs/open-paw',
