@@ -419,8 +419,9 @@ body {
 .torii-sep[data-drawn='true'] .torii .t4,
 .torii-sep[data-drawn='true'] .torii .t5 { animation-delay: 0.05s; }
 .torii-sep[data-drawn='true'] .torii .t1 { animation-delay: 0.45s; }
-.torii-sep[data-drawn='true'] .torii .t2 { animation-delay: 0.7s; }
-.torii-sep[data-drawn='true'] .torii .t3 { animation-delay: 0.9s; }
+.torii-sep[data-drawn='true'] .torii .t6 { animation-delay: 0.58s; }
+.torii-sep[data-drawn='true'] .torii .t2 { animation-delay: 0.72s; }
+.torii-sep[data-drawn='true'] .torii .t3 { animation-delay: 0.92s; }
 @keyframes torii-draw { to { stroke-dashoffset: 0; } }
 
 @media (prefers-reduced-motion: reduce) {
