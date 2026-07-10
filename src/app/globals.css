@@ -383,23 +383,33 @@ body {
 /* ---------------------------------------------------------------------------
    Footer torii-gate separator — a bold ink line that becomes a gate.
 --------------------------------------------------------------------------- */
-.torii-sep { color: var(--fg); }
+.torii-sep {
+  color: var(--fg);
+  display: flex;
+  align-items: flex-end;
+  gap: 0;
+}
 .torii {
   display: block;
-  width: min(460px, 76%);
+  flex: 0 0 auto;
+  width: min(150px, 30%);
   height: auto;
-  aspect-ratio: 520 / 232; /* guarantee height even if intrinsic sizing is odd */
-  margin: 0 auto -4px;
+  aspect-ratio: 120 / 190; /* guarantee height even if intrinsic sizing is odd */
+  overflow: visible; /* let the lintel overhang and pillar tops show */
 }
+/* the ink line runs in from each edge and meets the pillars' feet */
 .torii-line {
-  height: 6px;
-  width: 100%;
+  flex: 1 1 auto;
+  height: 7px;
   background: currentColor;
+  border-radius: 4px;
+  margin-bottom: 2px; /* sit centred on the pillar feet */
   transform: scaleX(0);
-  transform-origin: center;
 }
+.torii-line-l { transform-origin: right; }
+.torii-line-r { transform-origin: left; }
 .torii-sep[data-drawn='true'] .torii-line {
-  animation: torii-line 1s cubic-bezier(0.22, 1, 0.36, 1) 0.05s forwards;
+  animation: torii-line 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards;
 }
 @keyframes torii-line { to { transform: scaleX(1); } }
 .torii .t { stroke-dasharray: 1; stroke-dashoffset: 1; }
@@ -407,10 +417,10 @@ body {
   animation: torii-draw 0.9s ease forwards;
 }
 .torii-sep[data-drawn='true'] .torii .t4,
-.torii-sep[data-drawn='true'] .torii .t5 { animation-delay: 0.15s; }
-.torii-sep[data-drawn='true'] .torii .t1 { animation-delay: 0.5s; }
-.torii-sep[data-drawn='true'] .torii .t2 { animation-delay: 0.75s; }
-.torii-sep[data-drawn='true'] .torii .t3 { animation-delay: 0.95s; }
+.torii-sep[data-drawn='true'] .torii .t5 { animation-delay: 0.05s; }
+.torii-sep[data-drawn='true'] .torii .t1 { animation-delay: 0.45s; }
+.torii-sep[data-drawn='true'] .torii .t2 { animation-delay: 0.7s; }
+.torii-sep[data-drawn='true'] .torii .t3 { animation-delay: 0.9s; }
 @keyframes torii-draw { to { stroke-dashoffset: 0; } }
 
 @media (prefers-reduced-motion: reduce) {

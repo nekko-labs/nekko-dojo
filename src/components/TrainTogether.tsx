@@ -14,7 +14,7 @@ const benefits = [
   {
     emoji: '🚢',
     title: 'Ship with real teams',
-    body: 'Find a Doc Japan, Open Paw and more — open-source projects where 225+ people have gained real team experience.',
+    body: 'Open Paw, Misskey and more — real open-source projects where you gain genuine team experience, not just solo side projects.',
   },
   {
     emoji: '🎓',

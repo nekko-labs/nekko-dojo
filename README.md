@@ -4,7 +4,7 @@ A learning / content platform from [Nekko Labs](https://nekkolabs.com). Three th
 
 1. **Articles** — director-level perspective on engineering, AI, and growing a career as the market shifts.
 2. **The Guide** — a step-by-step path for switching into software development (especially for career-changers in Japan).
-3. **Community & Projects** — curated open-source projects and communities (starting with [findadoc.jp](https://findadoc.jp) and the Nekko Labs OSS community) where you gain *real* team experience.
+3. **Community & Projects** — curated open-source projects and communities (starting with Open Paw and the Nekko Labs OSS community) where you gain *real* team experience.
 
 …all funneling into the **Nekko Labs Discord**.
 
