@@ -15,7 +15,7 @@ export function ProjectCard({ project }: { project: Project }) {
 
   return (
     <div
-      className={`group flex h-full flex-col rounded-2xl border bg-surface p-5 transition-colors hover:border-accent sm:p-6 ${
+      className={`group flex h-full flex-col rounded-2xl border bg-surface p-5 transition hover:-translate-y-0.5 hover:border-accent sm:p-6 ${
         project.featured ? 'border-accent/50' : 'border-border'
       }`}
     >

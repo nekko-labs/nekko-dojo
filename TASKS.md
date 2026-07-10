@@ -1,6 +1,6 @@
 ---
 status: draft
-last-updated: 2026-06-25
+last-updated: 2026-07-10
 owner: Philip
 ---
 
@@ -23,6 +23,7 @@ owner: Philip
 - **Tailwind CSS v4** — CSS-first config via `@theme` in `globals.css`. Prefer tokens/utilities over ad-hoc inline styles.
 - **Content / MDX:** `next-mdx-remote` (RSC) + `gray-matter` (frontmatter) + `shiki` / `rehype-pretty-code` (syntax highlighting), plus `remark-gfm`, `rehype-slug`, `rehype-autolink-headings`.
 - **Backend bits:** Supabase (skill votes + feedback via `/api/vote`, `/api/feedback`, `supabase/schema.sql`); PostHog analytics.
+- **Animation:** the `motion` library (motion.dev, imported from `motion/react`). Reusable client primitives (`Reveal`, `Stagger`, `StaggerItem`, `MotionProvider`) live in `src/components/motion.tsx`; pages stay server components and compose them via children. All motion is once-only, opacity/transform only, and reduced-motion aware.
 - **Package manager: npm** (matches `nekko-notes`, `open-paw`), Node 20+. Lockfile is `package-lock.json`. This overrides the global pnpm default — do not relitigate.
 - Served at `dojo.nekkolabs.com` on its own subdomain (separate, standalone deploy; no basePath).
 
@@ -168,3 +169,4 @@ Extends `../../knowledgebase/principles/coding.md` (these deltas override it).
 - [x] **T19** — Initialize git, connect to `nekko-labs/nekko-dojo` (internal), merge remote stub history, push `main`.
 - [x] **T20** — Landing polish: footer torii separator reworked so the ink line rises *into* the gate (no beam under it, pillars poke through the lintel); flipped "The path" ahead of "Where are you now?"; reworded the footer blurb around mission + community + learning from experienced leaders. · [spec](SPEC.md#cross-cutting) · Done: 2026-07-10
 - [x] **T21** — Removed Find a Doc Japan from the site at the maintainers' request: dropped the directory entry, home/community "ship with real teams" copy, the guide's community bullet, and the article mentions. · [spec](SPEC.md#community--projects) · Done: 2026-07-10
+- [x] **T22** - Tasteful scroll/entrance animations site-wide via the `motion` library: `Reveal`/`Stagger`/`StaggerItem` primitives + `MotionProvider` (reduced-motion aware) in `src/components/motion.tsx`; hero and page-header fade-ups, staggered card grids, alternating stage-row slides with soft-spring belts, a scroll-drawn dotted belt path (`StagePath`), instant-on-filter skills grid, and a 2px hover lift on cards. · [spec](SPEC.md#motion) · Done: 2026-07-10

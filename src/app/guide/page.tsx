@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getGuideSections, getAllGuideChapters } from '@/lib/content';
 import { ArrowRightIcon } from '@/components/icons';
+import { Reveal, Stagger, StaggerItem } from '@/components/motion';
 
 export const metadata: Metadata = {
   title: 'The Guide',
@@ -16,7 +17,7 @@ export default function GuidePage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
-      <header className="max-w-2xl">
+      <Reveal as="header" load className="max-w-2xl">
         <p className="text-sm font-medium text-accent">The flagship</p>
         <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">The Guide</h1>
         <p className="mt-3 text-lg text-muted">
@@ -33,14 +34,14 @@ export default function GuidePage() {
             <ArrowRightIcon className="h-4 w-4" />
           </Link>
         )}
-      </header>
+      </Reveal>
 
       {all.length === 0 ? (
         <p className="mt-12 text-muted">Chapters are being written — check back soon.</p>
       ) : (
-        <div className="mt-12 space-y-10">
+        <Stagger className="mt-12 space-y-10">
           {sections.map((section) => (
-            <section key={section.section}>
+            <StaggerItem as="section" key={section.section}>
               <h2 className="text-sm font-semibold uppercase tracking-wide text-muted">
                 {section.section}
               </h2>
@@ -69,9 +70,9 @@ export default function GuidePage() {
                   </li>
                 ))}
               </ol>
-            </section>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       )}
     </div>
   );

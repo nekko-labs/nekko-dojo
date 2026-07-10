@@ -4,6 +4,7 @@ import { getVoteCounts } from '@/lib/votes';
 import { InstallCommand } from '@/components/InstallCommand';
 import { SkillsExplorer, type SkillWithVotes } from '@/components/SkillsExplorer';
 import { GitHubIcon } from '@/components/icons';
+import { Reveal } from '@/components/motion';
 
 export const metadata: Metadata = {
   title: 'Skills',
@@ -24,7 +25,7 @@ export default async function SkillsPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
-      <header className="max-w-2xl">
+      <Reveal as="header" load className="max-w-2xl">
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Skills</h1>
         <p className="mt-3 text-lg text-muted">
           An Agent Skills hub for Claude Code. Browse skills built by Nekko Labs and the
@@ -32,10 +33,10 @@ export default async function SkillsPage() {
           or grab any skill as a <code className="font-mono text-sm">.zip</code> to read and
           run yourself.
         </p>
-      </header>
+      </Reveal>
 
       {/* Add-the-marketplace primer */}
-      <div className="mt-8 rounded-2xl border border-border bg-surface p-5 sm:p-6">
+      <Reveal load delay={0.1} className="mt-8 rounded-2xl border border-border bg-surface p-5 sm:p-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <h2 className="font-semibold tracking-tight">Install from the marketplace</h2>
@@ -55,17 +56,17 @@ export default async function SkillsPage() {
         <div className="mt-4">
           <InstallCommand command={skillsMarketplace.addCommand} label="Add the marketplace (once)" />
         </div>
-      </div>
+      </Reveal>
 
       {/* Trust tiers */}
-      <p className="mt-6 text-sm text-muted">
+      <Reveal as="p" load delay={0.16} className="mt-6 text-sm text-muted">
         <span className="font-medium text-fg">🟣 Nekko official</span> — built &amp; reviewed by
         Nekko Labs.{' '}
         <span className="font-medium text-fg">🟢 Community</span> — submitted via PR; audit before
         you run it.{' '}
         <span className="font-medium text-fg">🔗 Curated</span> — great external skills, linked to
         their source.
-      </p>
+      </Reveal>
 
       <div className="mt-10">
         <SkillsExplorer items={items} categories={getUsedCategories()} />

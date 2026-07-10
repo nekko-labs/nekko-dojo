@@ -4,7 +4,7 @@ import { formatDate } from '@/lib/format';
 
 export function ArticleCard({ article }: { article: ArticleMeta }) {
   return (
-    <article className="group rounded-2xl border border-border bg-surface p-6 transition-colors hover:border-accent">
+    <article className="group rounded-2xl border border-border bg-surface p-6 transition hover:-translate-y-0.5 hover:border-accent">
       <Link href={`/articles/${article.slug}`} className="block">
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted">
           {article.author && <span className="font-bold text-subtle">{article.author}</span>}

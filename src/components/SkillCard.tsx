@@ -18,7 +18,7 @@ export function SkillCard({ skill, voteCount }: { skill: Skill; voteCount: numbe
 
   return (
     <article
-      className={`group relative flex h-full flex-col rounded-2xl border bg-surface p-5 transition-colors hover:border-accent ${
+      className={`group relative flex h-full flex-col rounded-2xl border bg-surface p-5 transition hover:-translate-y-0.5 hover:border-accent ${
         skill.featured ? 'border-accent/50' : 'border-border'
       }`}
     >

@@ -1,6 +1,6 @@
 ---
 status: draft
-last-updated: 2026-06-25
+last-updated: 2026-07-10
 owner: Philip
 ---
 
@@ -33,6 +33,10 @@ Philip has both: a proven course/workflow that has helped many people switch car
 3. **Contributor path:** Home/Community → pick a project (e.g. Open Paw) → external link out + "join Discord for help".
 
 Interacting with the site should feel like reading a trusted senior engineer's notes: generous reading width for long-form content, clean typography, syntax-highlighted code, and a recurring, low-pressure nudge toward the community.
+
+### Motion
+
+The site uses a quiet, once-only animation language built on the `motion` library: page headers and the home hero fade and rise into place on load, sections and card grids (articles, skills, projects, link tiles) reveal and cascade in as they scroll into view, and the home page's dotted belt path draws itself in as the visitor scrolls through the stages (belts settle with a soft spring). Cards get a tiny hover lift. Nothing loops beyond the existing ambient dusk glow, movement is small and eased to match the CSS easings, and `prefers-reduced-motion` users get opacity-only fades (the belt path renders fully drawn).
 
 ## What Success Looks Like
 
@@ -79,6 +83,7 @@ A persistent CTA throughout the site to join the Nekko Labs Discord community. *
 - Home page: orient + route to all four pillars, hero, four-pillar cards, latest articles, Discord CTA `[shipped]`
 - 404 page `[shipped]`
 - PostHog analytics `[shipped]`
+- Scroll-triggered and entrance animations site-wide (`motion` library, reduced-motion aware) `[shipped]`
 - Newsletter / email capture for new articles `[planned]`
 
 ## Scope Boundaries
