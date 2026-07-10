@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { nav, site } from '@/lib/site';
 import { DiscordIcon, GitHubIcon } from './icons';
+import { MobileNav } from './MobileNav';
 
 export function SiteHeader() {
   return (
@@ -19,7 +20,7 @@ export function SiteHeader() {
           <span>{site.name}</span>
         </Link>
 
-        <nav aria-label="Primary" className="flex items-center gap-1 sm:gap-2">
+        <nav aria-label="Primary" className="hidden items-center gap-1 sm:flex sm:gap-2">
           {nav.map((item) => (
             <Link
               key={item.href}
@@ -48,6 +49,8 @@ export function SiteHeader() {
             Join the Discord
           </a>
         </nav>
+
+        <MobileNav />
       </div>
     </header>
   );
