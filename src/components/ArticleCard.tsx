@@ -6,7 +6,9 @@ export function ArticleCard({ article }: { article: ArticleMeta }) {
   return (
     <article className="group rounded-2xl border border-border bg-surface p-6 transition-colors hover:border-accent">
       <Link href={`/articles/${article.slug}`} className="block">
-        <div className="flex items-center gap-2 text-xs text-muted">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted">
+          {article.author && <span className="font-bold text-subtle">{article.author}</span>}
+          {article.author && <span aria-hidden>·</span>}
           {article.date && <time dateTime={article.date}>{formatDate(article.date)}</time>}
           {article.date && <span aria-hidden>·</span>}
           <span>{article.readingMinutes} min read</span>
