@@ -383,9 +383,9 @@ body {
 .torii {
   display: block;
   flex: 0 0 auto;
-  width: min(140px, 30%);
+  width: min(150px, 32%);
   height: auto;
-  aspect-ratio: 120 / 132; /* matches the viewBox; upright flat-icon */
+  aspect-ratio: 120 / 122; /* matches the viewBox; wide airy flat-icon */
   overflow: visible; /* let the roof overhang the gate horizontally */
 }
 /* two-tone fills: charcoal roof + feet, vermilion beams / pillars / strut */
@@ -398,9 +398,9 @@ body {
 /* the ink line draws in from each edge and meets the outer feet */
 .torii-line {
   flex: 1 1 auto;
-  height: 7px;
+  height: 3px;
   background: currentColor;
-  border-radius: 4px;
+  border-radius: 2px;
   transform: scaleX(0);
 }
 .torii-line-l { transform-origin: left; }
@@ -418,7 +418,7 @@ body {
   transform-box: fill-box;
   opacity: 0;
 }
-.t-foot { transform: translateY(8px) scale(0.85); transform-origin: center bottom; }
+.t-foot { transform: translateY(6px) scale(0.85); transform-origin: center bottom; }
 .t-pillar { transform: scaleY(0); transform-origin: center bottom; }
 .t-beam { transform: scaleX(0); transform-origin: center; }
 .t-strut { transform: scaleY(0); transform-origin: center bottom; }
