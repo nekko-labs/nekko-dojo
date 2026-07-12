@@ -38,26 +38,29 @@ export function ToriiSeparator() {
 
   return (
     <div ref={ref} className="torii-sep" data-drawn={drawn ? 'true' : 'false'} aria-hidden>
-      {/* left run of the ink line, growing outward from the gate */}
+      {/* left run of the ink line, drawing in from the edge toward the foot */}
       <span className="torii-line torii-line-l" />
-      {/* the gate — a flat two-tone torii icon. Feet sit on the ink line at the
-          box edges; the roof overhangs horizontally (overflow visible). */}
-      <svg className="torii" viewBox="0 6 120 119" fill="none">
+      {/* the gate — a flat two-tone torii icon. The outer edges of the feet sit
+          at the box edges so the ink line flows straight into them; the roof
+          overhangs horizontally (overflow visible). */}
+      <svg className="torii" viewBox="0 0 120 132" fill="none">
         {/* hashira — the two pillars, splaying out slightly toward the feet */}
-        <path className="t t-pillar t-pillar-l" d="M6 64 H24 L26 112 H4 Z" />
-        <path className="t t-pillar t-pillar-r" d="M96 64 H114 L116 112 H94 Z" />
-        {/* kutsuishi — chunky base feet; their outer edges meet the ink line */}
-        <rect className="t t-foot t-foot-l" x="0" y="112" width="30" height="13" rx="3" />
-        <rect className="t t-foot t-foot-r" x="90" y="112" width="30" height="13" rx="3" />
+        <path className="t t-pillar t-pillar-l" d="M8 48 H26 L28 120 H6 Z" />
+        <path className="t t-pillar t-pillar-r" d="M94 48 H112 L114 120 H92 Z" />
+        {/* kutsuishi — chunky charcoal base feet; outer edges meet the ink line */}
+        <rect className="t t-foot t-foot-l" x="0" y="118" width="34" height="14" rx="3" />
+        <rect className="t t-foot t-foot-r" x="86" y="118" width="34" height="14" rx="3" />
         {/* nuki — tie beam crossing the pillars, overhanging them slightly */}
-        <rect className="t t-beam t-nuki" x="0" y="90" width="120" height="13" rx="4" />
+        <rect className="t t-beam t-nuki" x="2" y="90" width="116" height="14" rx="4" />
+        {/* gakuzuka — short central strut linking the tie beam up to the roof */}
+        <rect className="t t-strut" x="54" y="52" width="12" height="40" rx="2" />
         {/* shimaki — straight beam sitting just under the roof */}
-        <rect className="t t-beam t-shimaki" x="14" y="52" width="92" height="12" rx="5" />
-        {/* kasagi — top lintel: a thick charcoal upswept plank, ends flaring up
+        <rect className="t t-beam t-shimaki" x="8" y="40" width="104" height="13" rx="5" />
+        {/* kasagi — top lintel: a thick charcoal upswept plank, ends sweeping up
             and overhanging the gate on both sides */}
         <path
           className="t t-roof"
-          d="M-8 14 Q26 30 60 36 Q94 30 128 14 Q96 42 60 50 Q24 42 -8 14 Z"
+          d="M-10 16 Q25 25 60 29 Q95 25 130 16 L130 31 Q95 41 60 45 Q25 41 -10 31 Z"
         />
       </svg>
       {/* right run of the ink line */}

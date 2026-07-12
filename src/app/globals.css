@@ -383,18 +383,19 @@ body {
 .torii {
   display: block;
   flex: 0 0 auto;
-  width: min(150px, 34%);
+  width: min(140px, 30%);
   height: auto;
-  aspect-ratio: 120 / 119; /* matches the viewBox; near-square flat-icon */
+  aspect-ratio: 120 / 132; /* matches the viewBox; upright flat-icon */
   overflow: visible; /* let the roof overhang the gate horizontally */
 }
-/* two-tone fills: charcoal roof, vermilion everything else */
-.torii .t-roof { fill: var(--gate); }
+/* two-tone fills: charcoal roof + feet, vermilion beams / pillars / strut */
+.torii .t-roof,
+.torii .t-foot { fill: var(--gate); }
 .torii .t-beam,
 .torii .t-pillar,
-.torii .t-foot { fill: var(--torii-red); }
+.torii .t-strut { fill: var(--torii-red); }
 
-/* the ink line runs in from each edge and meets the outer feet */
+/* the ink line draws in from each edge and meets the outer feet */
 .torii-line {
   flex: 1 1 auto;
   height: 7px;
@@ -402,39 +403,44 @@ body {
   border-radius: 4px;
   transform: scaleX(0);
 }
-.torii-line-l { transform-origin: right; }
-.torii-line-r { transform-origin: left; }
+.torii-line-l { transform-origin: left; }
+.torii-line-r { transform-origin: right; }
 .torii-sep[data-drawn='true'] .torii-line {
   animation: torii-line 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
 }
 @keyframes torii-line { to { transform: scaleX(1); } }
 
 /* --- the gate builds itself, piece by piece --------------------------------
-   feet settle → pillars grow up out of them → beams span across → roof drops on.
+   ink lines draw in → feet settle → pillars grow up out of them → the tie beam
+   and roof beam span across → the central strut rises → the roof drops on top.
    Each piece transforms about its own bounding box. */
 .torii .t {
   transform-box: fill-box;
   opacity: 0;
 }
-.t-foot { transform: translateY(7px) scale(0.85); transform-origin: center bottom; }
+.t-foot { transform: translateY(8px) scale(0.85); transform-origin: center bottom; }
 .t-pillar { transform: scaleY(0); transform-origin: center bottom; }
 .t-beam { transform: scaleX(0); transform-origin: center; }
-.t-roof { transform: translateY(-16px); transform-origin: center; }
+.t-strut { transform: scaleY(0); transform-origin: center bottom; }
+.t-roof { transform: translateY(-18px); transform-origin: center; }
 
 .torii-sep[data-drawn='true'] .t-foot {
-  animation: torii-pop 0.4s cubic-bezier(0.34, 1.4, 0.5, 1) 0.5s forwards;
+  animation: torii-pop 0.4s cubic-bezier(0.34, 1.4, 0.5, 1) 0.55s forwards;
 }
 .torii-sep[data-drawn='true'] .t-pillar {
-  animation: torii-grow-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.75s forwards;
+  animation: torii-grow-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.8s forwards;
 }
 .torii-sep[data-drawn='true'] .t-nuki {
-  animation: torii-span 0.45s cubic-bezier(0.22, 1, 0.36, 1) 1.15s forwards;
+  animation: torii-span 0.45s cubic-bezier(0.22, 1, 0.36, 1) 1.2s forwards;
 }
 .torii-sep[data-drawn='true'] .t-shimaki {
-  animation: torii-span 0.45s cubic-bezier(0.22, 1, 0.36, 1) 1.35s forwards;
+  animation: torii-span 0.45s cubic-bezier(0.22, 1, 0.36, 1) 1.4s forwards;
+}
+.torii-sep[data-drawn='true'] .t-strut {
+  animation: torii-grow-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) 1.6s forwards;
 }
 .torii-sep[data-drawn='true'] .t-roof {
-  animation: torii-drop 0.5s cubic-bezier(0.34, 1.3, 0.5, 1) 1.55s forwards;
+  animation: torii-drop 0.5s cubic-bezier(0.34, 1.3, 0.5, 1) 1.8s forwards;
 }
 @keyframes torii-pop { to { opacity: 1; transform: none; } }
 @keyframes torii-grow-up { to { opacity: 1; transform: scaleY(1); } }
