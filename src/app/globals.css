@@ -381,45 +381,57 @@ body {
   gap: 0;
 }
 .torii {
-  color: var(--torii-red); /* the gate is vermilion; the ink lines stay cream */
   display: block;
   flex: 0 0 auto;
-  width: min(150px, 30%);
+  width: min(140px, 32%);
   height: auto;
-  aspect-ratio: 120 / 190; /* guarantee height even if intrinsic sizing is odd */
-  overflow: visible; /* let the lintel overhang and pillar tops show */
+  aspect-ratio: 132 / 108; /* matches the viewBox; flat-icon proportions */
+  overflow: visible; /* let the roof overhang the gate */
 }
+/* two-tone fills: charcoal roof, vermilion everything else */
+.torii .t-roof { fill: var(--gate); }
+.torii .t-beam,
+.torii .t-pillar,
+.torii .t-foot { fill: var(--torii-red); }
+
 /* the ink line runs in from each edge and meets the pillars' feet */
 .torii-line {
   flex: 1 1 auto;
   height: 7px;
   background: currentColor;
   border-radius: 4px;
-  margin-bottom: 2px; /* sit centred on the pillar feet */
   transform: scaleX(0);
 }
 .torii-line-l { transform-origin: right; }
 .torii-line-r { transform-origin: left; }
 .torii-sep[data-drawn='true'] .torii-line {
-  animation: torii-line 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards;
+  animation: torii-line 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
 }
 @keyframes torii-line { to { transform: scaleX(1); } }
-.torii .t { stroke-dasharray: 1; stroke-dashoffset: 1; }
-.torii-sep[data-drawn='true'] .torii .t {
-  animation: torii-draw 0.9s ease forwards;
+
+/* each gate piece rises into place, bottom-up */
+.torii .t {
+  opacity: 0;
+  transform: translateY(9px);
+  transform-box: fill-box;
+  transform-origin: center;
 }
-.torii-sep[data-drawn='true'] .torii .t4,
-.torii-sep[data-drawn='true'] .torii .t5 { animation-delay: 0.05s; }
-.torii-sep[data-drawn='true'] .torii .t1 { animation-delay: 0.45s; }
-.torii-sep[data-drawn='true'] .torii .t6 { animation-delay: 0.58s; }
-.torii-sep[data-drawn='true'] .torii .t2 { animation-delay: 0.72s; }
-.torii-sep[data-drawn='true'] .torii .t3 { animation-delay: 0.92s; }
-@keyframes torii-draw { to { stroke-dashoffset: 0; } }
+.torii-sep[data-drawn='true'] .torii .t {
+  animation: torii-rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.torii-sep[data-drawn='true'] .t-foot { animation-delay: 0.05s; }
+.torii-sep[data-drawn='true'] .t-pillar { animation-delay: 0.18s; }
+.torii-sep[data-drawn='true'] .t-nuki { animation-delay: 0.34s; }
+.torii-sep[data-drawn='true'] .t-shimaki { animation-delay: 0.48s; }
+.torii-sep[data-drawn='true'] .t-roof { animation-delay: 0.6s; }
+@keyframes torii-rise {
+  to { opacity: 1; transform: none; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .train-fade { animation: none; }
   .train-underline { display: none; }
   .train-emoji, .train-glow-a, .train-glow-b { transform: none !important; }
-  .torii .t { stroke-dashoffset: 0 !important; animation: none !important; }
+  .torii .t { opacity: 1 !important; transform: none !important; animation: none !important; }
   .torii-line { transform: none !important; animation: none !important; }
 }
