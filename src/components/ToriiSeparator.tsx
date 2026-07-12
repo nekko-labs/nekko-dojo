@@ -4,12 +4,13 @@ import { useEffect, useRef, useState } from 'react';
 
 /**
  * The footer's signature: a bold full-width ink line that, in the middle, meets
- * the feet of a torii gate. The gate is drawn in the flat two-tone icon style —
- * a dark charcoal upswept roof (kasagi) sitting on vermilion beams, pillars and
- * base feet. The ink line runs in from both edges and stops at the gate's feet;
- * there is no line beneath the gate, so the line *carries* it. Each piece of the
- * gate rises into place, bottom-up, when the footer scrolls into view (skipped
- * for reduced-motion).
+ * the feet of a torii gate drawn in the flat two-tone icon style — a thick
+ * charcoal upswept roof (kasagi) sitting on vermilion beams, pillars and base
+ * feet. The ink line runs in from both edges and stops at the gate's feet.
+ *
+ * When the footer scrolls into view the gate *builds itself*: the ink lines draw
+ * in from the edges, the feet settle, the pillars grow up out of them, the two
+ * beams span across, and the roof drops on top. Skipped for reduced-motion.
  */
 export function ToriiSeparator() {
   const ref = useRef<HTMLDivElement>(null);
@@ -39,21 +40,25 @@ export function ToriiSeparator() {
     <div ref={ref} className="torii-sep" data-drawn={drawn ? 'true' : 'false'} aria-hidden>
       {/* left run of the ink line, growing outward from the gate */}
       <span className="torii-line torii-line-l" />
-      {/* the gate itself — a flat two-tone torii icon. Charcoal upswept roof,
-          vermilion beams / pillars / feet. Pieces rise in bottom-up. */}
-      <svg className="torii" viewBox="-6 4 132 108" fill="none">
-        {/* base feet (kutsuishi) — the pillars stand on these; they sit on the line */}
-        <rect className="t t-foot t-foot-l" x="18" y="103" width="24" height="9" rx="2.5" />
-        <rect className="t t-foot t-foot-r" x="78" y="103" width="24" height="9" rx="2.5" />
+      {/* the gate — a flat two-tone torii icon. Feet sit on the ink line at the
+          box edges; the roof overhangs horizontally (overflow visible). */}
+      <svg className="torii" viewBox="0 6 120 119" fill="none">
         {/* hashira — the two pillars, splaying out slightly toward the feet */}
-        <path className="t t-pillar t-pillar-l" d="M26 41 H37 L36 104 H23 Z" />
-        <path className="t t-pillar t-pillar-r" d="M83 41 H94 L97 104 H84 Z" />
-        {/* nuki — tie beam crossing the pillars, overhanging slightly */}
-        <rect className="t t-beam t-nuki" x="10" y="70" width="100" height="10" rx="3" />
+        <path className="t t-pillar t-pillar-l" d="M6 64 H24 L26 112 H4 Z" />
+        <path className="t t-pillar t-pillar-r" d="M96 64 H114 L116 112 H94 Z" />
+        {/* kutsuishi — chunky base feet; their outer edges meet the ink line */}
+        <rect className="t t-foot t-foot-l" x="0" y="112" width="30" height="13" rx="3" />
+        <rect className="t t-foot t-foot-r" x="90" y="112" width="30" height="13" rx="3" />
+        {/* nuki — tie beam crossing the pillars, overhanging them slightly */}
+        <rect className="t t-beam t-nuki" x="0" y="90" width="120" height="13" rx="4" />
         {/* shimaki — straight beam sitting just under the roof */}
-        <rect className="t t-beam t-shimaki" x="6" y="30" width="108" height="10" rx="3" />
-        {/* kasagi — top lintel: a charcoal upswept curved plank overhanging the gate */}
-        <path className="t t-roof" d="M-2 12 Q60 30 122 12 L122 21 Q60 37 -2 21 Z" />
+        <rect className="t t-beam t-shimaki" x="14" y="52" width="92" height="12" rx="5" />
+        {/* kasagi — top lintel: a thick charcoal upswept plank, ends flaring up
+            and overhanging the gate on both sides */}
+        <path
+          className="t t-roof"
+          d="M-8 14 Q26 30 60 36 Q94 30 128 14 Q96 42 60 50 Q24 42 -8 14 Z"
+        />
       </svg>
       {/* right run of the ink line */}
       <span className="torii-line torii-line-r" />
