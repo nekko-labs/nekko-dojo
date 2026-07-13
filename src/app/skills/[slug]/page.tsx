@@ -15,6 +15,7 @@ import { InstallCommand } from '@/components/InstallCommand';
 import { DownloadButton } from '@/components/DownloadButton';
 import { SkillVote } from '@/components/SkillVote';
 import { SkillFeedback } from '@/components/SkillFeedback';
+import { SkillWorkflow } from '@/components/SkillWorkflow';
 import { DiscordCTA } from '@/components/DiscordCTA';
 import { ExternalLinkIcon, GitHubIcon } from '@/components/icons';
 
@@ -86,6 +87,24 @@ export default async function SkillDetailPage({ params }: { params: Promise<Para
           </ul>
         )}
       </header>
+
+      {skill.workflow && (
+        <>
+          <hr className="my-8 border-border" />
+          <section aria-labelledby="workflow-heading">
+            <h2 id="workflow-heading" className="text-lg font-semibold tracking-tight">
+              How it works
+            </h2>
+            <p className="mt-1 text-sm text-muted">
+              The steps this skill runs through when you invoke it. Click any step to see what it
+              does.
+            </p>
+            <div className="mt-4">
+              <SkillWorkflow workflow={skill.workflow} />
+            </div>
+          </section>
+        </>
+      )}
 
       <hr className="my-8 border-border" />
 

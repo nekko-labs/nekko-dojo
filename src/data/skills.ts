@@ -28,6 +28,46 @@ export type SkillCategory =
   | 'productivity'
   | 'devops';
 
+/**
+ * A skill's workflow graph — the steps it runs through (trigger → context →
+ * agent → tools → output, with branches and loops). The skill detail page
+ * renders this as an n8n / Make-style node canvas so you can see what a skill
+ * actually does before you install it. Ported from the Open Paw desktop app so
+ * the two share one visual language for skills.
+ */
+export type SkillNodeKind =
+  | 'trigger' // the `/command` and its input
+  | 'context' // gather files / diff / repo state
+  | 'agent' // model reasoning step
+  | 'tool' // a concrete tool call (edit, run, git, web)
+  | 'decision' // a branch / condition check
+  | 'loop' // an iterating step
+  | 'output'; // the final deliverable
+
+export type SkillNode = {
+  id: string;
+  kind: SkillNodeKind;
+  label: string;
+  /** One-line explanation shown under the node label. */
+  detail?: string;
+};
+
+export type SkillEdge = {
+  from: string;
+  to: string;
+  label?: string;
+  /** A return/loop edge (drawn dashed, routed around), ignored for layering. */
+  back?: boolean;
+};
+
+export type SkillWorkflow = {
+  nodes: SkillNode[];
+  edges: SkillEdge[];
+};
+
+/** Terse workflow builder. */
+const wf = (nodes: SkillNode[], edges: SkillEdge[]): SkillWorkflow => ({ nodes, edges });
+
 export type Skill = {
   id: string;
   name: string;
@@ -48,6 +88,8 @@ export type Skill = {
   beginnerFriendly?: boolean;
   /** Pin toward the top. */
   featured?: boolean;
+  /** Step graph rendered by the workflow visualizer on the detail page. */
+  workflow?: SkillWorkflow;
 };
 
 /** The marketplace these skills install from. */
@@ -107,6 +149,24 @@ export const skills: Skill[] = [
     installCommand: '/plugin install domain-finder@nekko-dojo-skills',
     beginnerFriendly: true,
     featured: true,
+    workflow: wf(
+      [
+        { id: 't', kind: 'trigger', label: '/domain-finder', detail: 'Your concept or theme' },
+        { id: 'gen', kind: 'agent', label: 'Generate names', detail: 'Brandable candidates + synonyms' },
+        { id: 'rdap', kind: 'tool', label: 'Check RDAP', detail: 'Availability across TLDs' },
+        { id: 'dec', kind: 'decision', label: 'Available?' },
+        { id: 'vet', kind: 'agent', label: 'Vet brand', detail: 'Trademark + conflict screen' },
+        { id: 'out', kind: 'output', label: 'Ranked shortlist' },
+      ],
+      [
+        { from: 't', to: 'gen' },
+        { from: 'gen', to: 'rdap' },
+        { from: 'rdap', to: 'dec' },
+        { from: 'dec', to: 'vet', label: 'free' },
+        { from: 'dec', to: 'gen', label: 'taken', back: true },
+        { from: 'vet', to: 'out' },
+      ],
+    ),
   },
   {
     id: 'nyaa',
@@ -132,6 +192,30 @@ export const skills: Skill[] = [
       'https://github.com/nekko-labs/nekko-dojo-skills/tree/main/plugins/nyaa',
     installCommand: '/plugin install nyaa@nekko-dojo-skills',
     featured: true,
+    workflow: wf(
+      [
+        { id: 't', kind: 'trigger', label: '/cr', detail: 'A PR or your working diff' },
+        { id: 'ctx', kind: 'context', label: 'Load diff', detail: 'Changed files + bot reviews' },
+        { id: 'sec', kind: 'agent', label: '🐱 Security cat', detail: 'Vulns, secrets, authz' },
+        { id: 'dep', kind: 'agent', label: '🐱 Supply-chain cat', detail: 'Deps + licenses' },
+        { id: 'corr', kind: 'agent', label: '🐱 Correctness cat', detail: 'Bugs + concurrency' },
+        { id: 'style', kind: 'agent', label: '🐱 Style cat', detail: 'Clarity + conventions' },
+        { id: 'merge', kind: 'agent', label: 'Consolidate', detail: 'Merge + dedupe findings' },
+        { id: 'out', kind: 'output', label: 'Council review' },
+      ],
+      [
+        { from: 't', to: 'ctx' },
+        { from: 'ctx', to: 'sec' },
+        { from: 'ctx', to: 'dep' },
+        { from: 'ctx', to: 'corr' },
+        { from: 'ctx', to: 'style' },
+        { from: 'sec', to: 'merge' },
+        { from: 'dep', to: 'merge' },
+        { from: 'corr', to: 'merge' },
+        { from: 'style', to: 'merge' },
+        { from: 'merge', to: 'out' },
+      ],
+    ),
   },
   // --- Curated external skills (link-only, attributed) ---
   {
@@ -146,6 +230,24 @@ export const skills: Skill[] = [
     author: 'Anthropic',
     sourceUrl: 'https://github.com/anthropics/skills',
     featured: true,
+    workflow: wf(
+      [
+        { id: 't', kind: 'trigger', label: '/skill-creator', detail: 'What the skill should do' },
+        { id: 'ctx', kind: 'context', label: 'Clarify intent', detail: 'Scope + trigger cases' },
+        { id: 'draft', kind: 'agent', label: 'Draft SKILL.md', detail: 'Instructions + metadata' },
+        { id: 'scaffold', kind: 'tool', label: 'Scaffold files', detail: 'Bundled resources' },
+        { id: 'dec', kind: 'decision', label: 'Passes eval?' },
+        { id: 'out', kind: 'output', label: 'Ready-to-use skill' },
+      ],
+      [
+        { from: 't', to: 'ctx' },
+        { from: 'ctx', to: 'draft' },
+        { from: 'draft', to: 'scaffold' },
+        { from: 'scaffold', to: 'dec' },
+        { from: 'dec', to: 'out', label: 'yes' },
+        { from: 'dec', to: 'draft', label: 'no', back: true },
+      ],
+    ),
   },
   {
     id: 'anthropic-pdf',
@@ -158,6 +260,27 @@ export const skills: Skill[] = [
     source: 'curated',
     author: 'Anthropic',
     sourceUrl: 'https://github.com/anthropics/skills',
+    workflow: wf(
+      [
+        { id: 't', kind: 'trigger', label: '/pdf', detail: 'A PDF file + what you need' },
+        { id: 'ctx', kind: 'context', label: 'Load PDF', detail: 'Pages, text, layout' },
+        { id: 'dec', kind: 'decision', label: 'What task?' },
+        { id: 'extract', kind: 'tool', label: 'Extract', detail: 'Text + tables' },
+        { id: 'forms', kind: 'tool', label: 'Fill forms' },
+        { id: 'edit', kind: 'tool', label: 'Merge / split' },
+        { id: 'out', kind: 'output', label: 'Result document' },
+      ],
+      [
+        { from: 't', to: 'ctx' },
+        { from: 'ctx', to: 'dec' },
+        { from: 'dec', to: 'extract', label: 'read' },
+        { from: 'dec', to: 'forms', label: 'fill' },
+        { from: 'dec', to: 'edit', label: 'edit' },
+        { from: 'extract', to: 'out' },
+        { from: 'forms', to: 'out' },
+        { from: 'edit', to: 'out' },
+      ],
+    ),
   },
   {
     id: 'anthropic-mcp-builder',
@@ -170,6 +293,23 @@ export const skills: Skill[] = [
     source: 'curated',
     author: 'Anthropic',
     sourceUrl: 'https://github.com/anthropics/skills',
+    workflow: wf(
+      [
+        { id: 't', kind: 'trigger', label: '/mcp-builder', detail: 'The integration you want' },
+        { id: 'ctx', kind: 'context', label: 'Define tools', detail: 'Data + actions to expose' },
+        { id: 'scaffold', kind: 'agent', label: 'Scaffold server', detail: 'Protocol + handlers' },
+        { id: 'wire', kind: 'tool', label: 'Wire tools', detail: 'Implement each tool' },
+        { id: 'test', kind: 'tool', label: 'Test connection' },
+        { id: 'out', kind: 'output', label: 'Running MCP server' },
+      ],
+      [
+        { from: 't', to: 'ctx' },
+        { from: 'ctx', to: 'scaffold' },
+        { from: 'scaffold', to: 'wire' },
+        { from: 'wire', to: 'test' },
+        { from: 'test', to: 'out' },
+      ],
+    ),
   },
 ];
 
@@ -201,4 +341,99 @@ export function getSkillBySlug(slug: string): Skill | undefined {
 export function getUsedCategories(): SkillCategory[] {
   const present = new Set(skills.map((s) => s.category));
   return (Object.keys(categoryLabels) as SkillCategory[]).filter((c) => present.has(c));
+}
+
+// --- Workflow layout (pure; consumed by the SkillWorkflow visualizer) --------
+
+export type LaidOutNode = SkillNode & {
+  layer: number;
+  row: number;
+  x: number;
+  y: number;
+};
+
+export type WorkflowLayout = {
+  nodes: LaidOutNode[];
+  edges: SkillEdge[];
+  width: number;
+  height: number;
+  nodeW: number;
+  nodeH: number;
+};
+
+export type LayoutOptions = {
+  nodeW?: number;
+  nodeH?: number;
+  gapX?: number;
+  gapY?: number;
+  margin?: number;
+};
+
+/**
+ * Left-to-right layered layout. Each node's column (layer) is its longest path
+ * from a root over forward edges (back/loop edges are ignored for layering);
+ * nodes sharing a layer are stacked and vertically centred so fan-outs splay
+ * symmetrically. Pure + deterministic. Ported from the Open Paw desktop app.
+ */
+export function layoutWorkflow(workflow: SkillWorkflow, opts: LayoutOptions = {}): WorkflowLayout {
+  const nodeW = opts.nodeW ?? 156;
+  const nodeH = opts.nodeH ?? 60;
+  const gapX = opts.gapX ?? 64;
+  const gapY = opts.gapY ?? 24;
+  const margin = opts.margin ?? 24;
+
+  const forward = workflow.edges.filter((e) => !e.back);
+  const byId = new Map(workflow.nodes.map((n) => [n.id, n]));
+  const incoming = new Map<string, number>();
+  for (const n of workflow.nodes) incoming.set(n.id, 0);
+  for (const e of forward) incoming.set(e.to, (incoming.get(e.to) ?? 0) + 1);
+
+  // Longest-path layering: relax forward edges until stable (DAG, small graphs).
+  const layer = new Map<string, number>();
+  for (const n of workflow.nodes) layer.set(n.id, 0);
+  for (let i = 0; i < workflow.nodes.length; i++) {
+    let changed = false;
+    for (const e of forward) {
+      if (!byId.has(e.from) || !byId.has(e.to)) continue;
+      const cand = (layer.get(e.from) ?? 0) + 1;
+      if (cand > (layer.get(e.to) ?? 0)) {
+        layer.set(e.to, cand);
+        changed = true;
+      }
+    }
+    if (!changed) break;
+  }
+
+  // Group nodes by layer, preserving declaration order within a layer.
+  const layers = new Map<number, SkillNode[]>();
+  for (const n of workflow.nodes) {
+    const l = layer.get(n.id) ?? 0;
+    if (!layers.has(l)) layers.set(l, []);
+    layers.get(l)!.push(n);
+  }
+
+  const colHeight = (count: number) => count * nodeH + Math.max(0, count - 1) * gapY;
+  const maxRows = Math.max(...[...layers.values()].map((g) => g.length), 1);
+  const canvasInner = colHeight(maxRows);
+
+  const laid: LaidOutNode[] = [];
+  for (const [l, group] of [...layers.entries()].sort((a, b) => a[0] - b[0])) {
+    const colH = colHeight(group.length);
+    const startY = margin + (canvasInner - colH) / 2;
+    group.forEach((n, row) => {
+      laid.push({
+        ...n,
+        layer: l,
+        row,
+        x: margin + l * (nodeW + gapX),
+        y: startY + row * (nodeH + gapY),
+      });
+    });
+  }
+
+  const layerCount = layers.size;
+  const width = margin * 2 + layerCount * nodeW + Math.max(0, layerCount - 1) * gapX;
+  const height = margin * 2 + canvasInner;
+
+  return { nodes: laid, edges: workflow.edges, width, height, nodeW, nodeH };
 }

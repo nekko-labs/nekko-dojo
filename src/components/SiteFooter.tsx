@@ -1,14 +1,56 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import type { ReactNode } from 'react';
 import { nav, site } from '@/lib/site';
 import { DiscordIcon, GitHubIcon } from './icons';
 import { ToriiSeparator } from './ToriiSeparator';
+
+/** Playful glyph per nav destination, echoing each page's theme. */
+const NAV_GLYPH: Record<string, string> = {
+  '/articles': '📖',
+  '/guide': '🗺️',
+  '/skills': '⚡',
+  '/community': '⛩️',
+};
+
+/** A footer link styled as a rounded "training tile": emoji + label, lifts on hover. */
+function FooterTile({
+  href,
+  glyph,
+  external,
+  children,
+}: {
+  href: string;
+  glyph?: ReactNode;
+  external?: boolean;
+  children: ReactNode;
+}) {
+  const className =
+    'group inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1.5 text-sm text-muted transition hover:-translate-y-0.5 hover:border-accent hover:text-accent';
+  const inner = (
+    <>
+      <span aria-hidden className="text-base leading-none transition-transform group-hover:scale-110">
+        {glyph}
+      </span>
+      {children}
+    </>
+  );
+  return external ? (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+      {inner}
+    </a>
+  ) : (
+    <Link href={href} className={className}>
+      {inner}
+    </Link>
+  );
+}
 
 export function SiteFooter() {
   return (
     <footer className="mt-20">
       <ToriiSeparator />
-      <div className="mx-auto flex max-w-5xl flex-col gap-6 px-4 pb-10 pt-12 sm:flex-row sm:items-start sm:justify-between sm:px-6">
+      <div className="mx-auto flex max-w-5xl flex-col gap-8 px-4 pb-10 pt-12 sm:flex-row sm:items-start sm:justify-between sm:px-6">
         <div className="max-w-sm">
           <div className="flex items-center gap-2 font-semibold">
             <Image
@@ -23,30 +65,21 @@ export function SiteFooter() {
           <p className="mt-2 text-sm text-muted">{site.description}</p>
         </div>
 
-        <nav aria-label="Footer" className="flex flex-col gap-2 text-sm">
+        <nav
+          aria-label="Footer"
+          className="flex max-w-xs flex-wrap gap-2 sm:justify-end"
+        >
           {nav.map((item) => (
-            <Link key={item.href} href={item.href} className="text-muted hover:text-fg">
+            <FooterTile key={item.href} href={item.href} glyph={NAV_GLYPH[item.href] ?? '•'}>
               {item.label}
-            </Link>
+            </FooterTile>
           ))}
-          <a
-            href={site.discordUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-muted hover:text-fg"
-          >
-            <DiscordIcon className="h-4 w-4" />
+          <FooterTile href={site.discordUrl} external glyph={<DiscordIcon className="h-4 w-4" />}>
             Discord
-          </a>
-          <a
-            href={site.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-muted hover:text-fg"
-          >
-            <GitHubIcon className="h-4 w-4" />
+          </FooterTile>
+          <FooterTile href={site.githubUrl} external glyph={<GitHubIcon className="h-4 w-4" />}>
             GitHub
-          </a>
+          </FooterTile>
         </nav>
       </div>
 
