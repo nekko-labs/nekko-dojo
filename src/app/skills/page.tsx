@@ -58,16 +58,6 @@ export default async function SkillsPage() {
         </div>
       </Reveal>
 
-      {/* Trust tiers */}
-      <Reveal as="p" load delay={0.16} className="mt-6 text-sm text-muted">
-        <span className="font-medium text-fg">🟣 Nekko official</span> — built &amp; reviewed by
-        Nekko Labs.{' '}
-        <span className="font-medium text-fg">🟢 Community</span> — submitted via PR; audit before
-        you run it.{' '}
-        <span className="font-medium text-fg">🔗 Curated</span> — great external skills, linked to
-        their source.
-      </Reveal>
-
       <div className="mt-10">
         <SkillsExplorer items={items} categories={getUsedCategories()} />
       </div>
