@@ -385,7 +385,7 @@ body {
   flex: 0 0 auto;
   width: min(150px, 32%);
   height: auto;
-  aspect-ratio: 120 / 122; /* matches the viewBox; wide airy flat-icon */
+  aspect-ratio: 120 / 128; /* matches the viewBox; tall airy flat-icon */
   overflow: visible; /* let the roof overhang the gate horizontally */
 }
 /* two-tone fills: charcoal roof + feet, vermilion beams / pillars / strut */
