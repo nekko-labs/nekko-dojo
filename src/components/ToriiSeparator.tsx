@@ -57,11 +57,12 @@ export function ToriiSeparator() {
         <rect className="t t-strut" x="56" y="37" width="8" height="13" rx="1.5" />
         {/* shimaki — straight beam sitting just under the roof */}
         <rect className="t t-beam t-shimaki" x="12" y="30" width="96" height="7" rx="3.5" />
-        {/* kasagi — top lintel: a slim charcoal upswept plank, ends sweeping up
-            and overhanging the gate on both sides */}
+        {/* kasagi — top lintel: a slim, mostly flat charcoal plank that rests on
+            the roof beam across its middle, its ends sweeping up into tips and
+            overhanging the gate on both sides */}
         <path
           className="t t-roof"
-          d="M-12 6 Q22 16 60 20 Q98 16 132 6 L132 15 Q98 26 60 30 Q22 26 -12 15 Z"
+          d="M-12 12 Q0 20 10 22 L110 22 Q120 20 132 12 L132 17 Q121 31 110 31 L10 31 Q-1 31 -12 17 Z"
         />
       </svg>
       {/* right run of the ink line */}
