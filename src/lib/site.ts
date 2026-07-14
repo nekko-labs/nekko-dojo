@@ -24,6 +24,5 @@ export const site = {
 export const nav: ReadonlyArray<{ label: string; href: string }> = [
   { label: 'Articles', href: '/articles' },
   { label: 'The Guide', href: '/guide' },
-  { label: 'Skills', href: '/skills' },
   { label: 'Community', href: '/community' },
 ];
