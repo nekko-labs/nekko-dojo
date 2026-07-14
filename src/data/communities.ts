@@ -78,6 +78,19 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    id: 'vaizer',
+    name: 'Vaizer',
+    github: 'https://github.com/nekko-labs/vaizer',
+    website: 'https://vaizer.com',
+    community: 'https://discord.gg/nekkolabs',
+    description:
+      'See how your agents work and what they are focused on: break down any skill into a readable workflow graph, and watch long-running agent loops make their way toward a goal. A Next.js + TypeScript project, developed in the open.',
+    region: 'Japan',
+    tags: ['TypeScript', 'Next.js', 'AI', 'Agents'],
+    beginnerFriendly: true,
+    featured: true,
+  },
+  {
     id: 'nekko-mcp',
     name: 'Nekko MCP',
     github: 'https://github.com/nekko-labs/nekko-mcp',
@@ -103,10 +116,10 @@ export const projects: Project[] = [
     id: 'nekko-dojo-skills',
     name: 'Nekko Dojo Skills',
     github: 'https://github.com/nekko-labs/nekko-dojo-skills',
-    website: 'https://dojo.nekkolabs.com/skills',
+    website: 'https://vaizer.com/skills',
     community: 'https://discord.gg/nekkolabs',
     description:
-      'The Agent Skills hub behind this site — official and community Claude skills, installable as a Claude Code plugin marketplace. A low-barrier way to make your first open-source contribution by adding a skill, not just code.',
+      'The Agent Skills marketplace — official and community Claude skills, installable as a Claude Code plugin marketplace (browse and visualize them on Vaizer). A low-barrier way to make your first open-source contribution by adding a skill, not just code.',
     region: 'Japan',
     tags: ['Claude skills', 'Open Source', 'Beginner'],
     beginnerFriendly: true,

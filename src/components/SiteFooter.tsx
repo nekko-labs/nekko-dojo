@@ -9,7 +9,6 @@ import { ToriiSeparator } from './ToriiSeparator';
 const NAV_GLYPH: Record<string, string> = {
   '/articles': '📖',
   '/guide': '🗺️',
-  '/skills': '⚡',
   '/community': '⛩️',
 };
 
