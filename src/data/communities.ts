@@ -81,7 +81,7 @@ export const projects: Project[] = [
     id: 'vaizer',
     name: 'Vaizer',
     github: 'https://github.com/nekko-labs/vaizer',
-    website: 'https://vaizer.com',
+    website: 'https://vaizer.app',
     community: 'https://discord.gg/nekkolabs',
     description:
       'See how your agents work and what they are focused on: break down any skill into a readable workflow graph, and watch long-running agent loops make their way toward a goal. A Next.js + TypeScript project, developed in the open.',
@@ -116,7 +116,7 @@ export const projects: Project[] = [
     id: 'nekko-dojo-skills',
     name: 'Nekko Dojo Skills',
     github: 'https://github.com/nekko-labs/nekko-dojo-skills',
-    website: 'https://vaizer.com/skills',
+    website: 'https://vaizer.app/skills',
     community: 'https://discord.gg/nekkolabs',
     description:
       'The Agent Skills marketplace — official and community Claude skills, installable as a Claude Code plugin marketplace (browse and visualize them on Vaizer). A low-barrier way to make your first open-source contribution by adding a skill, not just code.',
