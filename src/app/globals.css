@@ -304,6 +304,42 @@ body {
   color: var(--shiki-dark, inherit) !important;
 }
 
+/* Images & figures — inline article art. Rounded, framed, and responsive so a
+   dropped-in <figure> reads as an editorial photo rather than a raw <img>. */
+.prose img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.prose figure {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.prose figure img {
+  margin: 0;
+}
+
+/* Tall/portrait shots: cap the height and centre so they don't dominate. */
+.prose figure.figure-tall img {
+  width: auto;
+  max-height: 60vh;
+  margin-inline: auto;
+}
+
+.prose figcaption {
+  margin-top: 0.7em;
+  text-align: center;
+  font-size: 0.85rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
 /* ---------------------------------------------------------------------------
    "You don't train alone" — interactive, auto-rotating, parallax band.
 --------------------------------------------------------------------------- */
