@@ -1,6 +1,6 @@
 ---
 status: draft
-last-updated: 2026-07-10
+last-updated: 2026-07-19
 owner: Philip
 ---
 
@@ -28,9 +28,10 @@ Philip has both: a proven course/workflow that has helped many people switch car
 
 ## User Journeys & Experiences
 
-1. **Career-changer path:** Home → Guide overview → start chapter 1 → progress chapter-to-chapter via prev/next → Community (apply learning to a real project) → Discord for help and accountability.
+1. **Career-changer path:** Home → Guide overview (an interactive path they walk stop-by-stop, seeing the "new moves" each section unlocks) → start chapter 1 → progress chapter-to-chapter via prev/next → Community (apply learning to a real project) → Discord for help and accountability.
 2. **Reader/subscriber path:** Home → Articles → read an essay → Discord CTA at the footer.
-3. **Contributor path:** Home/Community → pick a project (e.g. Open Paw) → external link out + "join Discord for help".
+3. **Contributor path:** Home/Community → pick a project (e.g. Kotrain) → external link out + "join Discord for help".
+4. **Tooling path:** Community → Helpful tools → open a skill on Vaizer (e.g. run the Resume Checker against a job posting before applying).
 
 Interacting with the site should feel like reading a trusted senior engineer's notes: generous reading width for long-form content, clean typography, syntax-highlighted code, and a recurring, low-pressure nudge toward the community.
 
@@ -61,6 +62,7 @@ Philip's essays on tech, AI, and career growth from a director/principal vantage
 A structured, multi-chapter guide expanding Philip's existing course/workflow for switching into software development in Japan. *Why:* the core value proposition and the main reason people will share the site.
 
 - Guide overview / TOC, chapters grouped by section, "start here" `[shipped]`
+- **Guide path rework:** the overview becomes a fun, interactive, dojo-themed journey rather than a plain TOC. Chapters render as stops along a drawn path the reader follows (extending the home page's belt-path motion language), and each major section ends in a "New moves" callout naming the concrete abilities that section unlocks, derived from the value that section actually delivers (e.g. Foundations → "you can build and deploy a real web page"; Interview Prep → "you can whiteboard a problem out loud"). Progress feel without accounts: the path itself communicates where you are and what you've earned. `[planned]`
 - Chapter reading page with prev/next navigation `[shipped]`
 - **12 chapters imported from Philip's course doc**, in his voice, preserving specifics (links, the TODO-app philosophy, exact stack recs, DS&A + architecture interview prep, the S/A/B-F company tier list, Google exploding-offers note, practice questions). Sections: Getting Started → Foundations → Building Real Things → Interview Prep → Landing the Job → Practice `[shipped]`
 - Fill remaining source-doc TODOs (Supabase signup link, git guide link, a walkthrough) `[planned]`
@@ -69,9 +71,18 @@ A structured, multi-chapter guide expanding Philip's existing course/workflow fo
 A curated directory of OSS projects and communities (starting with the Nekko Labs OSS community and Japan-origin projects) where learners contribute to real teams. *Why:* bridges the gap between learning and employable, collaborative experience.
 
 - Directory page rendering typed community/project data `[shipped]` — Open Paw, Vaizer, Nekko OSS, Misskey featured/listed
+- **Kotrain replaces Open Paw** in the directory (Open Paw evolved into [Kotrain](https://github.com/nekko-labs/kotrain), the local-first AI coding/cowork desktop app) `[planned]`
+- **Auto-imported projects:** project entries pull automatically from their public GitHub repos, with the card content (name, description, overview) sourced from each repo's README rather than hand-written copy; server-fetched and cached, with the typed data remaining as the curation/ordering layer and fallback. Repos that lack a clean overview section get their README updated upstream (in generic, tool-agnostic terms; the repos stay unaware of Dojo) so they import well. `[planned]`
+- **Interview practice repositioned:** the community "train together" pitch no longer promises free live interview practice; instead it highlights that we're building a dedicated tool for interview practice (teaser, no date). `[planned]`
 - Filter by type / location `[in progress]`
 - Skills directory `[moved to Vaizer 2026-07-15]` — the `/skills` catalog + per-skill workflow visualizer (trust tiers, install commands, votes/feedback, `.zip` download) was spun out of Dojo into its own product, [Vaizer](https://vaizer.com) (`nekko-labs/vaizer`). Dojo now links to Vaizer from the Community projects list rather than hosting the hub itself. The `nekko-labs/nekko-dojo-skills` marketplace repo is unchanged.
 - Expand beyond the Nekko Labs OSS community to more Japan-focused projects/communities `[planned]`
+
+### Helpful tools
+A section on the Community page, directly after Projects: practical skills and tools for the job hunt and for working like a modern engineer. *Why:* the guide teaches the path and projects give team experience, but readers also need concrete tools they can run today (resume checks, code-quality skills); it also connects Dojo readers to Vaizer.
+
+- Skills pulled dynamically from Vaizer's skills catalog (Vaizer exposes a public catalog API; Dojo renders the list and links each entry to its Vaizer skill page), so Dojo never hand-maintains the tool list `[planned]`
+- First entries: the **Resume Checker** skill (Nekko Labs, built for job-hunting readers; see the Vaizer spec for its full behavior) and the third-party **impeccable** skill, clearly attributed as not from Nekko Labs `[planned]`
 
 ### Discord
 A persistent CTA throughout the site to join the Nekko Labs Discord community. *Why:* converts readers into an engaged community and support network.
@@ -100,3 +111,5 @@ This project is NOT:
 - Travis brand/visual pass: v1 ships a re-skinnable default theme, not a final brand spec.
 - The Skills directory moved out of Dojo into [Vaizer](https://vaizer.com) on 2026-07-15 (repo `nekko-labs/vaizer`). Dojo no longer hosts `/skills`, the skills data/components, or the `/api/vote`, `/api/feedback`, `/api/skills/[slug]/download` routes; those live in Vaizer now. Dojo links to Vaizer from the Community projects list. Supabase is no longer a Dojo dependency (it moved with the skills feature).
 - Dependencies still open: importing remaining Guide source TODOs; expanding the Community directory.
+- The Helpful tools section depends on Vaizer shipping its public catalog API and the Resume Checker skill (tracked in the Vaizer spec/tasks). The auto-imported projects feature depends on upstream READMEs (starting with Kotrain's) having a clean, importable overview section.
+- The interview-practice tool being teased is not yet specced; when it becomes real it gets its own project.
