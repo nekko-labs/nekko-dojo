@@ -1,6 +1,6 @@
 ---
 status: draft
-last-updated: 2026-07-10
+last-updated: 2026-07-19
 owner: Philip
 ---
 
@@ -40,7 +40,8 @@ content/ (MDX + data)  ──►  lib/content.ts (load + parse)  ──►  App 
 Component breakdown:
 - **Content layer (`lib/content.ts`)** — reads MDX from `content/articles` and `content/guide`, parses frontmatter with `gray-matter`, returns typed metadata + sorted lists. Single source of truth for content access.
 - **MDX rendering (`mdx-components.tsx` + `next-mdx-remote/rsc`, helpers in `lib/mdx.ts`)** — compiles MDX bodies in server components with the remark/rehype plugin chain above.
-- **Communities data (`data/communities.ts`)** — typed array of curated projects/communities (structured data, not prose). Skills directory in `src/data/skills.ts`.
+- **Communities data (`data/communities.ts`)**: typed array of curated projects/communities (structured data, not prose). Planned evolution: entries reference a public GitHub repo and the card content (description/overview) is fetched server-side from the repo's README (cached, same pattern as Vaizer's `/api/anthropic-skills` route), with the typed array staying as the curation/ordering layer and build-safe fallback.
+- **Helpful tools (planned)**: a Community-page section fed by Vaizer's public skills catalog API (JSON), fetched server-side and cached; each card links out to the skill's page on vaizer.app. No local skills data returns to Dojo (that stays in Vaizer).
 - **Site config (`lib/site.ts`)** — nav, Discord URL, metadata, social links.
 - **UI components (`components/`)** — header, footer, Discord CTA, article card, project card, `SkillVote` / `SkillFeedback`.
 - **API routes** — `/api/vote`, `/api/feedback` (Supabase-backed).
@@ -70,6 +71,8 @@ Routing:
 - **Supabase** — skill votes + feedback (`/api/vote`, `/api/feedback`, schema in `supabase/schema.sql`).
 - **PostHog** — analytics.
 - **Nekko Labs Discord** — invite-link CTA.
+- **Vaizer skills catalog API** (planned): Dojo's Helpful tools section consumes Vaizer's public catalog endpoint (JSON: name, slug, description, trust tier, link). Tracked on the Vaizer side in `code/vaizer/TASKS.md`.
+- **GitHub README fetch** (planned): community project cards source their content from each repo's public README (raw fetch, cached, no token).
 - External links out to Nekko Labs OSS repos/community and other Japan-origin OSS projects.
 - Cloudflare — DNS record for the `dojo.nekkolabs.com` subdomain pointing at Vercel.
 
@@ -99,9 +102,9 @@ Routing:
 | `/` | Orient + route to pillars | Hero, four-pillar cards, latest articles, Discord CTA |
 | `/articles` | Browse essays | Article cards (title, date, tags, excerpt) |
 | `/articles/[slug]` | Read an essay | Prose, headings TOC anchors, author, Discord CTA footer |
-| `/guide` | Guide overview / TOC | Intro, ordered chapter list grouped by section, "start here" |
+| `/guide` | Guide overview / TOC | Interactive dojo path: chapters as stops on a drawn path (reusing the home `StagePath` motion language), "New moves" callout per section, "start here" |
 | `/guide/[slug]` | Read a chapter | Prose, prev/next chapter nav, progress context |
-| `/community` | Discover real projects | Featured projects (Open Paw, Nekko OSS), filter by type/location, Discord CTA |
+| `/community` | Discover real projects + tools | Featured projects (Kotrain, Nekko OSS; README-sourced cards), filter by type/location, Helpful tools (Vaizer-fed skills), Discord CTA |
 
 **Components:** `SiteHeader` (logo/wordmark, nav, Discord button), `SiteFooter` (links, Discord, Nekko Labs attribution), `DiscordCTA` (reusable), `ArticleCard`, `ProjectCard`, `SkillVote`, `SkillFeedback`.
 
@@ -144,6 +147,11 @@ Extends `../../knowledgebase/principles/coding.md` (these deltas override it).
 
 - [ ] **T1** — Wire the real Discord invite URL (`NEXT_PUBLIC_DISCORD_URL`) across all CTAs; replace the placeholder. · [spec](SPEC.md#discord) · Added: 2026-06-29
 - [ ] **T2** — Add type/location filtering to the Community & Projects directory page. · [spec](SPEC.md#community--projects) · Added: 2026-06-29
+- [ ] **T23**: Rework the `/guide` overview into a fun, interactive, dojo-themed path: chapters as stops the reader follows along a drawn path (extend the home `StagePath` / belt motion language), each section capped with a "New moves" callout naming the concrete abilities that section unlocks (derive each from that section's actual value). Once-only motion, `prefers-reduced-motion` gets the fully-drawn static path. · [spec](SPEC.md#the-guide-flagship) · Added: 2026-07-19
+- [ ] **T24**: Replace the free-live-interview-practice pitch with a "we're building something for this" teaser: `src/components/TrainTogether.tsx` (the "Mock interviews... free" card) and `src/app/community/page.tsx` (the "train together" body copy). Keep the Discord invitation, drop the "free live practice" promise. · [spec](SPEC.md#community--projects) · Added: 2026-07-19
+- [ ] **T25**: Swap Open Paw for Kotrain in the Community directory (`src/data/communities.ts` entry, plus the mentions in `TrainTogether.tsx` and the community page copy), and make project cards auto-import their content from each repo's public README: server-side raw-README fetch + parse of the overview/description (cached ~1h, no token, env-optional), typed data stays as the curation/ordering layer and build-safe fallback. · [spec](SPEC.md#community--projects) · Added: 2026-07-19 · depends-on: T26 for a clean Kotrain import
+- [ ] **T26**: Update the Kotrain repo's README (`nekko-labs/kotrain`) so it imports cleanly: a well-formed short description + overview section (generic and tool-agnostic; no mention of Dojo or importers). · [spec](SPEC.md#community--projects) · Added: 2026-07-19
+- [ ] **T27**: Add the "Helpful tools" section to `/community`, after Projects: fetch the skills list from Vaizer's public catalog API server-side (cached, inert-safe when unreachable), render cards linking to each skill's vaizer.app page; first entries are the Resume Checker (Nekko Labs) and impeccable (third-party, clearly attributed as not from Nekko Labs). · [spec](SPEC.md#helpful-tools) · Added: 2026-07-19 · depends-on: Vaizer's catalog API + Resume Checker skill (see `code/vaizer/TASKS.md`)
 
 ## Backlog / Planned
 
