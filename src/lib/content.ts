@@ -60,6 +60,18 @@ function asBool(value: unknown): boolean {
   return value === true;
 }
 
+/**
+ * Coerce a frontmatter date to a `yyyy-mm-dd` string. YAML parses an unquoted
+ * ISO date (e.g. `date: 2026-06-18`) into a Date object, not a string, so a
+ * plain `asString` would drop it. Handle both the Date and already-string cases.
+ */
+function asDateString(value: unknown): string {
+  if (value instanceof Date && !Number.isNaN(value.getTime())) {
+    return value.toISOString().slice(0, 10);
+  }
+  return typeof value === 'string' ? value : '';
+}
+
 // --- Articles ---------------------------------------------------------------
 
 function parseArticle(file: string): Loaded<ArticleMeta> {
@@ -72,7 +84,7 @@ function parseArticle(file: string): Loaded<ArticleMeta> {
       slug,
       title: asString(data.title, slug),
       description: asString(data.description),
-      date: asString(data.date),
+      date: asDateString(data.date),
       tags: asStringArray(data.tags),
       author: asString(data.author, 'Philip'),
       draft: asBool(data.draft),
