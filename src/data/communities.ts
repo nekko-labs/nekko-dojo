@@ -9,6 +9,10 @@
  * This is structured data (not prose), rendered by /community. Keep entries
  * accurate and verify URLs before adding. `featured: true` pins a project to
  * the top and surfaces it on the home page.
+ *
+ * A project's `description` here is the fallback: at render time the
+ * directory pulls fresher copy from the project's own README when it has a
+ * GitHub repo (see `lib/github-readme.ts`).
  */
 
 export type Region = 'Japan' | 'Global';
@@ -66,12 +70,12 @@ export type JobResource = {
 // 1. Projects — actual OSS/GitHub projects you can contribute to.
 export const projects: Project[] = [
   {
-    id: 'open-paw',
-    name: 'Open Paw',
-    github: 'https://github.com/nekko-labs/open-paw',
+    id: 'kotrain',
+    name: 'Kotrain',
+    github: 'https://github.com/nekko-labs/kotrain',
     community: 'https://discord.gg/nekkolabs',
     description:
-      'Nekko Labs’ local-first AI coding & cowork desktop app, with first-class support for local models (Ollama, LM Studio, vLLM). A modern TypeScript codebase and a great place to contribute alongside our team — say hi in the Discord.',
+      'Nekko Labs’ local-first AI chat, cowork, and coding desktop app, with first-class support for local models (Ollama, LM Studio, vLLM). A modern TypeScript codebase and a great place to contribute alongside our team; say hi in the Discord.',
     region: 'Japan',
     tags: ['TypeScript', 'Desktop', 'Local-first', 'AI'],
     beginnerFriendly: true,

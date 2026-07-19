@@ -14,12 +14,12 @@ const benefits = [
   {
     emoji: '🚢',
     title: 'Ship with real teams',
-    body: 'Open Paw, Misskey and more — real open-source projects where you gain genuine team experience, not just solo side projects.',
+    body: 'Kotrain, Misskey and more — real open-source projects where you gain genuine team experience, not just solo side projects.',
   },
   {
-    emoji: '🎓',
-    title: 'Practice with the sensei',
-    body: 'Mock interviews, whiteboarding sessions, and résumé reviews — free, in the community, with people who have done the hiring.',
+    emoji: '🎯',
+    title: 'Interview practice, incoming',
+    body: 'We’re building a dedicated interview-practice tool for the dojo, shaped by people who have done the hiring. Discord members try it first.',
   },
   {
     emoji: '🔁',

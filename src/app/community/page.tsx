@@ -9,11 +9,13 @@ import { ProjectCard } from '@/components/ProjectCard';
 import { LinkTile } from '@/components/LinkTile';
 import { DiscordCTA } from '@/components/DiscordCTA';
 import { Reveal, Stagger, StaggerItem } from '@/components/motion';
+import { withReadmeDescriptions } from '@/lib/github-readme';
+import { getHelpfulTools, vaizerSkillsUrl } from '@/lib/vaizer-skills';
 
 export const metadata: Metadata = {
   title: 'Community',
   description:
-    'You don’t train alone. Get unstuck fast, ship on real open-source teams, practice interviews with the community, then mentor the next person — plus job boards and companies hiring junior engineers in Japan.',
+    'You don’t train alone. Get unstuck fast, ship on real open-source teams, grab the tools that pull their weight in the job hunt, then mentor the next person; plus job boards and companies hiring junior engineers in Japan.',
 };
 
 /** What the dojo community actually gives you, in order of the journey. */
@@ -26,12 +28,12 @@ const benefits = [
   {
     emoji: '🚢',
     title: 'Ship with real teams',
-    body: 'Open Paw, Misskey and more — real open-source projects where you gain genuine team experience.',
+    body: 'Kotrain, Misskey and more — real open-source projects where you gain genuine team experience.',
   },
   {
-    emoji: '🎓',
-    title: 'Practice with the sensei',
-    body: 'Mock interviews, whiteboarding sessions, and résumé reviews — free, run by the community.',
+    emoji: '🎯',
+    title: 'Interview practice, incoming',
+    body: 'We’re building a dedicated interview-practice tool for the dojo. Discord members hear about it (and try it) first.',
   },
   {
     emoji: '🔁',
@@ -41,8 +43,11 @@ const benefits = [
   },
 ];
 
-export default function CommunityPage() {
-  const projects = getAllProjects();
+export default async function CommunityPage() {
+  const [projects, tools] = await Promise.all([
+    withReadmeDescriptions(getAllProjects()),
+    getHelpfulTools(),
+  ]);
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16">
@@ -91,6 +96,12 @@ export default function CommunityPage() {
           Projects
         </a>
         <a
+          href="#tools"
+          className="rounded-full border border-border bg-surface px-3.5 py-1.5 text-muted transition-colors hover:border-accent hover:text-fg"
+        >
+          Helpful tools
+        </a>
+        <a
           href="#networking"
           className="rounded-full border border-border bg-surface px-3.5 py-1.5 text-muted transition-colors hover:border-accent hover:text-fg"
         >
@@ -122,7 +133,47 @@ export default function CommunityPage() {
         </Stagger>
       </section>
 
-      {/* 2. Networking */}
+      {/* 2. Helpful tools: fed live by Vaizer's skills catalog */}
+      <section id="tools" className="mt-14 scroll-mt-20">
+        <Reveal>
+          <h2 className="text-2xl font-black tracking-tight">Helpful tools</h2>
+          <p className="mt-2 max-w-2xl text-sm text-muted">
+            Agent skills that pull their weight in the job hunt and daily dev
+            work, pulled live from{' '}
+            <a
+              href={vaizerSkillsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-accent hover:underline"
+            >
+              Vaizer
+            </a>
+            , our skills hub. Open one to see exactly how it runs before you
+            install it. Entries marked Curated are great third-party skills,
+            credited to their authors; the rest are built by Nekko Labs.
+          </p>
+        </Reveal>
+        <Stagger className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {tools.map((tool) => (
+            <StaggerItem key={tool.slug} className="h-full">
+              <LinkTile
+                href={tool.url}
+                name={tool.name}
+                description={tool.description}
+                badge={
+                  tool.tier === 'nekko-official'
+                    ? tool.tierLabel
+                    : `${tool.tierLabel} · by ${tool.author}`
+                }
+                section="tools"
+                kind="skill"
+              />
+            </StaggerItem>
+          ))}
+        </Stagger>
+      </section>
+
+      {/* 3. Networking */}
       <section id="networking" className="mt-14 scroll-mt-20">
         <Reveal>
           <h2 className="text-2xl font-black tracking-tight">Networking</h2>
@@ -147,7 +198,7 @@ export default function CommunityPage() {
         </Stagger>
       </section>
 
-      {/* 3. Jobs */}
+      {/* 4. Jobs */}
       <section id="jobs" className="mt-14 scroll-mt-20">
         <Reveal>
           <h2 className="text-2xl font-black tracking-tight">
