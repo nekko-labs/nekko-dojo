@@ -37,13 +37,13 @@ Interacting with the site should feel like reading a trusted senior engineer's n
 
 ### Motion
 
-The site uses a quiet, once-only animation language built on the `motion` library: page headers and the home hero fade and rise into place on load, sections and card grids (articles, skills, projects, link tiles) reveal and cascade in as they scroll into view, and the home page's dotted belt path draws itself in as the visitor scrolls through the stages (belts settle with a soft spring). Cards get a tiny hover lift. Nothing loops beyond the existing ambient dusk glow, movement is small and eased to match the CSS easings, and `prefers-reduced-motion` users get opacity-only fades (the belt path renders fully drawn).
+The site uses a quiet, once-only animation language built on the `motion` library: page headers and the home hero fade and rise into place on load, sections and card grids (articles, skills, projects, link tiles) reveal and cascade in as they scroll into view, and the home page's dotted belt path draws itself in as the visitor scrolls through the stages (belts settle with a soft spring). The Guide overview extends the same language vertically: a dotted rail inks itself in accent as you scroll the path, and earned belts settle in with the same spring. Cards get a tiny hover lift. Nothing loops beyond the existing ambient dusk glow, movement is small and eased to match the CSS easings, and `prefers-reduced-motion` users get opacity-only fades (the belt path renders fully drawn).
 
 ## What Success Looks Like
 
 - Guide completion / chapter progression (readers moving through chapters)
 - Discord joins attributed to the site
-- Clickthroughs to featured projects/communities (Open Paw, Nekko OSS)
+- Clickthroughs to featured projects/communities (Kotrain, Nekko OSS) and to skills on Vaizer
 - Article readership and returning visitors
 - Qualitative: career-changers reporting they landed roles / made first OSS contributions
 
@@ -62,7 +62,7 @@ Philip's essays on tech, AI, and career growth from a director/principal vantage
 A structured, multi-chapter guide expanding Philip's existing course/workflow for switching into software development in Japan. *Why:* the core value proposition and the main reason people will share the site.
 
 - Guide overview / TOC, chapters grouped by section, "start here" `[shipped]`
-- **Guide path rework:** the overview becomes a fun, interactive, dojo-themed journey rather than a plain TOC. Chapters render as stops along a drawn path the reader follows (extending the home page's belt-path motion language), and each major section ends in a "New moves" callout naming the concrete abilities that section unlocks, derived from the value that section actually delivers (e.g. Foundations → "you can build and deploy a real web page"; Interview Prep → "you can whiteboard a problem out loud"). Progress feel without accounts: the path itself communicates where you are and what you've earned. `[planned]`
+- **Guide path rework:** the overview becomes a fun, interactive, dojo-themed journey rather than a plain TOC. Chapters render as stops along a drawn path the reader follows (extending the home page's belt-path motion language), and each major section ends in a "New moves" callout naming the concrete abilities that section unlocks, derived from the value that section actually delivers (e.g. Foundations → "you can build and deploy a real web page"; Interview Prep → "you can whiteboard a problem out loud"). Progress feel without accounts: the path itself communicates where you are and what you've earned. Built as `GuidePath` (chapters as numbered stops on a scroll-inked dotted rail, "New moves" chips per section, belt rank-ups at the four milestone sections with a spring settle, a finish-flag stop). `[shipped]`
 - Chapter reading page with prev/next navigation `[shipped]`
 - **12 chapters imported from Philip's course doc**, in his voice, preserving specifics (links, the TODO-app philosophy, exact stack recs, DS&A + architecture interview prep, the S/A/B-F company tier list, Google exploding-offers note, practice questions). Sections: Getting Started → Foundations → Building Real Things → Interview Prep → Landing the Job → Practice `[shipped]`
 - Fill remaining source-doc TODOs (Supabase signup link, git guide link, a walkthrough) `[planned]`
@@ -71,9 +71,9 @@ A structured, multi-chapter guide expanding Philip's existing course/workflow fo
 A curated directory of OSS projects and communities (starting with the Nekko Labs OSS community and Japan-origin projects) where learners contribute to real teams. *Why:* bridges the gap between learning and employable, collaborative experience.
 
 - Directory page rendering typed community/project data `[shipped]` — Open Paw, Vaizer, Nekko OSS, Misskey featured/listed
-- **Kotrain replaces Open Paw** in the directory (Open Paw evolved into [Kotrain](https://github.com/nekko-labs/kotrain), the local-first AI coding/cowork desktop app) `[planned]`
-- **Auto-imported projects:** project entries pull automatically from their public GitHub repos, with the card content (name, description, overview) sourced from each repo's README rather than hand-written copy; server-fetched and cached, with the typed data remaining as the curation/ordering layer and fallback. Repos that lack a clean overview section get their README updated upstream (in generic, tool-agnostic terms; the repos stay unaware of Dojo) so they import well. `[planned]`
-- **Interview practice repositioned:** the community "train together" pitch no longer promises free live interview practice; instead it highlights that we're building a dedicated tool for interview practice (teaser, no date). `[planned]`
+- **Kotrain replaces Open Paw** in the directory (Open Paw evolved into [Kotrain](https://github.com/nekko-labs/kotrain), the local-first AI coding/cowork desktop app) `[shipped]`
+- **Auto-imported projects:** project entries pull automatically from their public GitHub repos, with the card content (name, description, overview) sourced from each repo's README rather than hand-written copy; server-fetched and cached, with the typed data remaining as the curation/ordering layer and fallback. Repos that lack a clean overview section get their README updated upstream (in generic, tool-agnostic terms; the repos stay unaware of Dojo) so they import well; Kotrain's README got that treatment. `[shipped]`
+- **Interview practice repositioned:** the community "train together" pitch no longer promises free live interview practice; instead it highlights that we're building a dedicated tool for interview practice (teaser, no date). `[shipped]`
 - Filter by type / location `[in progress]`
 - Skills directory `[moved to Vaizer 2026-07-15]` — the `/skills` catalog + per-skill workflow visualizer (trust tiers, install commands, votes/feedback, `.zip` download) was spun out of Dojo into its own product, [Vaizer](https://vaizer.com) (`nekko-labs/vaizer`). Dojo now links to Vaizer from the Community projects list rather than hosting the hub itself. The `nekko-labs/nekko-dojo-skills` marketplace repo is unchanged.
 - Expand beyond the Nekko Labs OSS community to more Japan-focused projects/communities `[planned]`
@@ -81,8 +81,8 @@ A curated directory of OSS projects and communities (starting with the Nekko Lab
 ### Helpful tools
 A section on the Community page, directly after Projects: practical skills and tools for the job hunt and for working like a modern engineer. *Why:* the guide teaches the path and projects give team experience, but readers also need concrete tools they can run today (resume checks, code-quality skills); it also connects Dojo readers to Vaizer.
 
-- Skills pulled dynamically from Vaizer's skills catalog (Vaizer exposes a public catalog API; Dojo renders the list and links each entry to its Vaizer skill page), so Dojo never hand-maintains the tool list `[planned]`
-- First entries: the **Resume Checker** skill (Nekko Labs, built for job-hunting readers; see the Vaizer spec for its full behavior) and the third-party **impeccable** skill, clearly attributed as not from Nekko Labs `[planned]`
+- Skills pulled dynamically from Vaizer's skills catalog (Vaizer exposes a public catalog API; Dojo renders the list and links each entry to its Vaizer skill page), so Dojo never hand-maintains the tool list; degrades to a static two-entry fallback when Vaizer is unreachable `[shipped]`
+- First entries: the **Resume Checker** skill (Nekko Labs, built for job-hunting readers; see the Vaizer spec for its full behavior) and the third-party **impeccable** skill, clearly attributed as not from Nekko Labs `[shipped]`
 
 ### Discord
 A persistent CTA throughout the site to join the Nekko Labs Discord community. *Why:* converts readers into an engaged community and support network.
@@ -111,5 +111,5 @@ This project is NOT:
 - Travis brand/visual pass: v1 ships a re-skinnable default theme, not a final brand spec.
 - The Skills directory moved out of Dojo into [Vaizer](https://vaizer.com) on 2026-07-15 (repo `nekko-labs/vaizer`). Dojo no longer hosts `/skills`, the skills data/components, or the `/api/vote`, `/api/feedback`, `/api/skills/[slug]/download` routes; those live in Vaizer now. Dojo links to Vaizer from the Community projects list. Supabase is no longer a Dojo dependency (it moved with the skills feature).
 - Dependencies still open: importing remaining Guide source TODOs; expanding the Community directory.
-- The Helpful tools section depends on Vaizer shipping its public catalog API and the Resume Checker skill (tracked in the Vaizer spec/tasks). The auto-imported projects feature depends on upstream READMEs (starting with Kotrain's) having a clean, importable overview section.
+- The Helpful tools dependencies shipped 2026-07-19: Vaizer's public catalog API (`/api/skills`) and the Resume Checker skill are live, and Kotrain's README gained an importable Overview section. Remaining: other Nekko repos' READMEs (nekko-mcp, nekko-dojo-skills) could use the same overview polish since their prose now shows on the directory.
 - The interview-practice tool being teased is not yet specced; when it becomes real it gets its own project.

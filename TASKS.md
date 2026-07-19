@@ -40,8 +40,8 @@ content/ (MDX + data)  ──►  lib/content.ts (load + parse)  ──►  App 
 Component breakdown:
 - **Content layer (`lib/content.ts`)** — reads MDX from `content/articles` and `content/guide`, parses frontmatter with `gray-matter`, returns typed metadata + sorted lists. Single source of truth for content access.
 - **MDX rendering (`mdx-components.tsx` + `next-mdx-remote/rsc`, helpers in `lib/mdx.ts`)** — compiles MDX bodies in server components with the remark/rehype plugin chain above.
-- **Communities data (`data/communities.ts`)**: typed array of curated projects/communities (structured data, not prose). Planned evolution: entries reference a public GitHub repo and the card content (description/overview) is fetched server-side from the repo's README (cached, same pattern as Vaizer's `/api/anthropic-skills` route), with the typed array staying as the curation/ordering layer and build-safe fallback.
-- **Helpful tools (planned)**: a Community-page section fed by Vaizer's public skills catalog API (JSON), fetched server-side and cached; each card links out to the skill's page on vaizer.app. No local skills data returns to Dojo (that stays in Vaizer).
+- **Communities data (`data/communities.ts`)**: typed array of curated projects/communities (structured data, not prose). Card content (description/overview) is fetched server-side from each project's README via `lib/github-readme.ts` (`## Overview` section or first prose paragraph, cached 1h, no token), with the typed array staying as the curation/ordering layer and build-safe fallback.
+- **Helpful tools (`lib/vaizer-skills.ts`)**: a Community-page section fed by Vaizer's public skills catalog API (`/api/skills`, JSON), fetched server-side and cached 1h with a static two-entry fallback; each card links out to the skill's page on vaizer.app. No local skills data returns to Dojo (that stays in Vaizer).
 - **Site config (`lib/site.ts`)** — nav, Discord URL, metadata, social links.
 - **UI components (`components/`)** — header, footer, Discord CTA, article card, project card, `SkillVote` / `SkillFeedback`.
 - **API routes** — `/api/vote`, `/api/feedback` (Supabase-backed).
@@ -71,8 +71,8 @@ Routing:
 - **Supabase** — skill votes + feedback (`/api/vote`, `/api/feedback`, schema in `supabase/schema.sql`).
 - **PostHog** — analytics.
 - **Nekko Labs Discord** — invite-link CTA.
-- **Vaizer skills catalog API** (planned): Dojo's Helpful tools section consumes Vaizer's public catalog endpoint (JSON: name, slug, description, trust tier, link). Tracked on the Vaizer side in `code/vaizer/TASKS.md`.
-- **GitHub README fetch** (planned): community project cards source their content from each repo's public README (raw fetch, cached, no token).
+- **Vaizer skills catalog API**: Dojo's Helpful tools section consumes Vaizer's public catalog endpoint (JSON: name, slug, description, trust tier, link). Tracked on the Vaizer side in `code/vaizer/TASKS.md`.
+- **GitHub README fetch** (`lib/github-readme.ts`): community project cards source their content from each repo's public README (raw fetch, cached, no token).
 - External links out to Nekko Labs OSS repos/community and other Japan-origin OSS projects.
 - Cloudflare — DNS record for the `dojo.nekkolabs.com` subdomain pointing at Vercel.
 
@@ -81,7 +81,7 @@ Routing:
 - **Hosting:** standalone deploy on Vercel (nekkolabs team, project `nekko-dojo`). Served at its own subdomain `dojo.nekkolabs.com` (DNS via Cloudflare → Vercel).
 - **Build:** `next build`; statically rendered where possible (`generateStaticParams` for articles/guide). Latest verified build prerenders ~21 routes.
 - **CI/CD:** TODO — match Nekko repo conventions (GitHub Actions).
-- **Env:** `NEXT_PUBLIC_DISCORD_URL`, `NEXT_PUBLIC_SITE_URL` (plus Supabase/PostHog keys). Provide sensible fallbacks so the site builds without env set.
+- **Env:** `NEXT_PUBLIC_DISCORD_URL`, `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_VAIZER_URL` (defaults to `https://vaizer.app`; plus Supabase/PostHog keys). Provide sensible fallbacks so the site builds without env set.
 
 ## Design System & UI/UX
 
@@ -147,11 +147,6 @@ Extends `../../knowledgebase/principles/coding.md` (these deltas override it).
 
 - [ ] **T1** — Wire the real Discord invite URL (`NEXT_PUBLIC_DISCORD_URL`) across all CTAs; replace the placeholder. · [spec](SPEC.md#discord) · Added: 2026-06-29
 - [ ] **T2** — Add type/location filtering to the Community & Projects directory page. · [spec](SPEC.md#community--projects) · Added: 2026-06-29
-- [ ] **T23**: Rework the `/guide` overview into a fun, interactive, dojo-themed path: chapters as stops the reader follows along a drawn path (extend the home `StagePath` / belt motion language), each section capped with a "New moves" callout naming the concrete abilities that section unlocks (derive each from that section's actual value). Once-only motion, `prefers-reduced-motion` gets the fully-drawn static path. · [spec](SPEC.md#the-guide-flagship) · Added: 2026-07-19
-- [ ] **T24**: Replace the free-live-interview-practice pitch with a "we're building something for this" teaser: `src/components/TrainTogether.tsx` (the "Mock interviews... free" card) and `src/app/community/page.tsx` (the "train together" body copy). Keep the Discord invitation, drop the "free live practice" promise. · [spec](SPEC.md#community--projects) · Added: 2026-07-19
-- [ ] **T25**: Swap Open Paw for Kotrain in the Community directory (`src/data/communities.ts` entry, plus the mentions in `TrainTogether.tsx` and the community page copy), and make project cards auto-import their content from each repo's public README: server-side raw-README fetch + parse of the overview/description (cached ~1h, no token, env-optional), typed data stays as the curation/ordering layer and build-safe fallback. · [spec](SPEC.md#community--projects) · Added: 2026-07-19 · depends-on: T26 for a clean Kotrain import
-- [ ] **T26**: Update the Kotrain repo's README (`nekko-labs/kotrain`) so it imports cleanly: a well-formed short description + overview section (generic and tool-agnostic; no mention of Dojo or importers). · [spec](SPEC.md#community--projects) · Added: 2026-07-19
-- [ ] **T27**: Add the "Helpful tools" section to `/community`, after Projects: fetch the skills list from Vaizer's public catalog API server-side (cached, inert-safe when unreachable), render cards linking to each skill's vaizer.app page; first entries are the Resume Checker (Nekko Labs) and impeccable (third-party, clearly attributed as not from Nekko Labs). · [spec](SPEC.md#helpful-tools) · Added: 2026-07-19 · depends-on: Vaizer's catalog API + Resume Checker skill (see `code/vaizer/TASKS.md`)
 
 ## Backlog / Planned
 
@@ -165,6 +160,11 @@ Extends `../../knowledgebase/principles/coding.md` (these deltas override it).
 
 ## Shipped
 
+- [x] **T23**: Reworked `/guide` into the interactive dojo path: `GuidePath.tsx` (client) renders chapters as numbered stops on a dotted rail that inks itself in accent on scroll (`useScroll` + scaleY, fully inked under reduced motion), section gates with stage counters, "New moves unlocked" chip callouts per section (`src/data/guide-path.ts`), belt rank-ups (white/green/brown/black) with the home page's spring settle, and a finish-flag stop. · [spec](SPEC.md#the-guide-flagship) · Done: 2026-07-19
+- [x] **T24**: Replaced the free-live-interview-practice pitch with the "Interview practice, incoming" teaser (we're building a dedicated tool; Discord hears first) in `TrainTogether.tsx`, the community benefits list, and the community meta description. · [spec](SPEC.md#community--projects) · Done: 2026-07-19
+- [x] **T25**: Kotrain replaces Open Paw (`communities.ts`, TrainTogether, community copy, and the spec-driven-development article's tool recommendation), and project cards now auto-import their description from each repo's README via `lib/github-readme.ts` (Overview section or first prose paragraph, cached 1h, typed data as fallback). Verified live: Kotrain and Misskey cards render their README prose. · [spec](SPEC.md#community--projects) · Done: 2026-07-19
+- [x] **T26**: Kotrain's README restructured upstream with a clean `## Overview` section + fixed tagline (kotrain PR #89), generic and importer-agnostic. · [spec](SPEC.md#community--projects) · Done: 2026-07-19
+- [x] **T27**: "Helpful tools" section live on `/community` after Projects: `lib/vaizer-skills.ts` pulls Vaizer's `/api/skills` (cached 1h, static Resume Checker + Impeccable fallback when unreachable), LinkTile cards with trust-tier badges ("Curated · by Paul Bakaus" for third-party), nav pill added. Verified pulling all 7 live catalog entries from vaizer.app. · [spec](SPEC.md#helpful-tools) · Done: 2026-07-19
 - [x] **T10** — Greenfield Next.js scaffold: config, content layer, all four pillars + sample content; `tsc` clean, `next build` prerenders routes, all routes 200. (feature `initial-scaffold`)
 - [x] **T11** — Home page: hero, four-pillar cards, latest articles, Discord CTA; plus 404 page. · [spec](SPEC.md#cross-cutting)
 - [x] **T12** — Articles pillar: index with cards + reading page (prose, TOC anchors, author, Discord CTA footer); 2 sample essays. · [spec](SPEC.md#articles)

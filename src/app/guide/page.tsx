@@ -1,13 +1,15 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getGuideSections, getAllGuideChapters } from '@/lib/content';
+import { guideSectionMeta } from '@/data/guide-path';
+import { GuidePath, type PathSection } from '@/components/GuidePath';
 import { ArrowRightIcon } from '@/components/icons';
-import { Reveal, Stagger, StaggerItem } from '@/components/motion';
+import { Reveal } from '@/components/motion';
 
 export const metadata: Metadata = {
   title: 'The Guide',
   description:
-    'A step-by-step guide for switching into software development — built from a proven workflow helping career-changers in Japan.',
+    'A step-by-step path into software development, built from a proven workflow helping career-changers in Japan. Walk it stop by stop and unlock new moves at every stage.',
 };
 
 export default function GuidePage() {
@@ -15,15 +17,35 @@ export default function GuidePage() {
   const all = getAllGuideChapters();
   const firstChapter = all[0];
 
+  // Merge content sections with their path flavor (emoji, moves, rank belt)
+  // and number the stops continuously across the whole path.
+  let stop = 0;
+  const pathSections: PathSection[] = sections.map(({ section, chapters }) => {
+    const meta = guideSectionMeta[section] ?? { emoji: '🥋', moves: [] };
+    return {
+      section,
+      ...meta,
+      chapters: chapters.map((chapter) => ({
+        slug: chapter.slug,
+        title: chapter.title,
+        description: chapter.description,
+        readingMinutes: chapter.readingMinutes,
+        number: ++stop,
+      })),
+    };
+  });
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
       <Reveal as="header" load className="max-w-2xl">
         <p className="text-sm font-medium text-accent">The flagship</p>
         <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">The Guide</h1>
         <p className="mt-3 text-lg text-muted">
-          A practical, sequenced path into software development — expanded from the workflow
-          I&apos;ve used to help many people in Japan switch careers (often from English
-          teaching) into engineering. Work through it in order.
+          A practical, sequenced path into software development, expanded from
+          the workflow I&apos;ve used to help many people in Japan switch
+          careers (often from English teaching) into engineering. Walk it stop
+          by stop: every stage unlocks new moves, and the big milestones earn
+          you a new belt.
         </p>
         {firstChapter && (
           <Link
@@ -39,40 +61,9 @@ export default function GuidePage() {
       {all.length === 0 ? (
         <p className="mt-12 text-muted">Chapters are being written — check back soon.</p>
       ) : (
-        <Stagger className="mt-12 space-y-10">
-          {sections.map((section) => (
-            <StaggerItem as="section" key={section.section}>
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted">
-                {section.section}
-              </h2>
-              <ol className="mt-3 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface">
-                {section.chapters.map((chapter, index) => (
-                  <li key={chapter.slug}>
-                    <Link
-                      href={`/guide/${chapter.slug}`}
-                      className="flex items-start gap-4 p-5 transition-colors hover:bg-surface-2"
-                    >
-                      <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-surface-2 text-sm font-medium text-muted">
-                        {index + 1}
-                      </span>
-                      <span className="min-w-0">
-                        <span className="block font-medium">{chapter.title}</span>
-                        {chapter.description && (
-                          <span className="mt-1 block text-sm text-muted">
-                            {chapter.description}
-                          </span>
-                        )}
-                        <span className="mt-1 block text-xs text-muted">
-                          {chapter.readingMinutes} min read
-                        </span>
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ol>
-            </StaggerItem>
-          ))}
-        </Stagger>
+        <div className="mt-12">
+          <GuidePath sections={pathSections} />
+        </div>
       )}
     </div>
   );
