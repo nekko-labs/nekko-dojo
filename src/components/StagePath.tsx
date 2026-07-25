@@ -35,7 +35,8 @@ export function StagePath() {
     >
       {!reduced && (
         <mask id={maskId} maskUnits="userSpaceOnUse">
-          {/* Solid drawing edge; wide enough to cover the dotted stroke. */}
+          {/* Solid drawing edge; wide enough to cover the dotted stroke. The
+              stroke is mask luminance (white reveals), not a brand colour. */}
           <motion.path
             d={PATH_D}
             fill="none"
@@ -49,7 +50,7 @@ export function StagePath() {
       <path
         d={PATH_D}
         fill="none"
-        stroke="rgba(244,241,234,0.3)"
+        stroke="var(--rail)"
         strokeWidth="2"
         strokeDasharray="2 9"
         strokeLinecap="round"

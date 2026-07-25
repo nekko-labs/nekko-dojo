@@ -20,6 +20,11 @@
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-fg: var(--accent-fg);
+  --color-danger: var(--danger);
+  --color-scrim: var(--scrim);
+  --color-gate: var(--gate);
+  --color-torii: var(--torii-red);
+  --color-rail: var(--rail);
 
   /* Belt colours for the training path */
   --color-belt-white: var(--belt-white);
@@ -49,7 +54,7 @@
   --fg: #f4f1ea;
   --muted: #b5aecf;
   --subtle: #d9d3ea;
-  --border: rgba(244, 241, 234, 0.2);
+  --border: color-mix(in srgb, var(--fg) 20%, transparent);
   --accent: #f2b46c;
   --accent-hover: #f7c288;
   --accent-fg: #2e2b47;
@@ -59,9 +64,22 @@
   --belt-green: #5fd68a;
   --belt-brown: #b07a3f;
   --belt-infinity: #b3aaff;
-  --node-bg: #3b365c;
+  --dusk-teal: #7ec4cf;
+  --node-bg: var(--surface);
   --gate: #17151f;
   --torii-red: #e2483b; /* vermilion (shu-iro) for the torii gate */
+
+  /* Semantic surfaces derived from the palette above — never re-mix these
+     per screen; add a token here instead (see STYLESEED.md). */
+  --danger: #f2887a; /* a dusk-tuned vermilion that still reads on --surface */
+  --scrim: color-mix(in srgb, var(--gate) 62%, transparent);
+  --rail: color-mix(in srgb, var(--fg) 30%, transparent);
+  --glow-violet: color-mix(in srgb, var(--belt-infinity) 30%, transparent);
+  --glow-amber: color-mix(in srgb, var(--accent) 20%, transparent);
+  --glow-teal: color-mix(in srgb, var(--dusk-teal) 14%, transparent);
+
+  /* Long-form reading measure — one number, used by .prose and .measure. */
+  --measure: 68ch;
 }
 
 html {
@@ -113,7 +131,7 @@ body {
   left: 4%;
   width: 720px;
   height: 720px;
-  background: radial-gradient(circle, rgba(179, 170, 255, 0.3), transparent 65%);
+  background: radial-gradient(circle, var(--glow-violet), transparent 65%);
   animation: duskDrift1 26s ease-in-out infinite alternate;
 }
 [data-dusk-glow] .glow-2 {
@@ -121,7 +139,7 @@ body {
   right: -160px;
   width: 620px;
   height: 620px;
-  background: radial-gradient(circle, rgba(242, 180, 108, 0.2), transparent 65%);
+  background: radial-gradient(circle, var(--glow-amber), transparent 65%);
   animation: duskDrift2 32s ease-in-out infinite alternate;
 }
 [data-dusk-glow] .glow-3 {
@@ -129,7 +147,7 @@ body {
   left: 26%;
   width: 520px;
   height: 520px;
-  background: radial-gradient(circle, rgba(126, 196, 207, 0.14), transparent 65%);
+  background: radial-gradient(circle, var(--glow-teal), transparent 65%);
   animation: duskDrift3 38s ease-in-out infinite alternate;
 }
 
@@ -172,11 +190,50 @@ body {
    Prose — long-form reading styles for MDX article/guide bodies.
    Hand-rolled (no typography plugin) so it tracks our theme tokens directly.
 --------------------------------------------------------------------------- */
+/* Constrained measure for the furniture around a body of prose (headers,
+   chapter nav, CTAs) so a reading page holds one column, not two widths. */
+.measure {
+  max-width: var(--measure);
+}
+
 .prose {
-  max-width: 68ch;
+  max-width: var(--measure);
   font-size: 1.0625rem;
   line-height: 1.75;
   color: var(--fg);
+
+  /* Microtypography: real hyphenation with sane limits, kerning and ligatures
+     on, punctuation hung into the margin where supported, and last-line
+     balancing so paragraphs don't end on a single orphaned word. */
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphenate-limit-chars: 7 3 3;
+  hanging-punctuation: first last;
+  font-kerning: normal;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  overflow-wrap: break-word;
+  orphans: 2;
+  widows: 2;
+}
+
+.prose p {
+  text-wrap: pretty;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  text-wrap: balance;
+  hyphens: manual;
+}
+
+/* Code, tables and anything monospaced must never be hyphenated or hung. */
+.prose pre,
+.prose code,
+.prose table {
+  hyphens: manual;
+  hanging-punctuation: none;
 }
 
 .prose > * + * {
@@ -206,11 +263,16 @@ body {
   margin-top: 1.5em;
 }
 
-.prose p,
-.prose ul,
-.prose ol,
-.prose blockquote {
-  color: var(--fg);
+/* Layered so a `text-*` utility on something rendered inside a prose body
+   (e.g. the ContentNotice error title) still wins — unlayered, this element
+   rule beats every Tailwind colour utility. */
+@layer components {
+  .prose p,
+  .prose ul,
+  .prose ol,
+  .prose blockquote {
+    color: var(--fg);
+  }
 }
 
 .prose a {
