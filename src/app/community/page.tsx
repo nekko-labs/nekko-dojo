@@ -5,7 +5,7 @@ import {
   jobBoards,
   juniorCompanies,
 } from '@/data/communities';
-import { ProjectCard } from '@/components/ProjectCard';
+import { CommunityDirectory } from '@/components/CommunityDirectory';
 import { LinkTile } from '@/components/LinkTile';
 import { DiscordCTA } from '@/components/DiscordCTA';
 import { Reveal, Stagger, StaggerItem } from '@/components/motion';
@@ -75,10 +75,7 @@ export default async function CommunityPage() {
               {benefit.emoji}
             </span>
             <div>
-              <p
-                className="text-base font-black"
-                style={benefit.accent ? { color: 'var(--accent)' } : undefined}
-              >
+              <p className={`text-base font-black ${benefit.accent ? 'text-accent' : ''}`}>
                 {benefit.title}
               </p>
               <p className="mt-1 text-sm font-medium leading-relaxed text-muted">{benefit.body}</p>
@@ -87,53 +84,15 @@ export default async function CommunityPage() {
         ))}
       </Stagger>
 
-      {/* On-page section nav — handy on mobile */}
-      <nav className="mt-12 flex flex-wrap gap-2 text-sm font-bold">
-        <a
-          href="#projects"
-          className="rounded-full border border-border bg-surface px-3.5 py-1.5 text-muted transition-colors hover:border-accent hover:text-fg"
-        >
-          Projects
-        </a>
-        <a
-          href="#tools"
-          className="rounded-full border border-border bg-surface px-3.5 py-1.5 text-muted transition-colors hover:border-accent hover:text-fg"
-        >
-          Helpful tools
-        </a>
-        <a
-          href="#networking"
-          className="rounded-full border border-border bg-surface px-3.5 py-1.5 text-muted transition-colors hover:border-accent hover:text-fg"
-        >
-          Networking
-        </a>
-        <a
-          href="#jobs"
-          className="rounded-full border border-border bg-surface px-3.5 py-1.5 text-muted transition-colors hover:border-accent hover:text-fg"
-        >
-          Job boards
-        </a>
-      </nav>
+      {/* 1-3. The filterable directory: projects, networking, job resources */}
+      <CommunityDirectory
+        projects={projects}
+        networking={networking}
+        jobBoards={jobBoards}
+        juniorCompanies={juniorCompanies}
+      />
 
-      {/* 1. Projects */}
-      <section id="projects" className="mt-12 scroll-mt-20">
-        <Reveal>
-          <h2 className="text-2xl font-black tracking-tight">Projects to contribute to</h2>
-          <p className="mt-2 max-w-2xl text-sm text-muted">
-            Real GitHub / open-source projects where you can work on a team, ship
-            code that ships, and build a portfolio that actually counts.
-          </p>
-        </Reveal>
-        <Stagger className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
-            <StaggerItem key={project.id} className="h-full">
-              <ProjectCard project={project} />
-            </StaggerItem>
-          ))}
-        </Stagger>
-      </section>
-
-      {/* 2. Helpful tools: fed live by Vaizer's skills catalog */}
+      {/* 4. Helpful tools: fed live by Vaizer's skills catalog */}
       <section id="tools" className="mt-14 scroll-mt-20">
         <Reveal>
           <h2 className="text-2xl font-black tracking-tight">Helpful tools</h2>
@@ -167,81 +126,6 @@ export default async function CommunityPage() {
                 }
                 section="tools"
                 kind="skill"
-              />
-            </StaggerItem>
-          ))}
-        </Stagger>
-      </section>
-
-      {/* 3. Networking */}
-      <section id="networking" className="mt-14 scroll-mt-20">
-        <Reveal>
-          <h2 className="text-2xl font-black tracking-tight">Networking</h2>
-          <p className="mt-2 max-w-2xl text-sm text-muted">
-            Communities where you can ask questions, hear about openings before
-            they hit the boards, and meet people already working in tech here.
-          </p>
-        </Reveal>
-        <Stagger className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {networking.map((c) => (
-            <StaggerItem key={c.id} className="h-full">
-              <LinkTile
-                href={c.url}
-                name={c.name}
-                description={c.description}
-                badge={c.platform}
-                section="networking"
-                kind={c.platform.toLowerCase()}
-              />
-            </StaggerItem>
-          ))}
-        </Stagger>
-      </section>
-
-      {/* 4. Jobs */}
-      <section id="jobs" className="mt-14 scroll-mt-20">
-        <Reveal>
-          <h2 className="text-2xl font-black tracking-tight">
-            Where to search for a job
-          </h2>
-          <p className="mt-2 max-w-2xl text-sm text-muted">
-            Foreigner-friendly job boards first, then companies that run
-            English-friendly teams and tend to hire junior and early-career
-            engineers.
-          </p>
-        </Reveal>
-
-        <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-muted">
-          Job boards
-        </h3>
-        <Stagger className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {jobBoards.map((b) => (
-            <StaggerItem key={b.id} className="h-full">
-              <LinkTile
-                href={b.url}
-                name={b.name}
-                description={b.description}
-                badge={b.region === 'Japan' ? 'Japan' : 'Global'}
-                section="job-boards"
-                kind="board"
-              />
-            </StaggerItem>
-          ))}
-        </Stagger>
-
-        <h3 className="mt-8 text-sm font-semibold uppercase tracking-wide text-muted">
-          Companies that hire juniors
-        </h3>
-        <Stagger className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {juniorCompanies.map((c) => (
-            <StaggerItem key={c.id} className="h-full">
-              <LinkTile
-                href={c.url}
-                name={c.name}
-                description={c.description}
-                badge="Junior friendly"
-                section="companies"
-                kind="company"
               />
             </StaggerItem>
           ))}

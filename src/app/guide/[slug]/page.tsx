@@ -9,6 +9,9 @@ import {
 import { Mdx } from '@/components/Mdx';
 import { DiscordCTA } from '@/components/DiscordCTA';
 import { Reveal } from '@/components/motion';
+import { TableOfContents } from '@/components/TableOfContents';
+import { ReadingProgress } from '@/components/ReadingProgress';
+import { getTableOfContents } from '@/lib/toc';
 
 type Params = { slug: string };
 
@@ -37,16 +40,18 @@ export default async function GuideChapterPage({ params }: { params: Promise<Par
 
   const { meta, body } = chapter;
   const { prev, next } = getAdjacentChapters(slug);
+  const toc = getTableOfContents(body);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
+    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+      <ReadingProgress targetId="chapter-body" />
       <Link href="/guide" className="text-sm text-accent hover:text-accent-hover">
         ← The Guide
       </Link>
 
       {/* Title/meta fade up gently on load; the chapter body below stays
           static so the content is instantly readable. */}
-      <Reveal as="header" load distance={16} className="mt-6">
+      <Reveal as="header" load distance={16} className="mt-6 measure">
         <p className="text-sm font-medium text-accent">{meta.section}</p>
         <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">{meta.title}</h1>
         {meta.description && <p className="mt-3 text-lg text-muted">{meta.description}</p>}
@@ -55,12 +60,17 @@ export default async function GuideChapterPage({ params }: { params: Promise<Par
 
       <hr className="my-8 border-border" />
 
-      <article className="prose">
-        <Mdx source={body} />
-      </article>
+      <div className="gap-12 lg:grid lg:grid-cols-[minmax(0,1fr)_15rem]">
+        <article id="chapter-body" className="prose">
+          <Mdx source={body} />
+        </article>
+        <aside className="hidden lg:block">
+          <TableOfContents entries={toc} />
+        </aside>
+      </div>
 
       {/* Prev / next navigation */}
-      <nav className="mt-12 grid gap-3 sm:grid-cols-2" aria-label="Chapter navigation">
+      <nav className="measure mt-12 grid gap-3 sm:grid-cols-2" aria-label="Chapter navigation">
         {prev ? (
           <Link
             href={`/guide/${prev.slug}`}
@@ -85,7 +95,7 @@ export default async function GuideChapterPage({ params }: { params: Promise<Par
         )}
       </nav>
 
-      <div className="mt-16">
+      <div className="measure mt-16">
         <DiscordCTA />
       </div>
     </div>

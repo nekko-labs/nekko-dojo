@@ -146,7 +146,6 @@ Extends `../../knowledgebase/principles/coding.md` (these deltas override it).
 ## Now / In Progress
 
 - [ ] **T1** — Wire the real Discord invite URL (`NEXT_PUBLIC_DISCORD_URL`) across all CTAs; replace the placeholder. · [spec](SPEC.md#discord) · Added: 2026-06-29
-- [ ] **T2** — Add type/location filtering to the Community & Projects directory page. · [spec](SPEC.md#community--projects) · Added: 2026-06-29
 
 ## Backlog / Planned
 
@@ -154,12 +153,16 @@ Extends `../../knowledgebase/principles/coding.md` (these deltas override it).
 - [ ] **T4** — Expand the Community directory beyond Nekko OSS + Nekko Notes (more Japan-focused OSS projects/communities). → feature `community-directory-expansion`. · [spec](SPEC.md#community--projects) · Added: 2026-06-29
 - [ ] **T5** — Add the `dojo` CNAME in Cloudflare pointing `dojo.nekkolabs.com` at Vercel, then verify the domain resolves. (Superseded the earlier `/dojo` subpath-rewrite plan.) · Added: 2026-06-29 · Updated: 2026-07-07
 - [ ] **T6** — Decide hosting (Vercel vs same host as main site, separate project) and stand up CI/CD (GitHub Actions, match Nekko conventions). · Added: 2026-06-29
-- [ ] **T7** — Travis brand/visual pass over the v1 default theme. → feature `brand-pass`. · Added: 2026-06-29
+- [~] **T7** — Travis brand/visual pass over the v1 default theme. → feature `brand-pass`. The *rules* half is locked in `STYLESEED.md` (palette/type/shape/icon/motion/a11y rules + the token layer they bind to); the marketing/visual voice pass (illustration, wordmark, photography) is still Travis'. · Added: 2026-06-29 · Updated: 2026-07-25
 - [ ] **T8** — Optional newsletter / email capture for new articles. → feature `newsletter-capture`. · [spec](SPEC.md#cross-cutting) · Added: 2026-06-29
 - [ ] **T9** — Publish new articles from the `article-topics.md` brain-dump pipeline. · [spec](SPEC.md#articles) · Added: 2026-06-29
 
 ## Shipped
 
+- [x] **T2** — Community & Projects directory is filterable by type (Projects / Networking / Job boards / Companies) and location (Anywhere / Japan / Global): `CommunityDirectory.tsx` filters server-loaded data client-side, with per-type counts, a polite live result count, an empty state, and "Clear filters". Helpful tools stays unfiltered below it. · [spec](SPEC.md#community--projects) · Done: 2026-07-25
+- [x] **T28** — `MobileNav` is a real modal: `role="dialog"` + `aria-modal`, Escape to close, Tab trapped in the panel, focus moved in on open and returned to the toggle on close, background (`#main`, footer, glow layer) `inert` + `aria-hidden`, body scroll locked, and a tap-off scrim. · Done: 2026-07-25
+- [x] **T29** — Reading upgrade on `/guide/[slug]` and `/articles/[slug]`: single `--measure` token for the text column and its furniture, prose microtypography (hyphenation limits, kerning/ligatures, hanging punctuation, pretty/balanced wrapping, orphan+widow control), a sticky scroll-spy table of contents on large screens (`lib/toc.ts` shares `github-slugger` with `rehype-slug`, so ids always match), and a reading-progress hairline. · Done: 2026-07-25
+- [x] **T30** — MDX rendering has designed failure surfaces: `Mdx` catches compile errors and renders `ContentNotice` (keeping nav/CTA usable), an empty body renders a "still being written" state, and both reading routes have `error.tsx` boundaries (`ReadingErrorBoundary`) with retry + a way back. · Done: 2026-07-25
 - [x] **T23**: Reworked `/guide` into the interactive dojo path: `GuidePath.tsx` (client) renders chapters as numbered stops on a dotted rail that inks itself in accent on scroll (`useScroll` + scaleY, fully inked under reduced motion), section gates with stage counters, "New moves unlocked" chip callouts per section (`src/data/guide-path.ts`), belt rank-ups (white/green/brown/black) with the home page's spring settle, and a finish-flag stop. · [spec](SPEC.md#the-guide-flagship) · Done: 2026-07-19
 - [x] **T24**: Replaced the free-live-interview-practice pitch with the "Interview practice, incoming" teaser (we're building a dedicated tool; Discord hears first) in `TrainTogether.tsx`, the community benefits list, and the community meta description. · [spec](SPEC.md#community--projects) · Done: 2026-07-19
 - [x] **T25**: Kotrain replaces Open Paw (`communities.ts`, TrainTogether, community copy, and the spec-driven-development article's tool recommendation), and project cards now auto-import their description from each repo's README via `lib/github-readme.ts` (Overview section or first prose paragraph, cached 1h, typed data as fallback). Verified live: Kotrain and Misskey cards render their README prose. · [spec](SPEC.md#community--projects) · Done: 2026-07-19

@@ -6,6 +6,9 @@ import { Mdx } from '@/components/Mdx';
 import { DiscordCTA } from '@/components/DiscordCTA';
 import { formatDate } from '@/lib/format';
 import { Reveal } from '@/components/motion';
+import { TableOfContents } from '@/components/TableOfContents';
+import { ReadingProgress } from '@/components/ReadingProgress';
+import { getTableOfContents } from '@/lib/toc';
 
 type Params = { slug: string };
 
@@ -33,16 +36,18 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
   if (!article) notFound();
 
   const { meta, body } = article;
+  const toc = getTableOfContents(body);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
+    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+      <ReadingProgress targetId="article-body" />
       <Link href="/articles" className="text-sm text-accent hover:text-accent-hover">
         ← All articles
       </Link>
 
       {/* Title/meta fade up gently on load; the article body below stays
           static so the content is instantly readable. */}
-      <Reveal as="header" load distance={16} className="mt-6">
+      <Reveal as="header" load distance={16} className="mt-6 measure">
         <div className="flex flex-wrap items-center gap-2 text-sm text-muted">
           {meta.date && <time dateTime={meta.date}>{formatDate(meta.date)}</time>}
           <span aria-hidden>·</span>
@@ -68,11 +73,16 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
 
       <hr className="my-8 border-border" />
 
-      <article className="prose">
-        <Mdx source={body} />
-      </article>
+      <div className="gap-12 lg:grid lg:grid-cols-[minmax(0,1fr)_15rem]">
+        <article id="article-body" className="prose">
+          <Mdx source={body} />
+        </article>
+        <aside className="hidden lg:block">
+          <TableOfContents entries={toc} />
+        </aside>
+      </div>
 
-      <div className="mt-16">
+      <div className="measure mt-16">
         <DiscordCTA />
       </div>
     </div>
