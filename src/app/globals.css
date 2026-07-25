@@ -263,11 +263,16 @@ body {
   margin-top: 1.5em;
 }
 
-.prose p,
-.prose ul,
-.prose ol,
-.prose blockquote {
-  color: var(--fg);
+/* Layered so a `text-*` utility on something rendered inside a prose body
+   (e.g. the ContentNotice error title) still wins — unlayered, this element
+   rule beats every Tailwind colour utility. */
+@layer components {
+  .prose p,
+  .prose ul,
+  .prose ol,
+  .prose blockquote {
+    color: var(--fg);
+  }
 }
 
 .prose a {

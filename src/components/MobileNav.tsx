@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { nav, site } from '@/lib/site';
 import { DiscordIcon, GitHubIcon } from './icons';
@@ -122,12 +123,17 @@ export function MobileNav() {
 
       {open && (
         <>
-          {/* Click-off surface; the panel itself carries the dialog semantics. */}
-          <div
-            className="fixed inset-x-0 bottom-0 top-20 bg-scrim"
-            aria-hidden="true"
-            onClick={close}
-          />
+          {/* Click-off surface. Portalled to <body>: the header's backdrop-blur
+              makes it a containing block for fixed children, which would
+              collapse this to the header's own height. */}
+          {createPortal(
+            <div
+              className="fixed inset-x-0 bottom-0 top-20 z-20 bg-scrim"
+              aria-hidden="true"
+              onClick={close}
+            />,
+            document.body,
+          )}
           <div
             ref={panelRef}
             id={panelId}
