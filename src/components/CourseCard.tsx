@@ -15,21 +15,12 @@ export function CourseCard({ course, flip = false }: { course: Course; flip?: bo
   return (
     <Link
       href={course.href}
-      className="group grid items-center gap-6 rounded-3xl border border-border bg-surface p-6 transition hover:-translate-y-0.5 hover:border-accent sm:grid-cols-[1fr_13rem] sm:gap-8 sm:p-8"
+      className="group grid items-center gap-6 rounded-2xl border border-border bg-surface p-6 transition hover:-translate-y-0.5 hover:border-accent sm:grid-cols-[1fr_13rem] sm:gap-8 sm:p-8"
     >
       <div className={flip ? 'sm:order-2' : undefined}>
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-lg" aria-hidden>
-            {course.emoji}
-          </span>
           {comingSoon ? (
-            <span
-              className="rounded-full px-2.5 py-0.5 text-xs font-black uppercase tracking-[0.14em] text-accent"
-              style={{
-                border: '1px solid color-mix(in srgb, var(--accent) 45%, transparent)',
-                background: 'color-mix(in srgb, var(--accent) 10%, transparent)',
-              }}
-            >
+            <span className="rounded-full border border-accent-line bg-accent-soft px-2.5 py-0.5 text-xs font-black uppercase tracking-[0.14em] text-accent">
               Coming soon
             </span>
           ) : (

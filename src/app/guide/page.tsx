@@ -76,17 +76,13 @@ export default function GuidePage() {
       <Reveal className="mt-14">
         <Link
           href={nextCourse.href}
-          className="group block rounded-3xl border p-6 transition hover:-translate-y-0.5 sm:p-7"
-          style={{
-            borderColor: 'color-mix(in srgb, var(--accent) 45%, transparent)',
-            background: 'color-mix(in srgb, var(--accent) 8%, transparent)',
-          }}
+          className="group block rounded-2xl border border-accent-line bg-accent-soft p-6 transition hover:-translate-y-0.5 sm:p-7"
         >
           <p className="text-xs font-black uppercase tracking-[0.2em] text-accent">
             Next course · Coming soon
           </p>
           <h2 className="mt-2 text-xl font-black tracking-tight transition-colors group-hover:text-accent">
-            {nextCourse.emoji} {nextCourse.name}
+            {nextCourse.name}
           </h2>
           <p className="mt-2 max-w-xl text-sm font-medium leading-relaxed text-muted">
             {nextCourse.description}

@@ -23,7 +23,9 @@ export type Course = {
   /** Who should walk this one. */
   audience: string;
   status: CourseStatus;
-  emoji: string;
+  /* No `emoji` here on purpose: a course card is a link, and STYLESEED 4.1
+     bans emoji as icons inside interactive controls. The mascot and rank
+     belt carry the illustration instead. */
   belt: { src: string; name: string };
   mascot: { src: string; alt: string };
 };
@@ -38,7 +40,6 @@ export const courses: readonly Course[] = [
       'The flagship path, expanded from the workflow Philip has used to help people in Japan switch careers into engineering. Walk it stop by stop: learn to code, build real things, survive the interview loop, and sign the offer.',
     audience: 'Career-changers, beginners, and job hunters',
     status: 'live',
-    emoji: '🥋',
     belt: { src: '/belts/belt-white.png', name: 'white belt' },
     mascot: {
       src: '/mascot/nekko-kamae.png',
@@ -54,7 +55,6 @@ export const courses: readonly Course[] = [
       'The second course, for people who can already build software and can feel the job changing under them. Learn to direct agents instead of out-typing them: specs machines can execute, harnesses that make autonomy safe, and verification sharp enough to trust the output.',
     audience: 'Working engineers, and anyone who finished The Guide',
     status: 'coming-soon',
-    emoji: '🤖',
     belt: { src: '/belts/belt-black.png', name: 'black belt' },
     mascot: {
       src: '/mascot/nekko-sensei.png',

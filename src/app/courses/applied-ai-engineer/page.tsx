@@ -53,13 +53,7 @@ export default function AppliedAiEngineerPage() {
       {/* Hero */}
       <header className="mt-6 grid items-center gap-8 sm:grid-cols-[1fr_15rem]">
         <Reveal load>
-          <span
-            className="inline-flex rounded-full px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-accent"
-            style={{
-              border: '1px solid color-mix(in srgb, var(--accent) 45%, transparent)',
-              background: 'color-mix(in srgb, var(--accent) 10%, transparent)',
-            }}
-          >
+          <span className="inline-flex rounded-full border border-accent-line bg-accent-soft px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-accent">
             Coming soon
           </span>
           <h1 className="mt-4 text-4xl font-black leading-[1.1] tracking-tight sm:text-5xl">
@@ -128,13 +122,7 @@ export default function AppliedAiEngineerPage() {
       {/* The growing role */}
       <section className="mt-20">
         <Reveal>
-          <div
-            className="rounded-3xl border p-7 sm:p-9"
-            style={{
-              borderColor: 'color-mix(in srgb, var(--accent) 45%, transparent)',
-              background: 'color-mix(in srgb, var(--accent) 8%, transparent)',
-            }}
-          >
+          <div className="rounded-2xl border border-accent-line bg-accent-soft p-7 sm:p-9">
             <p className="text-xs font-black uppercase tracking-[0.2em] text-accent">
               The fastest-growing role
             </p>
@@ -286,7 +274,7 @@ export default function AppliedAiEngineerPage() {
       {/* CTA */}
       <section className="mt-16">
         <Reveal>
-          <div className="rounded-3xl border border-border bg-surface p-8 text-center">
+          <div className="rounded-2xl border border-border bg-surface p-8 text-center">
             <h2 className="text-2xl font-black tracking-tight">
               Want to know when it opens?
             </h2>
