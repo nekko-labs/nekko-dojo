@@ -25,6 +25,8 @@
   --color-gate: var(--gate);
   --color-torii: var(--torii-red);
   --color-rail: var(--rail);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-line: var(--accent-line);
 
   /* Belt colours for the training path */
   --color-belt-white: var(--belt-white);
@@ -77,6 +79,10 @@
   --glow-violet: color-mix(in srgb, var(--belt-infinity) 30%, transparent);
   --glow-amber: color-mix(in srgb, var(--accent) 20%, transparent);
   --glow-teal: color-mix(in srgb, var(--dusk-teal) 14%, transparent);
+  /* The accent-tinted callout: "new moves", coming-soon chips, course
+     panels. One mix shared by every screen, not re-derived per page. */
+  --accent-soft: color-mix(in srgb, var(--accent) 8%, transparent);
+  --accent-line: color-mix(in srgb, var(--accent) 45%, transparent);
 
   /* Long-form reading measure — one number, used by .prose and .measure. */
   --measure: 68ch;

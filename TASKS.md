@@ -42,6 +42,7 @@ Component breakdown:
 - **MDX rendering (`mdx-components.tsx` + `next-mdx-remote/rsc`, helpers in `lib/mdx.ts`)** — compiles MDX bodies in server components with the remark/rehype plugin chain above.
 - **Communities data (`data/communities.ts`)**: typed array of curated projects/communities (structured data, not prose). Card content (description/overview) is fetched server-side from each project's README via `lib/github-readme.ts` (`## Overview` section or first prose paragraph, cached 1h, no token), with the typed array staying as the curation/ordering layer and build-safe fallback.
 - **Helpful tools (`lib/vaizer-skills.ts`)**: a Community-page section fed by Vaizer's public skills catalog API (`/api/skills`, JSON), fetched server-side and cached 1h with a static two-entry fallback; each card links out to the skill's page on vaizer.app. No local skills data returns to Dojo (that stays in Vaizer).
+- **Course registry (`data/courses.ts`)** — typed list of courses (id, href, status `live` / `coming-soon`, pitch, audience, belt, mascot) plus the Applied AI Engineer syllabus data (role-shift rows, modules, what still matters). Consumed by `/courses`, the AI course page, and the `/guide` next-course teaser, so a course's copy and status live in exactly one place.
 - **Site config (`lib/site.ts`)** — nav, Discord URL, metadata, social links.
 - **UI components (`components/`)** — header, footer, Discord CTA, article card, project card, `SkillVote` / `SkillFeedback`.
 - **API routes** — `/api/vote`, `/api/feedback` (Supabase-backed).
@@ -62,7 +63,8 @@ Frontmatter shapes are defined and validated in `lib/content.ts` — update the 
 Routing:
 - `/` — home (intro + entry points to all pillars + Discord CTA)
 - `/articles` — index; `/articles/[slug]` — article
-- `/guide` — overview/TOC; `/guide/[slug]` — chapter (prev/next nav)
+- `/courses` — hub listing every course; `/courses/applied-ai-engineer` — course-two teaser (no chapters yet)
+- `/guide` — course one overview/TOC; `/guide/[slug]` — chapter (prev/next nav). Kept at `/guide`, not moved under `/courses`, so existing links and shares stay valid.
 - `/community` — projects + communities directory
 - All served at the domain root of `dojo.nekkolabs.com` (no basePath).
 
@@ -157,8 +159,11 @@ Extends `../../knowledgebase/principles/coding.md` (these deltas override it).
 - [ ] **T8** — Optional newsletter / email capture for new articles. → feature `newsletter-capture`. · [spec](SPEC.md#cross-cutting) · Added: 2026-06-29
 - [ ] **T9** — Publish new articles from the `article-topics.md` brain-dump pipeline. · [spec](SPEC.md#articles) · Added: 2026-06-29
 
+- [ ] **T32** — Write the Applied AI Engineer chapters (`content/courses/applied-ai-engineer/`), reusing the guide content layer + `GuidePath` rendering, and flip the course status from `coming-soon` to `live` in `src/data/courses.ts`. · [spec](SPEC.md#applied-ai-engineer-course-two) · Added: 2026-07-26
+
 ## Shipped
 
+- [x] **T31**: Second course shipped as a coming-soon destination. `src/data/courses.ts` is the new typed course registry (The Guide `live`, Applied AI Engineer `coming-soon`) plus the AI course's role-shift rows, six modules, and the still-matters / stopped-mattering lists. New `/courses` hub (`CourseCard.tsx`, alternating sides, mascot + rank belt + status chip) and `/courses/applied-ai-engineer` teaser page (role shift, harness-development callout, curriculum with outcome chips, what still matters, prereqs back to The Guide, Discord CTA). Nav `The Guide` → `Courses` (header, mobile, footer glyph), `/guide` gains a `← Courses` crumb and a "Next course" teaser at the foot of the path, and the home page's black-belt stage now points at the AI course instead of `/articles`. Built against `STYLESEED.md`: the accent callout mix is now two semantic tokens (`--accent-soft`, `--accent-line`, exposed as `bg-accent-soft` / `border-accent-line`) instead of a per-screen `color-mix` (1.2/1.3), which also de-duplicates the inline mix that was already in `GuidePath`; radii stay `rounded-2xl` / `rounded-full` (3.2); and no emoji appear inside interactive controls (4.1), so a course carries a mascot and rank belt rather than a glyph. `tsc` clean, `next build` prerenders both routes, verified in-browser at desktop and 375px: no console errors, no horizontal overflow, no inline colour styles, every decorative emoji `aria-hidden`. · [spec](SPEC.md#applied-ai-engineer-course-two) · Done: 2026-07-26
 - [x] **T2** — Community & Projects directory is filterable by type (Projects / Networking / Job boards / Companies) and location (Anywhere / Japan / Global): `CommunityDirectory.tsx` filters server-loaded data client-side, with per-type counts, a polite live result count, an empty state, and "Clear filters". Helpful tools stays unfiltered below it. · [spec](SPEC.md#community--projects) · Done: 2026-07-25
 - [x] **T28** — `MobileNav` is a real modal: `role="dialog"` + `aria-modal`, Escape to close, Tab trapped in the panel, focus moved in on open and returned to the toggle on close, background (`#main`, footer, glow layer) `inert` + `aria-hidden`, body scroll locked, and a tap-off scrim. · Done: 2026-07-25
 - [x] **T29** — Reading upgrade on `/guide/[slug]` and `/articles/[slug]`: single `--measure` token for the text column and its furniture, prose microtypography (hyphenation limits, kerning/ligatures, hanging punctuation, pretty/balanced wrapping, orphan+widow control), a sticky scroll-spy table of contents on large screens (`lib/toc.ts` shares `github-slugger` with `rehype-slug`, so ids always match), and a reading-progress hairline. · Done: 2026-07-25

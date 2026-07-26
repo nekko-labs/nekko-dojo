@@ -8,6 +8,7 @@ import { ToriiSeparator } from './ToriiSeparator';
 /** Playful glyph per nav destination, echoing each page's theme. */
 const NAV_GLYPH: Record<string, string> = {
   '/articles': '📖',
+  '/courses': '🗺️',
   '/guide': '🗺️',
   '/community': '⛩️',
 };

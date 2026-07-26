@@ -29,9 +29,10 @@ Philip has both: a proven course/workflow that has helped many people switch car
 ## User Journeys & Experiences
 
 1. **Career-changer path:** Home → Guide overview (an interactive path they walk stop-by-stop, seeing the "new moves" each section unlocks) → start chapter 1 → progress chapter-to-chapter via prev/next → Community (apply learning to a real project) → Discord for help and accountability.
-2. **Reader/subscriber path:** Home → Articles → read an essay → Discord CTA at the footer.
-3. **Contributor path:** Home/Community → pick a project (e.g. Kotrain) → external link out + "join Discord for help".
-4. **Tooling path:** Community → Helpful tools → open a skill on Vaizer (e.g. run the Resume Checker against a job posting before applying).
+2. **Working-engineer path:** Home ("I'm already an engineer") or nav → Courses → Applied AI Engineer → read what the role shift means and what the course will cover → Discord to hear when it opens.
+3. **Reader/subscriber path:** Home → Articles → read an essay → Discord CTA at the footer.
+4. **Contributor path:** Home/Community → pick a project (e.g. Kotrain) → external link out + "join Discord for help".
+5. **Tooling path:** Community → Helpful tools → open a skill on Vaizer (e.g. run the Resume Checker against a job posting before applying).
 
 Interacting with the site should feel like reading a trusted senior engineer's notes: generous reading width for long-form content, clean typography, syntax-highlighted code, and a recurring, low-pressure nudge toward the community.
 
@@ -58,14 +59,29 @@ Philip's essays on tech, AI, and career growth from a director/principal vantage
 - Article reading page: prose, heading TOC anchors, author, Discord CTA footer `[shipped]`
 - Running brain-dump of article ideas (`article-topics.md`) feeding the pipeline `[in progress]`
 
-### The Guide (flagship)
+### Courses
+The dojo teaches through named courses, listed at `/courses`. The Guide is course one (into the industry); Applied AI Engineer is course two (staying valuable inside it). *Why:* one guide was enough when the only audience was career-changers; a second, distinct audience (working engineers) needs its own path rather than more chapters bolted onto The Guide.
+
+- **Courses hub** at `/courses`: one card per course (mascot, rank belt, tagline, who it's for, `Open now` / `Coming soon` status), alternating sides, primary nav entry `Courses` replacing `The Guide`. Course registry is typed data in `src/data/courses.ts`; `/guide` stays the canonical URL for course one and gains a `← Courses` crumb. `[shipped]`
+
+### The Guide (course one, flagship)
 A structured, multi-chapter guide expanding Philip's existing course/workflow for switching into software development in Japan. *Why:* the core value proposition and the main reason people will share the site.
 
 - Guide overview / TOC, chapters grouped by section, "start here" `[shipped]`
+- "Next course · Coming soon" teaser card at the foot of the path, pointing at Applied AI Engineer `[shipped]`
 - **Guide path rework:** the overview becomes a fun, interactive, dojo-themed journey rather than a plain TOC. Chapters render as stops along a drawn path the reader follows (extending the home page's belt-path motion language), and each major section ends in a "New moves" callout naming the concrete abilities that section unlocks, derived from the value that section actually delivers (e.g. Foundations → "you can build and deploy a real web page"; Interview Prep → "you can whiteboard a problem out loud"). Progress feel without accounts: the path itself communicates where you are and what you've earned. Built as `GuidePath` (chapters as numbered stops on a scroll-inked dotted rail, "New moves" chips per section, belt rank-ups at the four milestone sections with a spring settle, a finish-flag stop). `[shipped]`
 - Chapter reading page with prev/next navigation `[shipped]`
 - **12 chapters imported from Philip's course doc**, in his voice, preserving specifics (links, the TODO-app philosophy, exact stack recs, DS&A + architecture interview prep, the S/A/B-F company tier list, Google exploding-offers note, practice questions). Sections: Getting Started → Foundations → Building Real Things → Interview Prep → Landing the Job → Practice `[shipped]`
 - Fill remaining source-doc TODOs (Supabase signup link, git guide link, a walkthrough) `[planned]`
+
+### Applied AI Engineer (course two)
+The second course, for people who can already build software and can feel the job changing under them. *Why:* the site's fastest-growing audience is working engineers, and the strongest articles already argue that AI is repricing engineering rather than ending it. A course is the natural next step from that argument, and it gives the black-belt stage on the home page a real destination.
+
+The pitch, in three parts: (1) **the role is shifting** — you were paid to produce code, you are now paid to decide what should exist and prove the result is correct; (2) **harness development / agentic engineering is the fastest-growing role** — someone has to engineer the context, tools, permissions, tests and review that agents run inside, and almost nobody has been taught it; (3) **most of engineering still matters** — reading code, system design, debugging, fundamentals, product judgment and working with people all got *more* leveraged, while boilerplate, syntax recall and first-draft speed stopped being a moat. The honest "what stopped mattering" list is part of the pitch, not hidden.
+
+- **Coming-soon page** at `/courses/applied-ai-engineer`: hero with a `Coming soon` chip, the before/after role-shift table, the harness-development callout, a six-stage curriculum (How agents actually work → Spec-driven development → Building the harness → Verification at volume → Orchestration: running a fleet → Architecture and taste in the loop) with per-stage outcome chips, "What still matters" / "what stopped being a moat", prerequisites pointing back at The Guide, and a Discord CTA in place of a signup form. Content is typed data in `src/data/courses.ts`. `[shipped]`
+- Write the chapters (`content/courses/applied-ai-engineer/`, reusing the guide content layer and path rendering) `[planned]`
+- Signup/notify capture for the launch, if the newsletter work lands first `[planned]`
 
 ### Community & Projects
 A curated directory of OSS projects and communities (starting with the Nekko Labs OSS community and Japan-origin projects) where learners contribute to real teams. *Why:* bridges the gap between learning and employable, collaborative experience.

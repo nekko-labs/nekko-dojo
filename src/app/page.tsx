@@ -47,9 +47,9 @@ const stages = [
   {
     belt: { src: "/belts/belt-black.png", name: "black belt" },
     title: "I'm already an engineer",
-    body: "Sharpen your craft in the AI era, mentor someone a step behind you.",
-    cta: "Keep training",
-    href: "/articles",
+    body: "The job is shifting under you. Learn to direct agents instead of out-typing them.",
+    cta: "See the AI course",
+    href: "/courses/applied-ai-engineer",
     accent: true,
     photo: {
       src: "/mascot/nekko-sensei.png",

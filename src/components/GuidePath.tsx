@@ -131,13 +131,7 @@ export function GuidePath({ sections }: { sections: PathSection[] }) {
                   }
                 >
                   <Reveal>
-                    <div
-                      className="rounded-2xl border p-5"
-                      style={{
-                        borderColor: 'color-mix(in srgb, var(--accent) 45%, transparent)',
-                        background: 'color-mix(in srgb, var(--accent) 8%, transparent)',
-                      }}
-                    >
+                    <div className="rounded-2xl border border-accent-line bg-accent-soft p-5">
                       <p className="text-xs font-black uppercase tracking-[0.2em] text-accent">
                         New moves unlocked
                       </p>
