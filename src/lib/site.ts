@@ -23,6 +23,6 @@ export const site = {
 
 export const nav: ReadonlyArray<{ label: string; href: string }> = [
   { label: 'Articles', href: '/articles' },
-  { label: 'The Guide', href: '/guide' },
+  { label: 'Courses', href: '/courses' },
   { label: 'Community', href: '/community' },
 ];
