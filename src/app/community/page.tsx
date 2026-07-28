@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   title: 'Community',
   description:
     'You don’t train alone. Get unstuck fast, ship on real open-source teams, grab the tools that pull their weight in the job hunt, then mentor the next person; plus job boards and companies hiring junior engineers in Japan.',
+  alternates: { canonical: '/community' },
 };
 
 /** What the dojo community actually gives you, in order of the journey. */

@@ -24,11 +24,29 @@ export const metadata: Metadata = {
     template: `%s · ${site.name}`,
   },
   description: site.description,
+  // Inherited by every route. Individual pages set their own canonical, since a
+  // site-wide one here would canonicalize every route to the home page.
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
+  },
   openGraph: {
     title: site.name,
     description: site.description,
     siteName: site.name,
     type: 'website',
+    locale: 'en_US',
+    images: [{ url: '/dojo.png', width: 1100, height: 683, alt: `${site.name}: ${site.tagline}` }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: site.name,
+    description: site.description,
+    images: ['/dojo.png'],
+  },
+  alternates: {
+    types: { 'text/plain': [{ url: '/llms.txt', title: `${site.name} for LLMs` }] },
   },
 };
 

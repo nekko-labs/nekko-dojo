@@ -11,7 +11,9 @@ import { DiscordCTA } from '@/components/DiscordCTA';
 import { Reveal } from '@/components/motion';
 import { TableOfContents } from '@/components/TableOfContents';
 import { ReadingProgress } from '@/components/ReadingProgress';
+import { JsonLd } from '@/components/JsonLd';
 import { getTableOfContents } from '@/lib/toc';
+import { site } from '@/lib/site';
 
 type Params = { slug: string };
 
@@ -27,9 +29,25 @@ export async function generateMetadata({
   const { slug } = await params;
   const chapter = getGuideChapter(slug);
   if (!chapter) return {};
+  const { meta } = chapter;
   return {
-    title: chapter.meta.title,
-    description: chapter.meta.description,
+    title: meta.title,
+    description: meta.description,
+    alternates: { canonical: `/guide/${meta.slug}` },
+    openGraph: {
+      type: 'article',
+      title: meta.title,
+      description: meta.description,
+      url: `/guide/${meta.slug}`,
+      // A child openGraph object replaces the layout's, so restate the image.
+      images: [{ url: '/dojo.png', width: 1100, height: 683, alt: meta.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: meta.title,
+      description: meta.description,
+      images: ['/dojo.png'],
+    },
   };
 }
 
@@ -42,8 +60,46 @@ export default async function GuideChapterPage({ params }: { params: Promise<Par
   const { prev, next } = getAdjacentChapters(slug);
   const toc = getTableOfContents(body);
 
+  // A chapter of a course, not a standalone blog post: LearningResource says so,
+  // and the breadcrumb keeps it attached to The Guide.
+  const chapterSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'LearningResource',
+    name: meta.title,
+    description: meta.description,
+    url: `${site.url}/guide/${meta.slug}`,
+    learningResourceType: 'Course chapter',
+    educationalLevel: 'Beginner',
+    timeRequired: `PT${meta.readingMinutes}M`,
+    inLanguage: 'en',
+    isPartOf: {
+      '@type': 'Course',
+      name: 'The Guide',
+      url: `${site.url}/guide`,
+      provider: { '@id': `${site.url}/#organization` },
+    },
+    provider: { '@id': `${site.url}/#organization` },
+  };
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: site.name, item: `${site.url}/` },
+      { '@type': 'ListItem', position: 2, name: 'The Guide', item: `${site.url}/guide` },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: meta.title,
+        item: `${site.url}/guide/${meta.slug}`,
+      },
+    ],
+  };
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+      <JsonLd data={chapterSchema} />
+      <JsonLd data={breadcrumbSchema} />
       <ReadingProgress targetId="chapter-body" />
       <Link href="/guide" className="text-sm text-accent hover:text-accent-hover">
         ← The Guide
