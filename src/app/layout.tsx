@@ -45,15 +45,21 @@ export const metadata: Metadata = {
     description: site.description,
     images: ['/dojo.png'],
   },
-  alternates: {
-    types: { 'text/plain': [{ url: '/llms.txt', title: `${site.name} for LLMs` }] },
-  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={zenMaru.variable}>
       <body className="min-h-screen bg-bg text-fg antialiased">
+        {/* Points LLM-facing crawlers at the plain-text site summary. Rendered
+            here rather than via metadata.alternates.types, which Next does not
+            currently emit; React hoists this into <head>. */}
+        <link
+          rel="alternate"
+          type="text/plain"
+          href="/llms.txt"
+          title={`${site.name} for LLMs`}
+        />
         {/* Decorative dusk glow behind everything */}
         <div data-dusk-glow aria-hidden="true">
           <span className="glow-1" />
