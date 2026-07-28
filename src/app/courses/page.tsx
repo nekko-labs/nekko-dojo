@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: 'Courses',
   description:
     'Two paths through the dojo: The Guide takes you from never having coded to your first engineering job, and Applied AI Engineer teaches you to direct agents once you can already build.',
+  alternates: { canonical: '/courses' },
 };
 
 export default function CoursesPage() {

@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: 'Articles',
   description:
     'Director-level perspective on engineering, AI, and growing your career as the market shifts.',
+  alternates: { canonical: '/articles' },
 };
 
 export default function ArticlesPage() {

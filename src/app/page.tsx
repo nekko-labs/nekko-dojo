@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { getAllArticles, getAllGuideChapters } from "@/lib/content";
@@ -6,7 +7,42 @@ import { DiscordIcon } from "@/components/icons";
 import { TrainTogether } from "@/components/TrainTogether";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { StagePath } from "@/components/StagePath";
+import { JsonLd } from "@/components/JsonLd";
 import { site } from "@/lib/site";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
+
+/** The dojo itself, for search and answer engines. */
+const siteSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "EducationalOrganization",
+      "@id": `${site.url}/#organization`,
+      name: site.name,
+      url: site.url,
+      description: site.description,
+      slogan: site.tagline,
+      parentOrganization: {
+        "@type": "Organization",
+        name: site.parentName,
+        url: site.parentUrl,
+      },
+      sameAs: [site.githubUrl, site.discordUrl],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${site.url}/#website`,
+      url: site.url,
+      name: site.name,
+      description: site.description,
+      inLanguage: "en",
+      publisher: { "@id": `${site.url}/#organization` },
+    },
+  ],
+};
 
 /** "Where are you now?" — the dojo meets you at any stage. Each stage carries a
  *  photo of the sensei-in-training, so the cat grows up alongside you. */
@@ -64,6 +100,7 @@ export default function HomePage() {
 
   return (
     <div className="mx-auto max-w-6xl px-5 sm:px-8">
+      <JsonLd data={siteSchema} />
       {/* Hero */}
       <section className="grid items-center gap-12 pb-14 pt-24 sm:pb-20 sm:pt-32 lg:min-h-[72vh] lg:grid-cols-[1fr_1.12fr] lg:gap-10">
         {/* Copy — left of the sensei on desktop, centered on mobile */}

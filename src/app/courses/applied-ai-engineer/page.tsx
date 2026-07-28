@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   title: 'Applied AI Engineer (coming soon)',
   description:
     'The dojo’s second course. Engineering roles are shifting from producing code to directing the systems that produce it, and harness development is the fastest-growing role in the field. Here is what the course will cover, and which parts of coding and engineering design still matter.',
+  alternates: { canonical: '/courses/applied-ai-engineer' },
 };
 
 /** Reusable section heading so the long page keeps one rhythm. */

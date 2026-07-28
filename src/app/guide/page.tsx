@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: 'The Guide',
   description:
     'A step-by-step path into software development, built from a proven workflow helping career-changers in Japan. Walk it stop by stop and unlock new moves at every stage.',
+  alternates: { canonical: '/guide' },
 };
 
 const nextCourse = getCourse('applied-ai-engineer')!;
