@@ -4,7 +4,6 @@ description: Factories went fully automated in 2001. Now the same pattern is arr
 date: 2026-07-24
 author: Philip
 tags: ['Dark Factory', 'AI', 'Agentic Engineering', 'Software', 'Automation']
-draft: true
 ---
 
 <figure>
@@ -59,15 +58,15 @@ The slide that stuck with me was two rules, which he credited to [StrongDM](http
 - Code must not be written by humans.
 - Code must not be reviewed by humans.
 
-Read those quickly and they sound like a stunt. Read them again as engineering constraints and they are something else: a bet that you can specify and check a system so well that a human in the middle of the loop only adds latency and error. StrongDM put roughly 32,000 lines of production code into their product this way with three people, replacing review with behavioral specs held outside the codebase and hidden from the agent while it works.
+The first one is easy. The second one is where things like this [Amazon production event](https://www.geekwire.com/2026/amazon-pushes-back-on-financial-times-report-blaming-ai-coding-tools-for-aws-outages/) can happen.
 
-The frontier labs are further along. Ryan Lopopolo's team on OpenAI Frontier spent five months shipping an internal product of roughly a million lines across about 1,500 PRs with **zero human-written code and zero human review before merge**, at over a billion tokens a day. They call the discipline [harness engineering](https://openai.com/index/harness-engineering/), which is the reframe worth stealing: you are not writing code anymore, you are building the structure, guardrails, checks and context that keep an agent on track.
+The frontier labs are further along than most. Ryan Lopopolo's team on OpenAI Frontier spent five months shipping an internal product of roughly a million lines across about 1,500 PRs with **zero human-written code and zero human review before merge**, at over a billion tokens a day. They call the discipline [harness engineering](https://openai.com/index/harness-engineering/), which is where most engineers' focus should be headed. **You are not writing code anymore. You are building the structure, guardrails, checks and context that keep an agent on track.**
 
-I am calling **project dark factory** the version of this goal that product-centric companies can actually take on. Not a lab result, a plan for automating areas of your own work.
+**Project dark factory** is what I'm calling the goal product-centric companies can actually take on. A plan for automating areas that actually produce real product value and revenue.
 
 ## The steps toward a dark factory
 
-Nobody jumps straight to zero human review. In practice it is a ladder, and most of the industry is somewhere in the middle of it:
+Nobody has been jumping straight into this final state. In practice it is a ladder, and most of the industry is somewhere in the middle of it:
 
 1. **Autocomplete** finishing your line.
 2. **Chat assistants** answering questions in a side panel.
@@ -75,7 +74,8 @@ Nobody jumps straight to zero human review. In practice it is a ladder, and most
 4. **Multi-agent orchestration**, where several agents work different parts of the codebase at once.
 5. **A fully autonomous pipeline**, where the humans step off the floor.
 
-I am at step 4, running agents in parallel across several projects at once, and what breaks there is not code quality. It is **my attention**. Every agent that finishes wants a decision, so the person in the middle becomes the bottleneck the way one QA station throttles a physical line. That is why the interesting tooling right now (OpenAI's Symphony protocol, or their hiring of the person behind OpenClaw) is aimed at handoffs rather than at code generation. Step 5 is reached by making the handoffs cheap, not the agents smarter.
+Where are you today? 
+I am at step 4 at the time of writing this. Running agents in parallel across several projects at once, and what I struggle with is not output, it's **my attention**. I'm the bottleneck now of my own process. Every agent that finishes wants a decision, so the person in the middle becomes the bottleneck the way one QA station throttles a physical line. That is why the interesting tooling right now (OpenAI's Symphony protocol, or their hiring of the person behind OpenClaw) is aimed at handoffs rather than at code generation. Step 5 is reached by making the handoffs cheap, not the agents smarter.
 
 ## What does it actually look like?
 
@@ -94,9 +94,7 @@ R&D has the most obvious headroom, because the loop is already measurable. Andre
 In the product work I actually touch, that means two things:
 
 - **Bug and experience investigation.** Agents walk end-to-end journeys as different personas, watch production, reproduce what breaks, and propose fixes a human approves.
-- **Feature work, decomposed into stations.** Metric analysis, implementation, code review, verification, rollout management, monitoring, feedback triage. Each is automatable on its own, and each one you automate makes the next cheaper.
-
-The mistake is treating this as one giant leap. It is a station at a time.
+- **Feature work, decomposed into workflow segments.** Metric analysis, implementation, code review, verification, rollout management, monitoring, feedback triage. Each is automatable on its own, with its own improvements and interchangeable steps.
 
 ## Agentic loop engineering
 
@@ -107,13 +105,13 @@ Here is the part most teams skip, and it is what separates FANUC in 2001 from GM
 - **Token efficiency**: tokens per commit, tokens per net line.
 - **Review effectiveness**: green rate, finding rates per reviewer.
 
-Read that as a manufacturing engineer would and it is throughput, utilization, unit cost and defect escape rate, applied to a line whose workers happen to be language models. It works: an engineering director at AMD mined 17,871 thinking blocks and 234,760 tool calls across 6,852 sessions to prove a real quality regression in their tooling ([anthropics/claude-code#42796](https://github.com/anthropics/claude-code/issues/42796)). Once you have those numbers, "did that harness change help?" has an answer instead of a vibe, and the loop itself becomes the thing you are building.
+A manufacturing engineer might translate this as throughput, utilization, unit cost and defect escape rate, applied to a line whose workers happen to be language models. This is in practice today. An engineering director at AMD mined 17,871 thinking blocks and 234,760 tool calls across 6,852 sessions to prove a real quality regression in their tooling ([anthropics/claude-code#42796](https://github.com/anthropics/claude-code/issues/42796)). Once you have those numbers, "did that harness change help?" has an answer instead of a vibe, and the loop itself becomes the thing you are building.
 
 ## What should stay human
 
-Many companies see this as a way to replace people. I see it, and will keep arguing for it, as a way to let the same people do far more: better quality, more features, more shots on goal. Which one it becomes is a management decision, not a technology outcome.
+Many companies see "AI" and automation as a way to replace people. I see it, and will keep fighting for it, as a way to let the same people do far more: better quality, shipping more features which means more opportunity for the bigger ideas that drive value. 
 
-What genuinely stays human, for now:
+What stays human:
 
 - **Deciding what should exist.** Turning a vague problem into a specific thing worth building is where almost all the leverage lives.
 - **Design and architecture.** Not the file layout, the decisions with a five-year blast radius.
@@ -122,7 +120,7 @@ What genuinely stays human, for now:
 
 The building phase is what gets automated. The thinking that decides what to build, and the judgment that says "this is done and it is right," is the job. That is exactly what [the courses here](/courses) are pointed at.
 
-My own project dark factory is one narrow slice of step 5: fully automated bug triage on a production app, from user report through reproduction, fix and agent review, with a rollout gate I approve and nothing else. If you are building something like this, come argue with me about it.
+My own project dark factory is one narrow slice of step 5: fully automated bug triage on a production app, from user report through reproduction, fix and agent review, with a rollout gate I approve and nothing else. If you are building something like this, come share your ideas, issues, and successes with us!
 
 [Join our Discord](https://discord.gg/nekkolabs)
 
