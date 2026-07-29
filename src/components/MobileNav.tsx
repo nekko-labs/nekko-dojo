@@ -3,8 +3,10 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { nav, site } from '@/lib/site';
-import { DiscordIcon, GitHubIcon } from './icons';
+import { DiscordIcon, GitHubIcon, NAV_ICONS } from './icons';
+import { isActivePath } from './NavLink';
 
 /** Elements outside the menu that are hidden from AT and pointer while it is open. */
 const BACKGROUND_SELECTOR = '#main, footer, [data-dusk-glow]';
@@ -27,6 +29,7 @@ function focusableWithin(root: HTMLElement): HTMLElement[] {
  */
 export function MobileNav() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
   const panelId = useId();
   const panelRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -99,7 +102,7 @@ export function MobileNav() {
   }, [open]);
 
   return (
-    <div className="sm:hidden">
+    <div className="md:hidden">
       <button
         ref={triggerRef}
         type="button"
@@ -108,17 +111,24 @@ export function MobileNav() {
         aria-haspopup="dialog"
         aria-controls={open ? panelId : undefined}
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center rounded-full p-2 text-muted transition-colors hover:bg-surface-2 hover:text-fg"
+        data-open={open ? 'true' : 'false'}
+        className="mnav-toggle inline-flex items-center rounded-full p-2 text-muted transition-colors hover:bg-surface-2 hover:text-fg"
       >
-        {open ? (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" className="h-6 w-6">
-            <path d="M6 6l12 12M18 6L6 18" />
-          </svg>
-        ) : (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" className="h-6 w-6">
-            <path d="M4 7h16M4 12h16M4 17h16" />
-          </svg>
-        )}
+        {/* One SVG whose three lines fold into a cross, so the state change
+            reads as a transformation rather than an icon swap. */}
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={2}
+          strokeLinecap="round"
+          className="h-6 w-6"
+          aria-hidden="true"
+        >
+          <path className="mnav-line mnav-line-top" d="M4 7h16" />
+          <path className="mnav-line mnav-line-mid" d="M4 12h16" />
+          <path className="mnav-line mnav-line-bot" d="M4 17h16" />
+        </svg>
       </button>
 
       {open && (
@@ -128,7 +138,7 @@ export function MobileNav() {
               collapse this to the header's own height. */}
           {createPortal(
             <div
-              className="fixed inset-x-0 bottom-0 top-20 z-20 bg-scrim"
+              className="mnav-scrim fixed inset-x-0 bottom-0 top-20 z-20 bg-scrim"
               aria-hidden="true"
               onClick={close}
             />,
@@ -141,27 +151,38 @@ export function MobileNav() {
             aria-modal="true"
             aria-label="Site menu"
             tabIndex={-1}
-            className="absolute inset-x-0 top-full border-b border-border bg-bg shadow-xl"
+            className="mnav-panel absolute inset-x-0 top-full border-b border-border bg-bg shadow-xl"
           >
             <nav aria-label="Mobile" className="mx-auto flex max-w-6xl flex-col gap-1 px-5 py-4">
-              {nav.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={close}
-                  className="rounded-lg px-3 py-2.5 text-base font-bold text-muted transition-colors hover:bg-surface-2 hover:text-fg"
-                >
-                  {item.label}
-                </Link>
-              ))}
+              {nav.map((item) => {
+                const Icon = NAV_ICONS[item.href];
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={close}
+                    aria-current={isActivePath(pathname, item.href) ? 'page' : undefined}
+                    className="mnav-item flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-base font-bold text-muted transition-colors hover:bg-surface-2 hover:text-fg"
+                  >
+                    {Icon && (
+                      <span className="nav-ico" aria-hidden="true">
+                        <Icon className="h-5 w-5" />
+                      </span>
+                    )}
+                    {item.label}
+                  </Link>
+                );
+              })}
               <a
                 href={site.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={close}
-                className="inline-flex items-center gap-2 rounded-lg px-3 py-2.5 text-base font-bold text-muted transition-colors hover:bg-surface-2 hover:text-fg"
+                className="mnav-item inline-flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-base font-bold text-muted transition-colors hover:bg-surface-2 hover:text-fg"
               >
-                <GitHubIcon className="h-5 w-5" />
+                <span className="nav-ico" aria-hidden="true">
+                  <GitHubIcon className="h-5 w-5" />
+                </span>
                 GitHub
               </a>
               <a
@@ -169,9 +190,11 @@ export function MobileNav() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={close}
-                className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-fg px-5 py-3 text-base font-bold text-bg"
+                className="mnav-item cta-discord mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-fg px-5 py-3 text-base font-bold text-bg"
               >
-                <DiscordIcon className="h-4 w-4" />
+                <span className="cta-ico" aria-hidden="true">
+                  <DiscordIcon className="h-4 w-4" />
+                </span>
                 Join the Discord
               </a>
             </nav>

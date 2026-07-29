@@ -663,3 +663,165 @@ body {
   .torii .t { opacity: 1 !important; transform: none !important; animation: none !important; }
   .torii-line { transform: none !important; animation: none !important; }
 }
+
+/* ---------------------------------------------------------------------------
+   Site nav — dojo etiquette in the header. Each section icon bows on hover
+   (a quick dip forward, then a settle back onto the mat), the current section
+   wears the amber belt under its pill, the dojo logo does a little hop, the
+   Discord cat shakes its ears, and the mobile menu folds its hamburger into a
+   cross while the panel drops in with a short stagger. Everything falls back
+   to plain fades (or nothing) under prefers-reduced-motion.
+--------------------------------------------------------------------------- */
+.nav-ico {
+  display: inline-flex;
+  transform-origin: 50% 100%;
+}
+.nav-link:hover .nav-ico,
+.nav-link:focus-visible .nav-ico {
+  /* The rebound lives in the keyframes, so the curve itself stays smooth. */
+  animation: nav-bow 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes nav-bow {
+  0% { rotate: 0deg; }
+  35% { rotate: -16deg; }
+  70% { rotate: 5deg; }
+  100% { rotate: 0deg; }
+}
+
+/* The current section: label at full ink, icon in accent, belt tied below. */
+.nav-link[aria-current='page'] {
+  color: var(--fg);
+}
+.nav-link[aria-current='page'] .nav-ico {
+  color: var(--accent);
+}
+.nav-link[aria-current='page']::after {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  right: 0.85rem;
+  bottom: 0.15rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+  transform-origin: left;
+  animation: belt-tie 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes belt-tie {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* The dojo mark hops when you point at going home. Same gentle spring the
+   torii feet use, so the two landmarks settle with one voice. */
+.logo-mark {
+  transition:
+    translate 0.3s cubic-bezier(0.34, 1.4, 0.5, 1),
+    scale 0.3s cubic-bezier(0.34, 1.4, 0.5, 1);
+}
+.site-logo:hover .logo-mark,
+.site-logo:focus-visible .logo-mark {
+  translate: 0 -3px;
+  scale: 1.04;
+}
+
+/* The Discord cat perks up. */
+.cta-ico {
+  display: inline-flex;
+}
+.cta-discord:hover .cta-ico,
+.cta-discord:focus-visible .cta-ico {
+  animation: disc-wiggle 0.5s ease-in-out;
+}
+@keyframes disc-wiggle {
+  0%, 100% { rotate: 0deg; }
+  25% { rotate: -14deg; }
+  55% { rotate: 11deg; }
+  80% { rotate: -5deg; }
+}
+
+/* Hamburger → cross: the outer lines fold onto the middle, which slips away. */
+.mnav-line {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    translate 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    rotate 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    scale 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.2s ease;
+}
+.mnav-toggle[data-open='true'] .mnav-line-top {
+  translate: 0 5px;
+  rotate: 45deg;
+}
+.mnav-toggle[data-open='true'] .mnav-line-mid {
+  opacity: 0;
+  scale: 0.3 1;
+}
+.mnav-toggle[data-open='true'] .mnav-line-bot {
+  translate: 0 -5px;
+  rotate: -45deg;
+}
+
+/* The menu drops in: scrim fades, panel settles, items follow one by one. */
+.mnav-scrim {
+  animation: mnav-fade 0.25s ease-out both;
+}
+.mnav-panel {
+  animation: mnav-drop 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.mnav-item {
+  animation: mnav-drop 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.mnav-item:nth-child(1) { animation-delay: 0.05s; }
+.mnav-item:nth-child(2) { animation-delay: 0.09s; }
+.mnav-item:nth-child(3) { animation-delay: 0.13s; }
+.mnav-item:nth-child(4) { animation-delay: 0.17s; }
+.mnav-item:nth-child(5) { animation-delay: 0.21s; }
+@keyframes mnav-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes mnav-drop {
+  from { opacity: 0; translate: 0 -10px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+/* The current section in the mobile list wears the accent wash. */
+.mnav-item[aria-current='page'] {
+  color: var(--fg);
+  background: var(--accent-soft);
+}
+.mnav-item[aria-current='page'] .nav-ico {
+  color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-link:hover .nav-ico,
+  .nav-link:focus-visible .nav-ico,
+  .cta-discord:hover .cta-ico,
+  .cta-discord:focus-visible .cta-ico {
+    animation: none;
+  }
+  .logo-mark {
+    transition: none;
+  }
+  .site-logo:hover .logo-mark,
+  .site-logo:focus-visible .logo-mark {
+    translate: none;
+    scale: none;
+  }
+  .nav-link[aria-current='page']::after {
+    animation: none;
+    transform: none;
+  }
+  .mnav-line {
+    transition: opacity 0.2s ease;
+  }
+  .mnav-scrim,
+  .mnav-panel,
+  .mnav-item {
+    animation: mnav-fade 0.2s ease-out both;
+    animation-delay: 0s;
+  }
+}
