@@ -69,7 +69,8 @@ changing one is a deliberate edit to this file, in its own PR.
   duplicated.
 - **3.4** Elevation is a border plus the surface step (`bg-surface` /
   `bg-surface-2`). Drop shadows are reserved for genuinely floating layers
-  (the mobile nav panel).
+  (the mobile nav panel). One exception is on record: the `/courses` chooser
+  panels (see Deviations).
 
 ## 4. Iconography
 
@@ -121,3 +122,16 @@ A screen does not ship unless all of these hold:
 - `#fff` in `StagePath` — SVG mask luminance, not a colour (rule 1.2).
 - Emoji in editorial copy (`/community` benefits, home hero, 404) are kept on
   purpose as illustration under rule 4.2; they are `aria-hidden`.
+- **Borderless panels on the `/courses` chooser** (`CourseChoice`), against rule
+  3.4. The page asks one question and offers two answers, so the panels have to
+  read as *choices* rather than cards in a list; a border makes them look like
+  two more content cards. Elevation instead comes from the surface wash
+  (`from-surface/70` → transparent), each course's own glow token, and the
+  `.choice` interaction states in `globals.css` (lift, glow, accent rule, and
+  dimming the sibling path via `:has()`). Scope: this component only. Card grids
+  everywhere else keep their borders, and the two course pages the chooser leads
+  to still use bordered panels throughout.
+- Violet as a course-level accent on the same chooser, under rule 1.4's
+  "diffuse background glow" allowance only: the agentic path is tinted with
+  `--glow-violet` behind its mascot to tell the two answers apart at a glance.
+  It never touches a CTA, a border or any text colour.

@@ -476,6 +476,86 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
+   Course chooser — "What do you want to learn?", two paths side by side.
+
+   The panels carry no border on purpose (a STYLESEED 3.4 deviation, recorded in
+   that file): the surface wash and each course's glow token do the elevation.
+   Pointing at one path dims the other via :has(), so the page reads as a choice
+   being made rather than two links sitting next to each other. Keyboard focus
+   drives exactly the same states as hover.
+--------------------------------------------------------------------------- */
+/* Movement uses the individual `translate` / `scale` properties, not
+   `transform`, so it composes with Tailwind's own translate utilities (the glow
+   is centred with `-translate-x-1/2`) instead of overwriting them. */
+.choice {
+  transition:
+    opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    translate 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.choice-glow,
+.choice-mascot,
+.choice-rule {
+  transition:
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    scale 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.choice-rule {
+  scale: 0.35 1;
+  opacity: 0.35;
+}
+
+.choice:hover,
+.choice:focus-visible {
+  translate: 0 -6px;
+}
+.choice:hover .choice-glow,
+.choice:focus-visible .choice-glow {
+  opacity: 1;
+  scale: 1.15;
+}
+.choice:hover .choice-mascot,
+.choice:focus-visible .choice-mascot {
+  scale: 1.06;
+}
+.choice:hover .choice-rule,
+.choice:focus-visible .choice-rule {
+  scale: 1 1;
+  opacity: 1;
+}
+
+/* The unchosen path recedes while you consider the other one. */
+.chooser:has(.choice:hover) .choice:not(:hover),
+.chooser:has(.choice:focus-visible) .choice:not(:focus-visible) {
+  opacity: 0.4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .choice,
+  .choice-glow,
+  .choice-mascot,
+  .choice-rule {
+    transition: opacity 0.2s linear;
+  }
+  .choice:hover,
+  .choice:focus-visible {
+    translate: none;
+  }
+  .choice:hover .choice-mascot,
+  .choice:focus-visible .choice-mascot,
+  .choice:hover .choice-glow,
+  .choice:focus-visible .choice-glow {
+    scale: none;
+  }
+  /* Keep the rule at full width rather than animating it in. */
+  .choice-rule,
+  .choice:hover .choice-rule,
+  .choice:focus-visible .choice-rule {
+    scale: none;
+    opacity: 1;
+  }
+}
+
+/* ---------------------------------------------------------------------------
    Footer torii-gate separator — a bold ink line that becomes a gate.
 --------------------------------------------------------------------------- */
 .torii-sep {
