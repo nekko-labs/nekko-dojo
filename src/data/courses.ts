@@ -16,18 +16,41 @@ export type Course = {
   /** Where the course overview lives. */
   href: string;
   name: string;
-  /** One line under the title on the courses hub. */
+  /**
+   * The answer to "What do you want to learn?" on the `/courses` chooser. This
+   * is the headline a visitor actually picks between, so it names the outcome
+   * rather than the product.
+   */
+  answer: string;
+  /** Which of the two ways this is, shown as the chooser eyebrow. */
+  track: string;
+  /** One or two lines on the chooser, shorter than `description`. */
+  pitch: string;
+  /** One line under the title on the course page. */
   tagline: string;
   /** Two or three sentences: what it is and what it gets you. */
   description: string;
   /** Who should walk this one. */
   audience: string;
   status: CourseStatus;
+  /**
+   * Which diffuse glow token tints this course's chooser panel: `--glow-amber`
+   * or `--glow-violet`. A soft background glow is the one place violet is
+   * allowed (STYLESEED 1.4), and it is what tells the two paths apart now that
+   * the panels have no borders.
+   */
+  glow: 'amber' | 'violet';
   /* No `emoji` here on purpose: a course card is a link, and STYLESEED 4.1
      bans emoji as icons inside interactive controls. The mascot and rank
      belt carry the illustration instead. */
   belt: { src: string; name: string };
-  mascot: { src: string; alt: string };
+  /**
+   * The mascot's real intrinsic size, so the reserved box matches the art and
+   * nothing shifts when it loads. The cats are not all the same shape: kamae is
+   * portrait, sensei is landscape, which is why the chooser gives them a fixed
+   * slot to stand in rather than a shared width.
+   */
+  mascot: { src: string; alt: string; width: number; height: number };
 };
 
 export const courses: readonly Course[] = [
@@ -35,30 +58,44 @@ export const courses: readonly Course[] = [
     id: 'the-guide',
     href: '/guide',
     name: 'The Guide',
+    answer: 'Become an expert in coding',
+    track: 'The classic way',
+    pitch:
+      'Start from zero, learn the craft properly, and walk out with a real engineering job.',
     tagline: 'From never having coded to your first engineering job.',
     description:
       'The flagship path, expanded from the workflow Philip has used to help people in Japan switch careers into engineering. Walk it stop by stop: learn to code, build real things, survive the interview loop, and sign the offer.',
     audience: 'Career-changers, beginners, and job hunters',
     status: 'live',
+    glow: 'amber',
     belt: { src: '/belts/belt-white.png', name: 'white belt' },
     mascot: {
       src: '/mascot/nekko-kamae.png',
       alt: 'Orange tabby in a ready kendo stance holding a shinai',
+      width: 767,
+      height: 1000,
     },
   },
   {
     id: 'applied-ai-engineer',
     href: '/courses/applied-ai-engineer',
     name: 'Applied AI Engineer',
+    answer: 'Learn the new Agentic Coding way',
+    track: 'The agentic way',
+    pitch:
+      'Already build software? Learn to direct agents instead of out-typing them, and stay the person who decides.',
     tagline: 'Engineering when the code writes itself.',
     description:
       'The second course, for people who can already build software and can feel the job changing under them. Learn to direct agents instead of out-typing them: specs machines can execute, harnesses that make autonomy safe, and verification sharp enough to trust the output.',
     audience: 'Working engineers, and anyone who finished The Guide',
     status: 'coming-soon',
+    glow: 'violet',
     belt: { src: '/belts/belt-black.png', name: 'black belt' },
     mascot: {
       src: '/mascot/nekko-sensei.png',
       alt: 'Orange tabby kendo sensei dual-wielding two shinai',
+      width: 1463,
+      height: 1200,
     },
   },
 ];
@@ -105,12 +142,22 @@ export const roleShift: ReadonlyArray<{ before: string; after: string }> = [
   },
 ];
 
-/** What the course teaches, in order. */
+/**
+ * What the course teaches, in order. These are the stages of the same walked
+ * path The Guide uses (see `guideSectionMeta`), so the two courses render
+ * through one component: an emoji gate, a body, the moves the stage unlocks,
+ * and a rank at the milestones.
+ *
+ * Ranks are dan grades rather than coloured belts on purpose. This course
+ * starts where The Guide ends, at black belt, so there is no colour left to
+ * award: you grade up inside the black belt instead.
+ */
 export const modules: ReadonlyArray<{
   emoji: string;
   title: string;
   body: string;
   outcomes: string[];
+  belt?: { src: string; name: string };
 }> = [
   {
     emoji: '🧠',
@@ -131,6 +178,7 @@ export const modules: ReadonlyArray<{
       'Slice work into reviewable, independently testable units',
       'Keep the spec as the source of truth as the code drifts',
     ],
+    belt: { src: '/belts/belt-black.png', name: 'shodan, 1st dan' },
   },
   {
     emoji: '🔧',
@@ -153,6 +201,7 @@ export const modules: ReadonlyArray<{
       'Review a large diff without pretending you read every line',
       'Spot the subtle bug, the security hole, the design that will not scale',
     ],
+    belt: { src: '/belts/belt-black.png', name: 'nidan, 2nd dan' },
   },
   {
     emoji: '🎼',
@@ -173,6 +222,7 @@ export const modules: ReadonlyArray<{
       'Keep a codebase legible to humans and machines at once',
       'Decide what not to build, and defend it',
     ],
+    belt: { src: '/belts/belt-black.png', name: 'sandan, 3rd dan' },
   },
 ];
 

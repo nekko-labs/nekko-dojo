@@ -10,9 +10,15 @@ import {
 } from '@/data/courses';
 import { DiscordCTA } from '@/components/DiscordCTA';
 import { ArrowRightIcon } from '@/components/icons';
+import {
+  LearningPath,
+  BeltStrip,
+  type PathStage,
+} from '@/components/LearningPath';
 import { Reveal, Stagger, StaggerItem } from '@/components/motion';
 
 const course = getCourse('applied-ai-engineer')!;
+const prevCourse = getCourse('the-guide')!;
 
 export const metadata: Metadata = {
   title: 'Applied AI Engineer (coming soon)',
@@ -20,6 +26,23 @@ export const metadata: Metadata = {
     'The dojo’s second course. Engineering roles are shifting from producing code to directing the systems that produce it, and harness development is the fastest-growing role in the field. Here is what the course will cover, and which parts of coding and engineering design still matter.',
   alternates: { canonical: '/courses/applied-ai-engineer' },
 };
+
+/**
+ * The curriculum as the same walked path The Guide uses. The lessons are not
+ * written yet, so a stage carries its pitch as `body` and no stops; the moves
+ * and the dan grades come straight from the module data.
+ */
+const stages: PathStage[] = modules.map((module) => ({
+  key: module.title,
+  title: module.title,
+  emoji: module.emoji,
+  body: module.body,
+  stops: [],
+  moves: module.outcomes,
+  belt: module.belt,
+}));
+
+const belts = stages.flatMap((stage) => (stage.belt ? [stage.belt] : []));
 
 /** Reusable section heading so the long page keeps one rhythm. */
 function SectionHead({
@@ -46,21 +69,21 @@ function SectionHead({
 
 export default function AppliedAiEngineerPage() {
   return (
-    <div className="mx-auto max-w-4xl px-5 py-12 sm:px-8 sm:py-16">
+    <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
       <Link href="/courses" className="text-sm font-bold text-accent hover:underline">
         ← Courses
       </Link>
 
-      {/* Hero */}
-      <header className="mt-6 grid items-center gap-8 sm:grid-cols-[1fr_15rem]">
+      {/* Hero — same shape as The Guide's, so the two courses read as siblings */}
+      <header className="mt-6 grid items-center gap-8 sm:grid-cols-[1fr_11rem]">
         <Reveal load>
-          <span className="inline-flex rounded-full border border-accent-line bg-accent-soft px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-accent">
-            Coming soon
-          </span>
-          <h1 className="mt-4 text-4xl font-black leading-[1.1] tracking-tight sm:text-5xl">
-            Applied AI <span className="text-accent">Engineer</span>
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-accent">
+            {course.track} · Coming soon
+          </p>
+          <h1 className="mt-2 text-4xl font-black leading-[1.1] tracking-tight sm:text-5xl">
+            {course.answer}
           </h1>
-          <p className="mt-4 text-lg font-bold text-accent">{course.tagline}</p>
+          <p className="mt-3 text-lg font-bold text-accent">{course.tagline}</p>
           <p className="mt-4 text-base font-medium leading-relaxed text-muted">
             The dojo&apos;s second course, for people who can already build
             software and can feel the job changing under them. Not prompt
@@ -77,10 +100,11 @@ export default function AppliedAiEngineerPage() {
           <Image
             src={course.mascot.src}
             alt={course.mascot.alt}
-            width={480}
-            height={360}
+            width={course.mascot.width}
+            height={course.mascot.height}
+            sizes="(min-width: 640px) 11rem, 60vw"
             priority
-            className="h-auto w-full max-w-[13rem] drop-shadow-2xl"
+            className="h-auto w-full max-w-[11rem] drop-shadow-2xl"
           />
         </Reveal>
       </header>
@@ -152,52 +176,40 @@ export default function AppliedAiEngineerPage() {
         </Reveal>
       </section>
 
-      {/* Curriculum */}
+      {/* Curriculum — the same walked path as The Guide, one rail, six gates */}
       <section className="mt-20">
         <SectionHead eyebrow="The curriculum" title="What you will learn">
           <p>
-            Six stages, in order, each one building something you keep. The
-            course is being written now; the shape below is what it covers.
+            Six stages, walked in order, exactly like The Guide: every stage
+            unlocks new moves, and the milestones grade you up. This course
+            starts where The Guide ends, at black belt, so the ranks here are
+            dan grades.
           </p>
         </SectionHead>
 
-        <Stagger className="mt-8 flex flex-col gap-4">
-          {modules.map((module, i) => (
-            <StaggerItem key={module.title}>
-              <article className="rounded-2xl border border-border bg-surface p-6">
-                <div className="flex items-start gap-4">
-                  <span
-                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-accent bg-bg text-lg"
-                    aria-hidden
-                  >
-                    {module.emoji}
-                  </span>
-                  <div className="min-w-0">
-                    <p className="text-xs font-black uppercase tracking-[0.2em] text-subtle">
-                      Stage {i + 1} of {modules.length}
-                    </p>
-                    <h3 className="mt-1 text-xl font-black tracking-tight">
-                      {module.title}
-                    </h3>
-                    <p className="mt-2 text-sm font-medium leading-relaxed text-muted">
-                      {module.body}
-                    </p>
-                    <ul className="mt-4 flex flex-wrap gap-2">
-                      {module.outcomes.map((outcome) => (
-                        <li
-                          key={outcome}
-                          className="rounded-full border border-border bg-surface-2 px-3 py-1 text-sm font-medium"
-                        >
-                          {outcome}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </article>
-            </StaggerItem>
-          ))}
-        </Stagger>
+        {belts.length > 0 && (
+          <Reveal className="mt-8">
+            <BeltStrip belts={belts} label="Ranks you earn on this path" />
+          </Reveal>
+        )}
+
+        <Reveal className="mt-8">
+          <p className="text-xs font-bold uppercase tracking-wide text-subtle">
+            Lessons are being written. The stages below are what the course
+            covers.
+          </p>
+        </Reveal>
+
+        <div className="mt-8">
+          <LearningPath
+            stages={stages}
+            end={{
+              emoji: '♾️',
+              title: 'End of the path: you build the factory.',
+              body: 'There is no final belt here. The models change every few months, so the last move you learn is how to keep re-learning the loop.',
+            }}
+          />
+        </div>
       </section>
 
       {/* What survives */}
@@ -256,20 +268,37 @@ export default function AppliedAiEngineerPage() {
         </Reveal>
       </section>
 
-      {/* Prereqs */}
+      {/* Prereqs — the other path, for anyone who is not ready for this one */}
       <section className="mt-20">
         <SectionHead eyebrow="Before you start" title="Who this is for">
           <p>
             You should be able to build and ship something on your own already:
             read an unfamiliar codebase, write tests, use git without fear. If
-            you are not there yet, that is exactly what{' '}
-            <Link href="/guide" className="font-bold text-accent hover:underline">
-              The Guide
-            </Link>{' '}
-            is for. Walk that first, then come back. This course starts where it
-            ends.
+            you are not there yet, that is exactly what the other path is for.
+            Walk it first, then come back. This course starts where it ends.
           </p>
         </SectionHead>
+
+        <Reveal className="mt-8">
+          <Link
+            href={prevCourse.href}
+            className="group block rounded-2xl border border-accent-line bg-accent-soft p-6 transition hover:-translate-y-0.5 sm:p-7"
+          >
+            <p className="text-xs font-black uppercase tracking-[0.2em] text-accent">
+              Start here instead · Open now
+            </p>
+            <h3 className="mt-2 text-xl font-black tracking-tight transition-colors group-hover:text-accent">
+              {prevCourse.answer}
+            </h3>
+            <p className="mt-2 max-w-xl text-sm font-medium leading-relaxed text-muted">
+              {prevCourse.description}
+            </p>
+            <span className="mt-3 inline-flex items-center gap-2 text-sm font-bold text-accent">
+              Walk {prevCourse.name}
+              <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </span>
+          </Link>
+        </Reveal>
       </section>
 
       {/* CTA */}
