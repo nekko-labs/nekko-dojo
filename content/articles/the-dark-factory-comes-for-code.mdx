@@ -31,9 +31,7 @@ A dark factory, also called [lights-out manufacturing](https://en.wikipedia.org/
 
 The idea arrived in the 1980s, and the first serious attempt at it failed badly. Roger B. Smith, then CEO of General Motors, became fixated on out-automating his Japanese rivals. In February 1982 GM formed a 50-50 joint venture with Fujitsu Fanuc called GMFanuc Robotics, a company whose whole purpose was to build the robots that would build the cars. GM spent something on the order of $90 billion over the following decade chasing this. It did not work. The robots famously painted each other instead of the cars and welded doors shut, and by 1992 the New York Times was writing the obituary for GM's factory of the future.
 
-FANUC, the Japanese half of that venture, made the dream real on its own in 2001. At its plant near Mount Fuji, robots build other robots at a rate of about 50 per 24-hour shift, and the line can run unsupervised for as long as 30 days at a time. "Not only is it lights-out," FANUC vice president Gary Zywiol has said, "we turn off the air conditioning and heat too."
-
-That gap between 1982 and 2001 is the part worth holding onto. The vision was correct and the first attempt still failed, because the constraint was never robot capability. It was process design.
+FANUC, the Japanese half of that venture, made the dream real on its own in 2001. At its plant near Mount Fuji, robots build other robots at a rate of about 50 per 24-hour shift, and the line can run unsupervised for as long as 30 days at a time. "Not only is it lights-out," FANUC vice president Gary Zywiol has said, "we turn off the air conditioning and heat too." The gap between those two stories is the whole lesson: the vision was right in 1982 and still failed, because the constraint was never robot capability, it was process design.
 
 Since then the pattern has spread. A few examples, all catalogued in the [Wikipedia entry](https://en.wikipedia.org/wiki/Lights_out_(manufacturing)):
 
@@ -61,29 +59,15 @@ The slide that stuck with me was two rules, which he credited to [StrongDM](http
 - Code must not be written by humans.
 - Code must not be reviewed by humans.
 
-Read those quickly and they sound like a stunt. Read them again as engineering constraints and they are something else: a bet that you can specify and check a system so well that a human in the middle of the loop only adds latency and error. StrongDM's team put roughly 32,000 lines of production code into their product this way, starting in mid-2025, with three people and no hand-written or hand-reviewed code.
+Read those quickly and they sound like a stunt. Read them again as engineering constraints and they are something else: a bet that you can specify and check a system so well that a human in the middle of the loop only adds latency and error. StrongDM put roughly 32,000 lines of production code into their product this way with three people, replacing review with behavioral specs held outside the codebase and hidden from the agent while it works.
 
-The detail I found most interesting is how they replaced review. They keep behavioral specifications, "scenarios," outside the codebase and hidden from the agent while it works, then measure the result against them. It is holdout validation borrowed from machine learning and pointed at product engineering. The agent cannot overfit to the test if it never sees the test.
+The frontier labs are further along. Ryan Lopopolo's team on OpenAI Frontier spent five months shipping an internal product of roughly a million lines across about 1,500 PRs with **zero human-written code and zero human review before merge**, at over a billion tokens a day. They call the discipline [harness engineering](https://openai.com/index/harness-engineering/), which is the reframe worth stealing: you are not writing code anymore, you are building the structure, guardrails, checks and context that keep an agent on track.
 
-## The proof point at OpenAI
-
-The frontier labs are further along, and one project in particular is the clearest evidence I have seen that this is not theater.
-
-Ryan Lopopolo's team on OpenAI Frontier spent five months building and shipping an internal product with **zero lines of manually written code**. Not zero application code. Zero code, full stop: business logic, tests, CI configuration, docs, observability, internal tooling. All of it written by Codex. The numbers they have published:
-
-- **~1M lines of code** across roughly **1,500 pull requests**, in five months.
-- **0% human-written code, and 0% human review before merge.**
-- **Over 1 billion tokens a day**, which at market rates with caching lands around **$2,000 to $3,000 a day**.
-- Throughput per person went from about **3.5 PRs per engineer per day** to **5 to 10** after a model upgrade.
-- They estimate the whole thing took roughly **a tenth of the time** it would have taken to write by hand.
-
-They also gave the discipline a name that I think is going to stick: **harness engineering**. The claim is that engineers on that team are not writing code anymore, they are building the harness around the agent. The structure, the guardrails, the documentation, the automated checks, the tools, the context. You improve output by improving the environment the agent works in, not by typing more carefully.
-
-That reframe is the whole article, honestly. A dark factory is not what you get when the robots get good enough. It is what you get when someone designs the factory.
+I am calling **project dark factory** the version of this goal that product-centric companies can actually take on. Not a lab result, a plan for automating areas of your own work.
 
 ## The steps toward a dark factory
 
-Very few teams jump straight to zero human review, and nobody should. In practice this looks like a ladder, and most of the industry is somewhere in the middle of it:
+Nobody jumps straight to zero human review. In practice it is a ladder, and most of the industry is somewhere in the middle of it:
 
 1. **Autocomplete** finishing your line.
 2. **Chat assistants** answering questions in a side panel.
@@ -91,15 +75,11 @@ Very few teams jump straight to zero human review, and nobody should. In practic
 4. **Multi-agent orchestration**, where several agents work different parts of the codebase at once.
 5. **A fully autonomous pipeline**, where the humans step off the floor.
 
-I am at step 4. On a normal day I have multiple agents running in parallel, orchestrated across several projects and initiatives at once, and my job has quietly stopped being "write the code" and started being "decide what should exist, and keep the queue full and unblocked."
-
-What breaks at step 4 is not code quality. It is **my attention**. Every agent that finishes wants a decision, and the person in the middle becomes the bottleneck the way a single QA station becomes the bottleneck on a physical line.
-
-That is why the interesting tooling right now is aimed at attention rather than at code generation. The same OpenAI group open-sourced **Symphony**, a protocol that moves agent coordination into an issue tracker so people review outcomes instead of babysitting sessions. And when OpenAI hired Peter Steinberger, the person behind **OpenClaw**, they were buying expertise in exactly this: agents that run proactively and only come to you when they should. Step 5 is not reached by making agents smarter. It is reached by making the handoffs cheap.
+I am at step 4, running agents in parallel across several projects at once, and what breaks there is not code quality. It is **my attention**. Every agent that finishes wants a decision, so the person in the middle becomes the bottleneck the way one QA station throttles a physical line. That is why the interesting tooling right now (OpenAI's Symphony protocol, or their hiring of the person behind OpenClaw) is aimed at handoffs rather than at code generation. Step 5 is reached by making the handoffs cheap, not the agents smarter.
 
 ## What does it actually look like?
 
-There are many approaches to this and it almost certainly does not look the same across two projects. But the shape I keep seeing is workflows and pipelines becoming automated one at a time, with engineers as the people who **build and maintain the line** rather than stand on it.
+There are many approaches to this and it almost certainly does not look the same across two projects. But the shape I keep seeing is workflows becoming automated one at a time, with engineers as the people who **build and maintain the line** rather than stand on it. Very senior engineers design the assembly line and instrument it, and the skill being rewarded is process design, not typing speed.
 
 <figure>
   <img
@@ -109,60 +89,40 @@ There are many approaches to this and it almost certainly does not look the same
   <figcaption>The software version of a lights-out floor: everything running, one terminal left out for whoever comes to check on it. Photo by Brett Sayles on Pexels.</figcaption>
 </figure>
 
-The factory analogy is genuinely useful here. Very senior engineers design the assembly line, decide which stations exist, swap parts out, and instrument the whole thing. Less senior engineers keep it running and extend it. The skill being rewarded is process design, not typing speed.
+R&D has the most obvious headroom, because the loop is already measurable. Andrej Karpathy's [autoresearch](https://github.com/karpathy/autoresearch) is the cleanest example I know: an agent edits one training script, runs a time-boxed experiment, keeps the change or throws it away, and repeats all night. Nothing about that loop is specific to ML. Any workflow where you can state the goal and mechanically score the result can become one, which is also what Cognition is packaging as it takes Devin from a single autonomous engineer to many running at once.
 
-R&D has the most obvious headroom, because the loop is already measurable. Andrej Karpathy's [autoresearch](https://github.com/karpathy/autoresearch), released in March, is the cleanest example I know: an agent edits one training script, runs a time-boxed experiment, measures the result, keeps the change or throws it away, and repeats, potentially all night. He has reported single autonomous sessions running 89 and 126 experiments and grinding validation loss down without a human in the loop. Nothing about that loop is specific to ML. Any workflow where you can state the goal and mechanically score the result can be turned into it.
+In the product work I actually touch, that means two things:
 
-The commercial versions are converging on the same idea. Cognition has taken Devin from "one autonomous engineer" to an agentic development environment where teams run many Devins at once on different tasks, which is the multi-agent orchestration rung packaged as a product.
-
-Here is what this looks like in the product work I actually touch:
-
-- **Bug and experience investigation.** Agents walk end-to-end user journeys as different personas, watch production, reproduce what breaks, and propose fixes that a human approves.
-- **Feature work, decomposed into stations.** Product metric analysis, implementation, code review, verification, rollout management, bug fixing, production monitoring, user feedback triage, scaling. Each one of those is automatable on its own, and each one you automate makes the next cheaper.
+- **Bug and experience investigation.** Agents walk end-to-end journeys as different personas, watch production, reproduce what breaks, and propose fixes a human approves.
+- **Feature work, decomposed into stations.** Metric analysis, implementation, code review, verification, rollout management, monitoring, feedback triage. Each is automatable on its own, and each one you automate makes the next cheaper.
 
 The mistake is treating this as one giant leap. It is a station at a time.
 
 ## Agentic loop engineering
 
-Here is the part most teams skip, and it is the part that separates FANUC in 2001 from GM in 1982.
-
-If your development process is agent-driven, it is generating structured logs whether or not you look at them. Session transcripts, tool calls, token counts, commit timings, review verdicts. That is telemetry for your factory floor, and almost nobody reads it.
-
-Leonard made this point better than I had thought about it, with a concrete set of things to track per release:
+Here is the part most teams skip, and it is what separates FANUC in 2001 from GM in 1982. If your process is agent-driven it is already generating structured logs, and almost nobody reads them. Leonard's list of what to track per release is the best starting point I have seen:
 
 - **Wall-clock efficiency**: commits per hour, insertions per hour.
 - **Session-time efficiency**: active minutes, concurrent agents.
 - **Token efficiency**: tokens per commit, tokens per net line.
 - **Review effectiveness**: green rate, finding rates per reviewer.
 
-Look at that list as a manufacturing engineer would. Those are throughput, utilization, unit cost, and defect escape rate. It is the standard instrumentation of any production line, applied to a line whose workers happen to be language models. Once you have those four numbers per release, "did that change to our harness help?" becomes a question with an answer instead of a vibe.
-
-The strongest public demonstration of why this matters came from AMD. An engineering director in AMD's AI group, running Claude Code across dozens of concurrent sessions, data-mined **17,871 thinking blocks and 234,760 tool calls across 6,852 session files** to argue that a quality regression was real and to pin down when it started ([anthropics/claude-code#42796](https://github.com/anthropics/claude-code/issues/42796)). The evidence was in the shape of the logs: the read-to-edit ratio collapsed from about 6.6 reads per edit to 2.0, and estimated median thinking depth fell roughly 67%, from around 2,200 characters to around 720. The regression correlated with a change in how thinking content was handled.
-
-Sit with that for a second. A user of the tool proved a model-behavior regression from their own session logs, with enough rigor that it became one of the most-discussed issues on the repo. That is only possible if you are already treating your agentic loop as a system with instrumentation.
-
-This is what I mean by **agentic loop engineering**: the loop itself is the artifact you are building. Not the prompt, not the code the agent produced this afternoon. The loop, measured, versioned, and improved on purpose. Every team I see making real progress here has stopped tuning prompts by feel and started running experiments on their own process.
+Read that as a manufacturing engineer would and it is throughput, utilization, unit cost and defect escape rate, applied to a line whose workers happen to be language models. It works: an engineering director at AMD mined 17,871 thinking blocks and 234,760 tool calls across 6,852 sessions to prove a real quality regression in their tooling ([anthropics/claude-code#42796](https://github.com/anthropics/claude-code/issues/42796)). Once you have those numbers, "did that harness change help?" has an answer instead of a vibe, and the loop itself becomes the thing you are building.
 
 ## What should stay human
 
-I keep coming back to this, because "the humans step off the floor" is a sentence people hear as "the humans leave."
+Many companies see this as a way to replace people. I see it, and will keep arguing for it, as a way to let the same people do far more: better quality, more features, more shots on goal. Which one it becomes is a management decision, not a technology outcome.
 
-Many companies see this as a way to replace people. I see it, and I will keep arguing for it, as a way to let the same people do far more: better quality, more features, more shots on goal, more revenue from the same team. Which of those two things it becomes is a management decision, not a technology outcome.
+What genuinely stays human, for now:
 
-What I think genuinely stays human, for now:
-
-- **Deciding what should exist.** Turning a vague problem into a specific thing worth building is the hardest step to automate, and it is where almost all the leverage lives.
+- **Deciding what should exist.** Turning a vague problem into a specific thing worth building is where almost all the leverage lives.
 - **Design and architecture.** Not the file layout, the decisions with a five-year blast radius.
 - **The product experience.** Taste, and knowing when something technically correct is still wrong for the user.
-- **Directional input into long-running automation.** This one is underrated. As work progresses you want to nudge it occasionally without taking the wheel, which is a genuinely new skill: steering something autonomous without stopping it.
+- **Directional input into long-running automation.** Nudging work occasionally without taking the wheel is a genuinely new skill.
 
-The building phase is what gets automated. The thinking that decides what to build, and the judgment that says "this is done and it is right," is the job. If you are early in your career, that is the thing to get good at, and it is exactly what [the courses here](/courses) are pointed at.
+The building phase is what gets automated. The thinking that decides what to build, and the judgment that says "this is done and it is right," is the job. That is exactly what [the courses here](/courses) are pointed at.
 
-## What I am taking on next
-
-My own project dark factory is step 4 to step 5 on one narrow slice: fully automated bug triage on a production app, from a real user report through reproduction, fix, review by other agents, and a rollout gate that I approve and nothing else. One station, instrumented with the four numbers above, so I can tell whether it is actually working instead of just feeling fast.
-
-If you are building something like this, or you want to, come argue with me about it.
+My own project dark factory is one narrow slice of step 5: fully automated bug triage on a production app, from user report through reproduction, fix and agent review, with a rollout gate I approve and nothing else. If you are building something like this, come argue with me about it.
 
 [Join our Discord](https://discord.gg/nekkolabs)
 
