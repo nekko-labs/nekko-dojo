@@ -1,6 +1,6 @@
 ---
 status: locked
-last-updated: 2026-07-25
+last-updated: 2026-07-30
 owner: Philip
 supersedes: TASKS.md#T7 (brand pass — the rules half)
 ---
@@ -45,9 +45,17 @@ changing one is a deliberate edit to this file, in its own PR.
 - **2.1 (locked)** One typeface: **Zen Maru Gothic** (`--font-sans`, loaded via
   `next/font`), with `--font-mono` for code. A bare system-font stack is *not*
   the brand — the fallback stack exists for CJK glyphs and load failures only.
-- **2.2 (locked)** Long-form measure is **one number**: `--measure` (68ch).
+- **2.2 (locked)** Long-form measure is **one number**: `--measure`, expressed
+  in rem rather than `ch` so the body and the furniture around it land on the
+  same width even though they sit at different font sizes. It steps up on
+  desktop together with `--prose-size` (the reading type size): 36.5rem /
+  1.0625rem on phone and tablet, 42rem / 1.125rem from `lg`, 44rem from `xl`.
+  Column and type grow together, so a wide screen buys physical width instead
+  of a longer line (~78 characters at the base step, ~88 at the widest).
   Reading pages use `.prose` for the body and `.measure` for the furniture
   around it (header, chapter nav, CTA) so a page holds a single column width.
+  The prose heading scale is in `em` for the same reason: it rides the reading
+  size instead of drifting toward it as the body grows.
 - **2.3** Microtypography on prose is on by default (see `.prose` in
   `globals.css`): hyphenation with sane limits, kerning + ligatures, hanging
   punctuation, `text-wrap: pretty` for paragraphs and `balance` for headings,
@@ -69,7 +77,8 @@ changing one is a deliberate edit to this file, in its own PR.
   duplicated.
 - **3.4** Elevation is a border plus the surface step (`bg-surface` /
   `bg-surface-2`). Drop shadows are reserved for genuinely floating layers
-  (the mobile nav panel).
+  (the mobile nav panel). One exception is on record: the `/courses` chooser
+  panels (see Deviations).
 
 ## 4. Iconography
 
@@ -121,3 +130,16 @@ A screen does not ship unless all of these hold:
 - `#fff` in `StagePath` — SVG mask luminance, not a colour (rule 1.2).
 - Emoji in editorial copy (`/community` benefits, home hero, 404) are kept on
   purpose as illustration under rule 4.2; they are `aria-hidden`.
+- **Borderless panels on the `/courses` chooser** (`CourseChoice`), against rule
+  3.4. The page asks one question and offers two answers, so the panels have to
+  read as *choices* rather than cards in a list; a border makes them look like
+  two more content cards. Elevation instead comes from the surface wash
+  (`from-surface/70` → transparent), each course's own glow token, and the
+  `.choice` interaction states in `globals.css` (lift, glow, accent rule, and
+  dimming the sibling path via `:has()`). Scope: this component only. Card grids
+  everywhere else keep their borders, and the two course pages the chooser leads
+  to still use bordered panels throughout.
+- Violet as a course-level accent on the same chooser, under rule 1.4's
+  "diffuse background glow" allowance only: the agentic path is tinted with
+  `--glow-violet` behind its mascot to tell the two answers apart at a glance.
+  It never touches a CTA, a border or any text colour.
