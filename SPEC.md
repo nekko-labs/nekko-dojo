@@ -34,7 +34,7 @@ Philip has both: a proven course/workflow that has helped many people switch car
 4. **Contributor path:** Home/Community → pick a project (e.g. Kotrain) → external link out + "join Discord for help".
 5. **Tooling path:** Community → Helpful tools → open a skill on Vaizer (e.g. run the Resume Checker against a job posting before applying).
 
-Interacting with the site should feel like reading a trusted senior engineer's notes: generous reading width for long-form content, clean typography, syntax-highlighted code, and a recurring, low-pressure nudge toward the community.
+Interacting with the site should feel like reading a trusted senior engineer's notes: generous reading width for long-form content (on a desktop screen the column and its type widen together, so a big display gets used instead of leaving a narrow ribbon of text beside empty space), clean typography, syntax-highlighted code, and a recurring, low-pressure nudge toward the community.
 
 ### Motion
 

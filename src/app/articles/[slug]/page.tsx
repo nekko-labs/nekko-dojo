@@ -95,7 +95,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
   };
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+    <div className="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16">
       <JsonLd data={articleSchema} />
       <JsonLd data={breadcrumbSchema} />
       <ReadingProgress targetId="article-body" />

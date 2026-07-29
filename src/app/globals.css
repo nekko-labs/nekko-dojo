@@ -84,8 +84,30 @@
   --accent-soft: color-mix(in srgb, var(--accent) 8%, transparent);
   --accent-line: color-mix(in srgb, var(--accent) 45%, transparent);
 
-  /* Long-form reading measure — one number, used by .prose and .measure. */
-  --measure: 68ch;
+  /* Long-form reading measure — one number, used by .prose and .measure.
+     In rem rather than ch because the two consumers sit at different font
+     sizes: `ch` would resolve narrower on the 1rem furniture than on the
+     larger prose body and split the page into two column widths. */
+  --measure: 36.5rem; /* ~68ch of prose */
+  --prose-size: 1.0625rem;
+}
+
+/* Desktop reading: the column and its type step up together, so a wide screen
+   carries a longer line instead of a narrow ribbon of text with a hole beside
+   it. Because the measure grows with the type, the line stays inside the
+   readable band (~78 characters here, ~88 at the widest step). Breakpoints
+   match Tailwind's `lg` and `xl`. */
+@media (min-width: 64rem) {
+  :root {
+    --measure: 42rem; /* ~74ch at the larger prose size */
+    --prose-size: 1.125rem;
+  }
+}
+
+@media (min-width: 80rem) {
+  :root {
+    --measure: 44rem; /* ~78ch — fills the column beside the 15rem TOC */
+  }
 }
 
 html {
@@ -204,7 +226,7 @@ body {
 
 .prose {
   max-width: var(--measure);
-  font-size: 1.0625rem;
+  font-size: var(--prose-size);
   line-height: 1.75;
   color: var(--fg);
 
@@ -254,18 +276,21 @@ body {
   scroll-margin-top: 6rem;
 }
 
+/* The heading scale is in `em`, so it rides `--prose-size` and the
+   h2 > h3 > h4 > body hierarchy holds at every reading size (in rem, an h4
+   would end up smaller than the body once the desktop step lands). */
 .prose h2 {
-  font-size: 1.6rem;
+  font-size: 1.5em; /* 25.5px at the base reading size */
   margin-top: 2.2em;
 }
 
 .prose h3 {
-  font-size: 1.3rem;
+  font-size: 1.22em; /* 20.7px */
   margin-top: 1.8em;
 }
 
 .prose h4 {
-  font-size: 1.1rem;
+  font-size: 1.04em; /* 17.7px */
   margin-top: 1.5em;
 }
 

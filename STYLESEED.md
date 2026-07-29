@@ -1,6 +1,6 @@
 ---
 status: locked
-last-updated: 2026-07-25
+last-updated: 2026-07-30
 owner: Philip
 supersedes: TASKS.md#T7 (brand pass — the rules half)
 ---
@@ -45,9 +45,17 @@ changing one is a deliberate edit to this file, in its own PR.
 - **2.1 (locked)** One typeface: **Zen Maru Gothic** (`--font-sans`, loaded via
   `next/font`), with `--font-mono` for code. A bare system-font stack is *not*
   the brand — the fallback stack exists for CJK glyphs and load failures only.
-- **2.2 (locked)** Long-form measure is **one number**: `--measure` (68ch).
+- **2.2 (locked)** Long-form measure is **one number**: `--measure`, expressed
+  in rem rather than `ch` so the body and the furniture around it land on the
+  same width even though they sit at different font sizes. It steps up on
+  desktop together with `--prose-size` (the reading type size): 36.5rem /
+  1.0625rem on phone and tablet, 42rem / 1.125rem from `lg`, 44rem from `xl`.
+  Column and type grow together, so a wide screen buys physical width instead
+  of a longer line (~78 characters at the base step, ~88 at the widest).
   Reading pages use `.prose` for the body and `.measure` for the furniture
   around it (header, chapter nav, CTA) so a page holds a single column width.
+  The prose heading scale is in `em` for the same reason: it rides the reading
+  size instead of drifting toward it as the body grows.
 - **2.3** Microtypography on prose is on by default (see `.prose` in
   `globals.css`): hyphenation with sane limits, kerning + ligatures, hanging
   punctuation, `text-wrap: pretty` for paragraphs and `balance` for headings,
