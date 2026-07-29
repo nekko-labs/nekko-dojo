@@ -15,6 +15,8 @@ const GUIDE_DIR = path.join(CONTENT_DIR, 'guide');
 
 const WORDS_PER_MINUTE = 200;
 
+export type ArticleHero = { src: string; alt: string };
+
 export type ArticleMeta = {
   slug: string;
   title: string;
@@ -24,6 +26,8 @@ export type ArticleMeta = {
   author: string;
   draft: boolean;
   readingMinutes: number;
+  /** Cover image for cards and social previews; null when the article has none. */
+  hero: ArticleHero | null;
 };
 
 export type GuideChapterMeta = {
@@ -74,6 +78,23 @@ function asDateString(value: unknown): string {
 
 // --- Articles ---------------------------------------------------------------
 
+/**
+ * Resolve an article's cover image. Frontmatter `hero` (+ optional `heroAlt`)
+ * wins; otherwise fall back to the first local `<img>` in the body, since the
+ * photo essays open on a hero figure. Only local `/...` paths are accepted so
+ * `next/image` never receives an unconfigured remote host.
+ */
+function deriveHero(data: Record<string, unknown>, body: string): ArticleHero | null {
+  const fromFrontmatter = asString(data.hero);
+  if (fromFrontmatter.startsWith('/')) {
+    return { src: fromFrontmatter, alt: asString(data.heroAlt) };
+  }
+  const tag = body.match(/<img\b[^>]*>/)?.[0];
+  const src = tag?.match(/\bsrc="([^"]+)"/)?.[1];
+  if (!src || !src.startsWith('/')) return null;
+  return { src, alt: tag?.match(/\balt="([^"]*)"/)?.[1] ?? '' };
+}
+
 function parseArticle(file: string): Loaded<ArticleMeta> {
   const slug = file.replace(/\.mdx$/, '');
   const raw = fs.readFileSync(path.join(ARTICLES_DIR, file), 'utf8');
@@ -89,6 +110,7 @@ function parseArticle(file: string): Loaded<ArticleMeta> {
       author: asString(data.author, 'Philip'),
       draft: asBool(data.draft),
       readingMinutes: readingMinutes(content),
+      hero: deriveHero(data, content),
     },
   };
 }

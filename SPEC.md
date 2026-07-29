@@ -55,8 +55,10 @@ The living catalog of capabilities, grouped by the four pillars. Mark each `[shi
 ### Articles
 Philip's essays on tech, AI, and career growth from a director/principal vantage point, including how the market is shifting with AI. *Why:* builds trust/audience and differentiates with senior perspective.
 
-- Article index with cards (title, date, tags, excerpt) `[shipped]` — 2 sample essays seeded
+- Article index as a browsing experience: the newest article leads as a featured spread (cover photo, "Latest" chip, accent-marked border), the rest sit in a card grid behind recurring-topic filter chips (counts, instant re-filter, polite live result count) `[shipped]`
+- Every article card carries cover art: the hero photo when the essay has one (frontmatter `hero`/`heroAlt`, else the first image in the body), otherwise a deterministic "dusk cover" generated from the slug (glow wash, seigaiha wave pattern, type monogram) `[shipped]`
 - Article reading page: prose, heading TOC anchors, author, Discord CTA footer `[shipped]`
+- Social previews (OpenGraph/Twitter) use the article's hero image when it has one, falling back to the logo `[shipped]`
 - Running brain-dump of article ideas (`article-topics.md`) feeding the pipeline `[in progress]`
 
 ### Courses
@@ -114,6 +116,7 @@ A persistent CTA throughout the site to join the Nekko Labs Discord community. *
 - 404 page `[shipped]`
 - PostHog analytics `[shipped]`
 - Scroll-triggered and entrance animations site-wide (`motion` library, reduced-motion aware) `[shipped]`
+- Site footer: brand block with the Discord CTA button, Explore + Community link columns (SVG icons, external links announce the new tab), and a legal strip with the mascot strolling along its top edge `[shipped]`
 - Newsletter / email capture for new articles `[planned]`
 
 ## Scope Boundaries
