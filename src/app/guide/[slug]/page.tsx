@@ -97,7 +97,7 @@ export default async function GuideChapterPage({ params }: { params: Promise<Par
   };
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+    <div className="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16">
       <JsonLd data={chapterSchema} />
       <JsonLd data={breadcrumbSchema} />
       <ReadingProgress targetId="chapter-body" />
