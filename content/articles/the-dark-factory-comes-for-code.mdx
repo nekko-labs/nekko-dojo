@@ -1,91 +1,173 @@
 ---
 title: Project Dark Factory
-description: Factories became fully automated in 2001. Now the same pattern is emerging in the software industry. 
+description: Factories went fully automated in 2001. Now the same pattern is arriving in software, and a handful of teams are already shipping production code that no human wrote or reviewed.
 date: 2026-07-24
 author: Philip
 tags: ['Dark Factory', 'AI', 'Agentic Engineering', 'Software', 'Automation']
 draft: true
 ---
 
-Resting near Mount Fuji, there is a factory where robots build other robots in the dark. No overhead lights, no assembly line workers, running non-stop like a well-oiled machine. The only humans present are a small maintenance crew. It's ran like this for decades. The industry has coined this: the **dark factory**.
+<figure>
+  <img
+    src="/articles/the-dark-factory-comes-for-code/hero-lights-out-plant.jpg"
+    alt="An industrial building at night, its interior floors lit and working while the exterior stays dark and empty"
+  />
+  <figcaption>The line is running. Nobody is on it.</figcaption>
+</figure>
 
-(TODO add a dark factory image)
+Resting near Mount Fuji, there is a factory where robots build other robots in the dark. No overhead lights, no assembly line workers, running non-stop like a well-oiled machine. The only humans present are a small maintenance crew. It has run like this for decades. The industry has a name for it: the **dark factory**.
 
 ## What is a dark factory?
 
-A dark factory, also called **lights-out manufacturing** according to wikipedia (todo: make this a link), is the practice of fully automating production so a facility can run with no human labor present on-site. The name is literally related to robots not needing need to see what they are doing, so if no person is present, you can turn the lights off. 
-Japan had called it **無人工場 (mujin kojo)**, the "unmanned factory."
+A dark factory, also called [lights-out manufacturing](https://en.wikipedia.org/wiki/Lights_out_(manufacturing)), is the practice of automating production so completely that a facility can run with no human labor present on site. The name is literal: robots do not need to see what they are doing, so if nobody is in the building, you can turn the lights off. Japan got there first with the term too, calling it **無人工場 (mujin kōjō)**, the "unmanned factory."
 
-The idea started in the 1980s, with Roger B. Smith, CEO of General Moters attempting to the concept and partnered with Fujitsu Fanuc to create GMFanuc Robotics, a company whose mission was to build the robots that would build the cars. It actually didn't end up working. FANUC, a Japanese robotics company, finally made this dream a reality in 2001. Robots build other robots at a rate of about 50 per 24-hour shift, and the line can run unsupervised for as long as 30 days at a time. "Not only is it lights-out," says FANUC vice president Gary Zywiol, "we turn off the air conditioning and heat too."
+<figure className="figure-tall">
+  <img
+    src="/articles/the-dark-factory-comes-for-code/unmanned-stairwell.jpg"
+    alt="A dark industrial stairwell lit only by a few emergency lamps and red indicator lights, with nobody on the stairs"
+  />
+  <figcaption>Lights off, heat off, air conditioning off. The building does not need to be comfortable for anyone.</figcaption>
+</figure>
 
-Since then, this idea has grown in the industry. Some interesting examples:  (TODO add links for these if possible)
-- **Philips** builds electric razors in the Netherlands with 128 robots and just nine human quality-assurance workers
+The idea arrived in the 1980s, and the first serious attempt at it failed badly. Roger B. Smith, then CEO of General Motors, became fixated on out-automating his Japanese rivals. In February 1982 GM formed a 50-50 joint venture with Fujitsu Fanuc called GMFanuc Robotics, a company whose whole purpose was to build the robots that would build the cars. GM spent something on the order of $90 billion over the following decade chasing this. It did not work. The robots famously painted each other instead of the cars and welded doors shut, and by 1992 the New York Times was writing the obituary for GM's factory of the future.
+
+FANUC, the Japanese half of that venture, made the dream real on its own in 2001. At its plant near Mount Fuji, robots build other robots at a rate of about 50 per 24-hour shift, and the line can run unsupervised for as long as 30 days at a time. "Not only is it lights-out," FANUC vice president Gary Zywiol has said, "we turn off the air conditioning and heat too."
+
+That gap between 1982 and 2001 is the part worth holding onto. The vision was correct and the first attempt still failed, because the constraint was never robot capability. It was process design.
+
+Since then the pattern has spread. A few examples, all catalogued in the [Wikipedia entry](https://en.wikipedia.org/wiki/Lights_out_(manufacturing)):
+
+- **Philips** builds electric razors in the Netherlands with 128 robots and just nine human quality-assurance workers.
 - **Advanced chip fabs** running 300mm silicon wafers are almost entirely automated, with people there mainly to watch the process and repair machines when they break.
 - **Xiaomi** runs an 860,000-square-foot plant in Changping, Beijing, capable of building 10 million smartphones a year across 11 fully automated production lines.
 - **ASE Group**, the Taiwanese semiconductor packaging and testing giant, operates 56 lights-out factories.
 
-The idea also has shown up in science fiction. My coworker shared an interesting book with me called Daneel (TODO add link https://en.wikipedia.org/wiki/R._Daneel_Olivaw) around the humans vs machines race and Daneel was the machine that helped the humans. (Hopefully AI is kind to us in the future!)
+The idea shows up in fiction too. A coworker pointed me at Asimov's [R. Daneel Olivaw](https://en.wikipedia.org/wiki/R._Daneel_Olivaw), the robot who spends the long human-versus-machine arc quietly on humanity's side. Hopefully our version is written the same way.
 
 ## Project Dark Factory
 
-Now, this term is re-emerging in the software AI revolution. I went to a Tokyo AI meetup around April and heard Leonard Lin from Shisa.AI speak about the dark factory concept coming to software. 
-He mentioned two rules that a certain company is employing:
-- Code must not be written by humans
-- Code must not be reviewed by humans
+The term is now re-emerging in software. In April I went to a Tokyo AI meetup and heard Leonard Lin, founder and CTO of [Shisa.AI](https://shisa.ai/), talk about the dark factory concept coming for code.
 
-AI-centric companies like Anthropic and OpenAI are already starting towards this. One example is (TODO insert openai example)
+<figure>
+  <img
+    src="/articles/the-dark-factory-comes-for-code/dark-factory-talk-tokyo.jpg"
+    alt="A speaker at a Tokyo AI meetup presenting a slide titled Dark Factory to a seated audience, the slide deliberately blurred"
+  />
+  <figcaption>Leonard Lin of Shisa.AI walking a Tokyo AI meetup through the dark factory thesis for software.</figcaption>
+</figure>
 
-Now product centered companies are also learning where AI fits into their direction. Many companies see it as a means to replace people while others, including myself, see it as a way to empower people to do more. Shipping better quality, more features, and more opportunity should equal more revenue from the same people. 
+The slide that stuck with me was two rules, which he credited to [StrongDM](https://www.strongdm.com/):
 
-I'm calling **project dark factory** the implementation goal for product-centric companies to take on this concept of completely automating areas of their work. 
+- Code must not be written by humans.
+- Code must not be reviewed by humans.
 
-The steps towards dark factory
+Read those quickly and they sound like a stunt. Read them again as engineering constraints and they are something else: a bet that you can specify and check a system so well that a human in the middle of the loop only adds latency and error. StrongDM's team put roughly 32,000 lines of production code into their product this way, starting in mid-2025, with three people and no hand-written or hand-reviewed code.
 
-(TODO talk about how teams are progresssing through this evolution. Look up the transcript from the openai and openclaw seminar. )
+The detail I found most interesting is how they replaced review. They keep behavioral specifications, "scenarios," outside the codebase and hidden from the agent while it works, then measure the result against them. It is holdout validation borrowed from machine learning and pointed at product engineering. The agent cannot overfit to the test if it never sees the test.
+
+## The proof point at OpenAI
+
+The frontier labs are further along, and one project in particular is the clearest evidence I have seen that this is not theater.
+
+Ryan Lopopolo's team on OpenAI Frontier spent five months building and shipping an internal product with **zero lines of manually written code**. Not zero application code. Zero code, full stop: business logic, tests, CI configuration, docs, observability, internal tooling. All of it written by Codex. The numbers they have published:
+
+- **~1M lines of code** across roughly **1,500 pull requests**, in five months.
+- **0% human-written code, and 0% human review before merge.**
+- **Over 1 billion tokens a day**, which at market rates with caching lands around **$2,000 to $3,000 a day**.
+- Throughput per person went from about **3.5 PRs per engineer per day** to **5 to 10** after a model upgrade.
+- They estimate the whole thing took roughly **a tenth of the time** it would have taken to write by hand.
+
+They also gave the discipline a name that I think is going to stick: **harness engineering**. The claim is that engineers on that team are not writing code anymore, they are building the harness around the agent. The structure, the guardrails, the documentation, the automated checks, the tools, the context. You improve output by improving the environment the agent works in, not by typing more carefully.
+
+That reframe is the whole article, honestly. A dark factory is not what you get when the robots get good enough. It is what you get when someone designs the factory.
+
+## The steps toward a dark factory
+
+Very few teams jump straight to zero human review, and nobody should. In practice this looks like a ladder, and most of the industry is somewhere in the middle of it:
+
 1. **Autocomplete** finishing your line.
 2. **Chat assistants** answering questions in a side panel.
 3. **A single coding agent** taking a task end to end.
 4. **Multi-agent orchestration**, where several agents work different parts of the codebase at once.
 5. **A fully autonomous pipeline**, where the humans step off the floor.
 
-Myself, I'm current at step 4 where I'm managing multiple agents running in parallel, orchestrating across multiple projects and intiaitives at once. 
-Recently, watching the (TODO update with the link) Open AI just had a discussion with the maker of openclaw how it's shifting towards human attention. 
+I am at step 4. On a normal day I have multiple agents running in parallel, orchestrated across several projects and initiatives at once, and my job has quietly stopped being "write the code" and started being "decide what should exist, and keep the queue full and unblocked."
 
+What breaks at step 4 is not code quality. It is **my attention**. Every agent that finishes wants a decision, and the person in the middle becomes the bottleneck the way a single QA station becomes the bottleneck on a physical line.
+
+That is why the interesting tooling right now is aimed at attention rather than at code generation. The same OpenAI group open-sourced **Symphony**, a protocol that moves agent coordination into an issue tracker so people review outcomes instead of babysitting sessions. And when OpenAI hired Peter Steinberger, the person behind **OpenClaw**, they were buying expertise in exactly this: agents that run proactively and only come to you when they should. Step 5 is not reached by making agents smarter. It is reached by making the handoffs cheap.
 
 ## What does it actually look like?
 
-there are many approaches to this and it likely doesn't look the same across projects. 
+There are many approaches to this and it almost certainly does not look the same across two projects. But the shape I keep seeing is workflows and pipelines becoming automated one at a time, with engineers as the people who **build and maintain the line** rather than stand on it.
 
-Likely it will come in the form of many workflows or pipelines that become automated and engineers will be the creators and overseers of these workflows. In a factory, this would be akin to very senior engineers building the factories, the whole assembly line design, optimizing and changing out different parts, and identifying how to maintain the pipeline with more junior engineers.
+<figure>
+  <img
+    src="/articles/the-dark-factory-comes-for-code/software-automation-aisle.jpg"
+    alt="A dimly lit data center aisle lined with server racks, with a single unattended terminal on a cart at the far end"
+  />
+  <figcaption>The software version of a lights-out floor: everything running, one terminal left out for whoever comes to check on it. Photo by Brett Sayles on Pexels.</figcaption>
+</figure>
 
-R&D has huge automation opportunity. 
+The factory analogy is genuinely useful here. Very senior engineers design the assembly line, decide which stations exist, swap parts out, and instrument the whole thing. Less senior engineers keep it running and extend it. The skill being rewarded is process design, not typing speed.
 
-(todo lay these out better)
-Harnesses getting stronger and being more about the workflow than just the model strength. 
+R&D has the most obvious headroom, because the loop is already measurable. Andrej Karpathy's [autoresearch](https://github.com/karpathy/autoresearch), released in March, is the cleanest example I know: an agent edits one training script, runs a time-boxed experiment, measures the result, keeps the change or throws it away, and repeats, potentially all night. He has reported single autonomous sessions running 89 and 126 experiments and grinding validation loss down without a human in the loop. Nothing about that loop is specific to ML. Any workflow where you can state the goal and mechanically score the result can be turned into it.
 
-Karpathy style autoresearch (todo add this workflow)
+The commercial versions are converging on the same idea. Cognition has taken Devin from "one autonomous engineer" to an agentic development environment where teams run many Devins at once on different tasks, which is the multi-agent orchestration rung packaged as a product.
 
-The Cognition.ai squad working on Devin are building some amazing automation ideas. (todo add content)
+Here is what this looks like in the product work I actually touch:
 
-some other examples here. 
+- **Bug and experience investigation.** Agents walk end-to-end user journeys as different personas, watch production, reproduce what breaks, and propose fixes that a human approves.
+- **Feature work, decomposed into stations.** Product metric analysis, implementation, code review, verification, rollout management, bug fixing, production monitoring, user feedback triage, scaling. Each one of those is automatable on its own, and each one you automate makes the next cheaper.
 
-concrete examples I'm seeing in current product-centric projects
-- Investigating end-to-end experiences for bugs, testing different user personas as they walk through the experience, production monitoring and automated fixing with human approvals. '
-- automating feature work steps - product metric analysis, development, code reviews, verification, roll out management, bug fixing, production monitoring, user feedback monitoring, scaling, etc. 
+The mistake is treating this as one giant leap. It is a station at a time.
 
+## Agentic loop engineering
+
+Here is the part most teams skip, and it is the part that separates FANUC in 2001 from GM in 1982.
+
+If your development process is agent-driven, it is generating structured logs whether or not you look at them. Session transcripts, tool calls, token counts, commit timings, review verdicts. That is telemetry for your factory floor, and almost nobody reads it.
+
+Leonard made this point better than I had thought about it, with a concrete set of things to track per release:
+
+- **Wall-clock efficiency**: commits per hour, insertions per hour.
+- **Session-time efficiency**: active minutes, concurrent agents.
+- **Token efficiency**: tokens per commit, tokens per net line.
+- **Review effectiveness**: green rate, finding rates per reviewer.
+
+Look at that list as a manufacturing engineer would. Those are throughput, utilization, unit cost, and defect escape rate. It is the standard instrumentation of any production line, applied to a line whose workers happen to be language models. Once you have those four numbers per release, "did that change to our harness help?" becomes a question with an answer instead of a vibe.
+
+The strongest public demonstration of why this matters came from AMD. An engineering director in AMD's AI group, running Claude Code across dozens of concurrent sessions, data-mined **17,871 thinking blocks and 234,760 tool calls across 6,852 session files** to argue that a quality regression was real and to pin down when it started ([anthropics/claude-code#42796](https://github.com/anthropics/claude-code/issues/42796)). The evidence was in the shape of the logs: the read-to-edit ratio collapsed from about 6.6 reads per edit to 2.0, and estimated median thinking depth fell roughly 67%, from around 2,200 characters to around 720. The regression correlated with a change in how thinking content was handled.
+
+Sit with that for a second. A user of the tool proved a model-behavior regression from their own session logs, with enough rigor that it became one of the most-discussed issues on the repo. That is only possible if you are already treating your agentic loop as a system with instrumentation.
+
+This is what I mean by **agentic loop engineering**: the loop itself is the artifact you are building. Not the prompt, not the code the agent produced this afternoon. The loop, measured, versioned, and improved on purpose. Every team I see making real progress here has stopped tuning prompts by feel and started running experiments on their own process.
 
 ## What should stay human
-(todo fill out)
-Decision making, design and architecture, and the product experience should be where we shift our focus. 
-building phase can be automated. 
-Product engineering work for new feature ideas, problems to solve, and large directional changes are hard to automate the thinking aspect and formulating an idea into action. 
 
-Providing directional input into long running automations. Imagine as the work is progressing you want to provide occasiional directional input, but largely allow for autonomy. 
+I keep coming back to this, because "the humans step off the floor" is a sentence people hear as "the humans leave."
 
+Many companies see this as a way to replace people. I see it, and I will keep arguing for it, as a way to let the same people do far more: better quality, more features, more shots on goal, more revenue from the same team. Which of those two things it becomes is a management decision, not a technology outcome.
 
-(todo add the join discord pitch and what dark factory project you're taking on next) 
-[Join our Discord](https://discord.gg/nekkolabs) .*
+What I think genuinely stays human, for now:
+
+- **Deciding what should exist.** Turning a vague problem into a specific thing worth building is the hardest step to automate, and it is where almost all the leverage lives.
+- **Design and architecture.** Not the file layout, the decisions with a five-year blast radius.
+- **The product experience.** Taste, and knowing when something technically correct is still wrong for the user.
+- **Directional input into long-running automation.** This one is underrated. As work progresses you want to nudge it occasionally without taking the wheel, which is a genuinely new skill: steering something autonomous without stopping it.
+
+The building phase is what gets automated. The thinking that decides what to build, and the judgment that says "this is done and it is right," is the job. If you are early in your career, that is the thing to get good at, and it is exactly what [the courses here](/courses) are pointed at.
+
+## What I am taking on next
+
+My own project dark factory is step 4 to step 5 on one narrow slice: fully automated bug triage on a production app, from a real user report through reproduction, fix, review by other agents, and a rollout gate that I approve and nothing else. One station, instrumented with the four numbers above, so I can tell whether it is actually working instead of just feeling fast.
+
+If you are building something like this, or you want to, come argue with me about it.
+
+[Join our Discord](https://discord.gg/nekkolabs)
 
 ---
 
-*Sources: [Lights-out manufacturing (Wikipedia)](https://en.wikipedia.org/wiki/Lights_out_(manufacturing)), FANUC's Mt. Fuji plant and the 1980s "factory of the future," and the emerging "dark factory" pattern for autonomous coding.*
+*Sources: [Lights-out manufacturing (Wikipedia)](https://en.wikipedia.org/wiki/Lights_out_(manufacturing)), Leonard Lin's dark factory talk at a Tokyo AI meetup, [StrongDM's software factory](https://www.strongdm.com/), OpenAI's [harness engineering](https://openai.com/index/harness-engineering/) writeup and Ryan Lopopolo's [Latent Space interview](https://www.latent.space/p/harness-eng), [karpathy/autoresearch](https://github.com/karpathy/autoresearch), and [anthropics/claude-code#42796](https://github.com/anthropics/claude-code/issues/42796).*
+
+*Data center photo via [Pexels](https://www.pexels.com/photo/server-racks-on-data-center-4508751/) under the Pexels License, by Brett Sayles. Remaining photography is my own.*
