@@ -1,4 +1,87 @@
-import type { SVGProps } from 'react';
+import type { ComponentType, SVGProps } from 'react';
+
+/**
+ * A hanging calligraphy scroll (kakejiku) with a single brush stroke — the
+ * dojo's written word. Nav icon for Articles.
+ */
+export function ScrollIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M12 4.5v3" />
+      <path d="M6 7.5h12" />
+      <path d="M8 7.5V19h8V7.5" />
+      <path d="M5 19h14" />
+      <path d="M12 11v4.5" />
+    </svg>
+  );
+}
+
+/**
+ * A torii gate — the entrance to training. Nav icon for Courses.
+ */
+export function ToriiIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M3 6c2.5-1.6 15.5-1.6 18 0" />
+      <path d="M7 5.5V20" />
+      <path d="M17 5.5V20" />
+      <path d="M4.5 11h15" />
+      <path d="M12 5v6" />
+    </svg>
+  );
+}
+
+/**
+ * A cat paw — you don't train alone. Nav icon for Community.
+ */
+export function PawIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <circle cx="5.8" cy="9.8" r="1.7" />
+      <circle cx="10" cy="7.4" r="1.8" />
+      <circle cx="14" cy="7.4" r="1.8" />
+      <circle cx="18.2" cy="9.8" r="1.7" />
+      <path d="M12 12c2.5 0 4.3 1.9 4.3 4 0 1.9-1.5 3.1-2.9 2.7-.6-.17-1-.25-1.4-.25s-.8.08-1.4.25c-1.4.4-2.9-.8-2.9-2.7 0-2.1 1.8-4 4.3-4Z" />
+    </svg>
+  );
+}
+
+/**
+ * Themed icon for each primary nav section, keyed by route. Both the desktop
+ * header and the mobile menu read from this map so the pairing never drifts.
+ */
+export const NAV_ICONS: Record<string, ComponentType<SVGProps<SVGSVGElement>>> = {
+  '/articles': ScrollIcon,
+  '/courses': ToriiIcon,
+  '/community': PawIcon,
+};
 
 export function DiscordIcon(props: SVGProps<SVGSVGElement>) {
   return (
