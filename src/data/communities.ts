@@ -8,14 +8,25 @@
  *
  * This is structured data (not prose), rendered by /community. Keep entries
  * accurate and verify URLs before adding. `featured: true` pins a project to
- * the top and surfaces it on the home page.
+ * the top of the directory.
  *
  * A project's `description` here is the fallback: at render time the
  * directory pulls fresher copy from the project's own README when it has a
- * GitHub repo (see `lib/github-readme.ts`).
+ * GitHub repo (see `lib/github-readme.ts`). Its `art` is a small graphic from
+ * the project itself (a shot of its own site), so a reader can see what the
+ * thing *is* before deciding to open it. Recapture it when a project rebrands
+ * or redesigns.
  */
 
 export type Region = 'Japan' | 'Global';
+
+/** A small graphic from the project, shown at the top of its card. */
+export type ProjectArt = {
+  /** Lives in `public/projects/`, 16:9, captured from the project's own site. */
+  src: string;
+  /** What the graphic shows, for readers who can't see it. */
+  alt: string;
+};
 
 /** A real open-source project someone can contribute to. */
 export type Project = {
@@ -30,20 +41,13 @@ export type Project = {
   description: string;
   region: Region;
   tags: string[];
+  /** Marketing graphic from the project, so the card shows what it is. */
+  art?: ProjectArt;
   /** Known to welcome newcomers / labels good-first-issues. */
   beginnerFriendly?: boolean;
-  /** Pin to the top of the directory and surface on the home page. */
+  /** Pin to the top of the directory. */
   featured?: boolean;
 };
-
-/**
- * The single best link to open for a project (GitHub first, then website, then
- * community server). Used for the home-page featured surface. Every project has
- * at least one of these, so this always returns a real URL.
- */
-export function projectPrimaryUrl(p: Project): string {
-  return p.github ?? p.website ?? p.community ?? '#';
-}
 
 /** A community to meet people and network. */
 export type NetworkCommunity = {
@@ -73,11 +77,16 @@ export const projects: Project[] = [
     id: 'kotrain',
     name: 'Kotrain',
     github: 'https://github.com/nekko-labs/kotrain',
+    website: 'https://kotrain.com',
     community: 'https://discord.gg/nekkolabs',
     description:
-      'Nekko Labs’ local-first AI chat, cowork, and coding desktop app, with first-class support for local models (Ollama, LM Studio, vLLM). A modern TypeScript codebase and a great place to contribute alongside our team; say hi in the Discord.',
+      'Nekko Labs’ local-first AI coding and cowork desktop app: point it at Ollama, LM Studio or vLLM in one click, or bring your own cloud keys. A modern TypeScript codebase and a great place to contribute alongside our team; say hi in the Discord.',
     region: 'Japan',
     tags: ['TypeScript', 'Desktop', 'Local-first', 'AI'],
+    art: {
+      src: '/projects/kotrain.webp',
+      alt: 'Kotrain’s site: “Train your models. Run your agents. Own your machine.”',
+    },
     beginnerFriendly: true,
     featured: true,
   },
@@ -88,32 +97,48 @@ export const projects: Project[] = [
     website: 'https://vaizer.app',
     community: 'https://discord.gg/nekkolabs',
     description:
-      'See how your agents work and what they are focused on: break down any skill into a readable workflow graph, and watch long-running agent loops make their way toward a goal. A Next.js + TypeScript project, developed in the open.',
+      'Agent and prompt management, made visible: read any skill as a workflow graph before you run it, version the prompts behind it, and watch long-running agent loops from one HUD. A Next.js + TypeScript project, developed in the open.',
     region: 'Japan',
     tags: ['TypeScript', 'Next.js', 'AI', 'Agents'],
+    art: {
+      src: '/projects/vaizer.webp',
+      alt: 'Vaizer’s site: a skill drawn as a workflow graph of command, context, tool and loop nodes',
+    },
     beginnerFriendly: true,
     featured: true,
   },
   {
-    id: 'nekko-mcp',
-    name: 'Nekko MCP',
-    github: 'https://github.com/nekko-labs/nekko-mcp',
+    id: 'hypergate',
+    name: 'Hypergate',
+    github: 'https://github.com/nekko-labs/hypergate',
+    website: 'https://hypergate.app',
     community: 'https://discord.gg/nekkolabs',
     description:
-      'A local-first runtime and manager for MCP servers — run them securely (process or Docker), supervise them, and expose one gateway for any agent harness. TypeScript, developed fully in the open.',
+      'Every MCP server, one gate: a local-first runtime and manager that runs MCP servers securely (process or Docker), supervises them, and puts a single gateway endpoint in front of any agent harness. A TypeScript daemon plus a Rust desktop shell, developed fully in the open.',
     region: 'Japan',
-    tags: ['TypeScript', 'MCP', 'Local-first'],
+    tags: ['TypeScript', 'Rust', 'MCP', 'Local-first'],
+    art: {
+      src: '/projects/hypergate.webp',
+      alt: 'Hypergate’s site: “Every MCP server. One gate.” over a glowing gate ring',
+    },
     beginnerFriendly: true,
   },
   {
-    id: 'nekko-journal',
-    name: 'Nekko Journal',
-    github: 'https://github.com/nekko-labs/nekko-journal',
+    id: 'getsu',
+    name: 'Getsu',
+    github: 'https://github.com/nekko-labs/getsu',
+    // getsu.app is bought and attached to the deployment, but its DNS is still
+    // parked at the registrar, so link the live URL until that lands.
+    website: 'https://getsu-chi.vercel.app',
     community: 'https://discord.gg/nekkolabs',
     description:
-      'A calm, anti-streak monthly journaling and goal-tracking app — local-first. Set yearly goals, break them into months, and capture highlights, struggles, and photos. A friendly TypeScript project to get started on.',
+      'A calm, anti-streak monthly journaling and goal-tracking app, local-first. Set goals for the year, place each on the month where it will happen, and capture that month’s highlights, struggles and photos. A friendly TypeScript project to get started on.',
     region: 'Japan',
     tags: ['TypeScript', 'Local-first', 'Product'],
+    art: {
+      src: '/projects/getsu.webp',
+      alt: 'Getsu’s site: a crescent-moon cat mark above “A life you can look back on, one month at a time”',
+    },
     beginnerFriendly: true,
   },
   {
@@ -123,9 +148,13 @@ export const projects: Project[] = [
     website: 'https://vaizer.app/skills',
     community: 'https://discord.gg/nekkolabs',
     description:
-      'The Agent Skills marketplace — official and community Claude skills, installable as a Claude Code plugin marketplace (browse and visualize them on Vaizer). A low-barrier way to make your first open-source contribution by adding a skill, not just code.',
+      'The Agent Skills hub: official and community Claude skills, installable as a Claude Code plugin marketplace (browse and visualize them on Vaizer). A low-barrier way to make your first open-source contribution by adding a skill, not just code.',
     region: 'Japan',
     tags: ['Claude skills', 'Open Source', 'Beginner'],
+    art: {
+      src: '/projects/nekko-dojo-skills.webp',
+      alt: 'The skills catalog on Vaizer: searchable cards for Domain Finder, nyaa and Resume Checker',
+    },
     beginnerFriendly: true,
   },
   {
@@ -138,6 +167,10 @@ export const projects: Project[] = [
       'A popular Japan-origin, decentralized social platform built with TypeScript/Vue. A large, active OSS project with issues across the difficulty spectrum — good for stretching beyond beginner work once you have your footing.',
     region: 'Japan',
     tags: ['TypeScript', 'Vue', 'Large project'],
+    art: {
+      src: '/projects/misskey.webp',
+      alt: 'Misskey’s site: “Create. Connect. with Misskey.” beside its green 3D logo',
+    },
   },
   {
     id: 'good-first-issue',
@@ -147,6 +180,10 @@ export const projects: Project[] = [
       'An aggregator of beginner-friendly issues across popular open-source projects worldwide. A solid way to find your very first contribution if nothing above fits yet.',
     region: 'Global',
     tags: ['Good first issue', 'Aggregator'],
+    art: {
+      src: '/projects/good-first-issue.webp',
+      alt: 'Good First Issue: beginner-friendly issues listed per repository, browsable by language',
+    },
     beginnerFriendly: true,
   },
 ];
@@ -334,11 +371,6 @@ export const juniorCompanies: JobResource[] = [
     kind: 'company',
   },
 ];
-
-/** Projects surfaced on the home page ("Get real experience"). */
-export function getFeaturedProjects(): Project[] {
-  return projects.filter((p) => p.featured);
-}
 
 /** Projects sorted with featured entries first. */
 export function getAllProjects(): Project[] {
