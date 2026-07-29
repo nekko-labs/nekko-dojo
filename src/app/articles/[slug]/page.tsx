@@ -40,13 +40,16 @@ export async function generateMetadata({
       authors: [meta.author],
       tags: meta.tags,
       // A child openGraph object replaces the layout's, so restate the image.
-      images: [{ url: '/dojo.png', width: 1100, height: 683, alt: meta.title }],
+      // Articles with a hero photo share with it; the rest fall back to the logo.
+      images: meta.hero
+        ? [{ url: meta.hero.src, alt: meta.hero.alt || meta.title }]
+        : [{ url: '/dojo.png', width: 1100, height: 683, alt: meta.title }],
     },
     twitter: {
       card: 'summary_large_image',
       title: meta.title,
       description: meta.description,
-      images: ['/dojo.png'],
+      images: [meta.hero?.src ?? '/dojo.png'],
     },
   };
 }
@@ -95,7 +98,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
   };
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+    <div className="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16">
       <JsonLd data={articleSchema} />
       <JsonLd data={breadcrumbSchema} />
       <ReadingProgress targetId="article-body" />
