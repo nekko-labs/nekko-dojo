@@ -35,7 +35,7 @@ export function DiscordCTA({ variant = 'block', className = '' }: DiscordCTAProp
       <h2 className="mt-3 text-xl font-semibold">Learning is better together</h2>
       <p className="mx-auto mt-2 max-w-prose text-muted">
         Get unstuck, find your first real issue, and meet others switching into
-        tech. Join the Nekko Labs Discord — bring your questions.
+        tech. Join the Nekko Labs Discord, and bring your questions.
       </p>
       <a
         href={site.discordUrl}
