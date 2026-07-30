@@ -121,6 +121,66 @@ html {
   }
 }
 
+/* Above-the-fold reveals stay in server HTML and animate without Motion JS.
+   The hero mascot is the LCP element, so its no-fade variant keeps opacity at
+   1 and only settles its small transform; other load reveals retain the quiet
+   opacity-plus-travel entrance. */
+@keyframes revealLoad {
+  from {
+    opacity: 0;
+    transform: translate3d(var(--reveal-x), var(--reveal-y), 0) rotate(var(--reveal-rotate));
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
+.reveal-load {
+  animation: revealLoad var(--reveal-duration, 0.65s) cubic-bezier(0.22, 1, 0.36, 1)
+    var(--reveal-delay, 0s) both;
+}
+
+.reveal-load-spring {
+  animation-timing-function: cubic-bezier(0.34, 1.32, 0.64, 1);
+}
+
+.reveal-load-no-fade {
+  animation-name: revealLoadNoFade;
+}
+
+@keyframes revealLoadNoFade {
+  from {
+    opacity: 1;
+    transform: translate3d(var(--reveal-x), var(--reveal-y), 0) rotate(var(--reveal-rotate));
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-load:not(.reveal-load-no-fade) {
+    animation-name: revealLoadReduced;
+  }
+  .reveal-load-no-fade {
+    animation: none;
+    transform: none;
+  }
+}
+
+@keyframes revealLoadReduced {
+  from {
+    opacity: 0;
+    transform: none;
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 body {
   position: relative;
   min-height: 100vh;

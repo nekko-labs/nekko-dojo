@@ -184,12 +184,19 @@ export function TrainTogether() {
                   type="button"
                   onClick={() => pick(i)}
                   aria-label={`Show: ${b.title}`}
-                  className="h-2 rounded-full transition-all"
-                  style={{
-                    width: i === active ? '30px' : '8px',
-                    background: i === active ? 'var(--accent)' : 'color-mix(in srgb, var(--fg) 22%, transparent)',
-                  }}
-                />
+                  className="inline-flex h-6 min-w-6 items-center justify-center rounded-full"
+                >
+                  <span
+                    className="block h-2 rounded-full transition-all"
+                    style={{
+                      width: i === active ? '30px' : '8px',
+                      background:
+                        i === active
+                          ? 'var(--accent)'
+                          : 'color-mix(in srgb, var(--fg) 22%, transparent)',
+                    }}
+                  />
+                </button>
               ))}
             </div>
           </div>

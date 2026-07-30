@@ -8,6 +8,13 @@
   "engines": {
     "node": ">=20"
   },
+  "browserslist": [
+    "Chrome >= 111",
+    "Edge >= 111",
+    "Firefox >= 114",
+    "Safari >= 16.4",
+    "iOS >= 16.4"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",

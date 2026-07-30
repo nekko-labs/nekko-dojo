@@ -121,12 +121,13 @@ export default function HomePage() {
         </div>
 
         {/* The sensei — dual-wielding mascot, to the right of the title */}
-        <Reveal load spring delay={0.2} className="flex justify-end">
+        <Reveal load spring delay={0.2} noFade className="flex justify-end">
           <Image
             src="/mascot/nekko-sensei.png"
             alt="Nekko, the orange tabby kendo sensei, dual-wielding two shinai"
-            width={1984}
+            width={1463}
             height={1200}
+            sizes="(min-width: 1024px) 53vw, (min-width: 640px) 80vw, calc(100vw - 2.5rem)"
             priority
             className="h-auto w-full max-w-lg drop-shadow-2xl lg:max-w-none"
           />
@@ -186,6 +187,7 @@ export default function HomePage() {
                         alt=""
                         width={200}
                         height={170}
+                        sizes="5rem"
                         className="w-20 drop-shadow-lg"
                       />
                       <span className="mt-1 text-[11px] font-bold uppercase tracking-wide text-muted">
@@ -217,7 +219,7 @@ export default function HomePage() {
                     </p>
                     <Link
                       href={stage.href}
-                      className="mt-3 inline-block text-sm font-bold text-accent hover:underline"
+                      className="mt-2 inline-flex min-h-8 items-center text-sm font-bold text-accent hover:underline"
                     >
                       {stage.cta} →
                     </Link>
@@ -231,7 +233,7 @@ export default function HomePage() {
                       alt={stage.photo.alt}
                       width={480}
                       height={360}
-                      sizes="(min-width: 640px) 14rem, 60vw"
+                      sizes="(min-width: 640px) 14rem, 13rem"
                       className="mx-auto h-auto w-full max-w-[13rem] drop-shadow-xl sm:max-h-[270px] sm:w-auto"
                     />
                   </Reveal>
@@ -258,7 +260,7 @@ export default function HomePage() {
             </div>
             <Link
               href="/articles"
-              className="shrink-0 text-sm font-bold text-accent hover:underline"
+              className="inline-flex min-h-8 shrink-0 items-center text-sm font-bold text-accent hover:underline"
             >
               All articles →
             </Link>
@@ -282,6 +284,7 @@ export default function HomePage() {
               alt=""
               width={1100}
               height={683}
+              sizes="16rem"
               className="mx-auto h-auto w-full max-w-[16rem] drop-shadow-2xl"
             />
           </StaggerItem>

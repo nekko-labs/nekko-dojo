@@ -92,7 +92,7 @@ export default function GuidePage() {
             alt={course.mascot.alt}
             width={course.mascot.width}
             height={course.mascot.height}
-            sizes="(min-width: 640px) 11rem, 60vw"
+            sizes="11rem"
             priority
             className="h-auto w-full max-w-[11rem] drop-shadow-2xl"
           />

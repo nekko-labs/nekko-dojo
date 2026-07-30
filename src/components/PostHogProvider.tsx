@@ -11,30 +11,7 @@
  */
 
 import { useEffect } from 'react';
-import posthog from 'posthog-js';
-
-let initialized = false;
-
-export function initPostHog() {
-  if (initialized || typeof window === 'undefined') return;
-  const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
-  if (!key) return;
-  // Respect Do Not Track across its (non-standard, browser-specific) locations.
-  const dnt =
-    navigator.doNotTrack ??
-    (window as { doNotTrack?: string }).doNotTrack ??
-    (navigator as { msDoNotTrack?: string }).msDoNotTrack;
-  if (dnt === '1' || dnt === 'yes') return;
-  posthog.init(key, {
-    api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST ?? 'https://eu.i.posthog.com',
-    autocapture: false,
-    capture_pageview: true,
-    capture_pageleave: true,
-    disable_session_recording: true,
-    person_profiles: 'identified_only',
-  });
-  initialized = true;
-}
+import { initPostHog } from '@/lib/analytics';
 
 export function PostHogProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
