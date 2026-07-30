@@ -137,8 +137,24 @@ html {
     var(--reveal-delay, 0s) both;
 }
 
+.reveal-load-transform-only {
+  animation-name: revealLoadTransformOnly;
+}
+
+@keyframes revealLoadTransformOnly {
+  from {
+    opacity: 1;
+    transform: translate3d(var(--reveal-x), var(--reveal-y), 0) rotate(var(--reveal-rotate));
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .reveal-load {
+  .reveal-load,
+  .reveal-load-transform-only {
     animation-name: revealLoadReduced;
   }
 }

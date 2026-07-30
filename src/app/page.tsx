@@ -121,7 +121,7 @@ export default function HomePage() {
         </div>
 
         {/* The sensei — dual-wielding mascot, to the right of the title */}
-        <Reveal load spring delay={0.2} className="flex justify-end">
+        <Reveal load spring delay={0.2} className="reveal-load-transform-only flex justify-end">
           <Image
             src="/mascot/nekko-sensei.png"
             alt="Nekko, the orange tabby kendo sensei, dual-wielding two shinai"
