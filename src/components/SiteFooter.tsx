@@ -29,7 +29,7 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-6xl gap-10 px-5 pb-14 pt-12 sm:grid-cols-2 sm:px-8 lg:grid-cols-[minmax(0,1fr)_auto_auto] lg:gap-20">
         <div className="max-w-sm sm:col-span-2 lg:col-span-1">
           <Link href="/" className="inline-flex items-center gap-2 font-semibold">
-            <Image src="/dojo.png" alt="" width={1100} height={683} className="h-7 w-auto" />
+            <Image src="/dojo.png" alt="" width={1100} height={683} sizes="1.75rem" className="h-7 w-auto" />
             <span>{site.name}</span>
           </Link>
           <p className="mt-3 text-sm text-muted">{site.tagline}</p>
@@ -81,6 +81,7 @@ export function SiteFooter() {
           aria-hidden
           width={761}
           height={1000}
+          sizes="3rem"
           className="pointer-events-none absolute -top-12 right-6 h-12 w-auto sm:right-10"
         />
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-5 py-5 text-xs text-muted sm:px-8">

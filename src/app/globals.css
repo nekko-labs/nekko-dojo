@@ -121,6 +121,39 @@ html {
   }
 }
 
+@keyframes revealLoad {
+  from {
+    opacity: 0;
+    transform: translate3d(var(--reveal-x), var(--reveal-y), 0) rotate(var(--reveal-rotate));
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
+.reveal-load {
+  animation: revealLoad var(--reveal-duration, 0.65s) cubic-bezier(0.22, 1, 0.36, 1)
+    var(--reveal-delay, 0s) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-load {
+    animation-name: revealLoadReduced;
+  }
+}
+
+@keyframes revealLoadReduced {
+  from {
+    opacity: 0;
+    transform: none;
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 body {
   position: relative;
   min-height: 100vh;

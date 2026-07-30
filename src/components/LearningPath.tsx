@@ -176,6 +176,7 @@ export function LearningPath({
                             alt=""
                             width={200}
                             height={170}
+                            sizes="3.5rem"
                             className="w-14 drop-shadow-lg"
                           />
                           <span className="text-sm font-black">
@@ -267,6 +268,7 @@ export function BeltStrip({ belts, label }: { belts: PathBelt[]; label: string }
                 alt=""
                 width={200}
                 height={170}
+                sizes="3rem"
                 className="w-12 drop-shadow-lg"
               />
               <span className="mt-1 text-[11px] font-bold uppercase tracking-wide text-muted">

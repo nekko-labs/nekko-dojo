@@ -42,7 +42,7 @@ export function CourseChoice({ course }: { course: Course }) {
           alt={course.mascot.alt}
           width={course.mascot.width}
           height={course.mascot.height}
-          sizes="(min-width: 640px) 16rem, 60vw"
+          sizes="16rem"
           className="choice-mascot h-full w-auto max-w-full object-contain drop-shadow-2xl"
         />
       </span>
@@ -77,6 +77,7 @@ export function CourseChoice({ course }: { course: Course }) {
           alt=""
           width={200}
           height={170}
+          sizes="3.5rem"
           className="w-14 drop-shadow-lg"
         />
         <span className="mt-1 text-[11px] font-bold uppercase tracking-wide text-muted">
