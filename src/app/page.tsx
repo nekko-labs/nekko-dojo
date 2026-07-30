@@ -129,6 +129,7 @@ export default function HomePage() {
             height={1200}
             sizes="(min-width: 1024px) 53vw, (min-width: 640px) 80vw, calc(100vw - 2.5rem)"
             priority
+            fetchPriority="high"
             className="h-auto w-full max-w-lg drop-shadow-2xl lg:max-w-none"
           />
         </Reveal>
