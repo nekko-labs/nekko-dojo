@@ -5,6 +5,7 @@
  * the motion/react client bundle. Scroll-triggered reveals stay on motion/react
  * and retain their viewport behavior.
  */
+
 import type { CSSProperties, ReactNode } from 'react';
 import {
   ScrollReveal,
@@ -60,14 +61,14 @@ export function Reveal({
       '--reveal-y': direction === 'up' ? `${distance}px` : direction === 'down' ? `-${distance}px` : '0px',
       '--reveal-rotate': `${rotate}deg`,
     } as CSSProperties;
-    const Tag = as;
+    const Component = as;
     return (
-      <Tag
+      <Component
         className={`${className ?? ''} reveal-load${spring ? ' reveal-load-spring' : ''}${noFade ? ' reveal-load-no-fade' : ''}`.trim()}
         style={cssStyle}
       >
         {children}
-      </Tag>
+      </Component>
     );
   }
 
