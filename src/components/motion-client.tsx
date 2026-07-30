@@ -1,13 +1,21 @@
+/**
+ * Client-side motion primitives for scroll-triggered reveals and staggered
+ * lists. The `load` path lives in motion.tsx as server-rendered markup with
+ * CSS keyframes, so above-the-fold content paints without waiting for this
+ * module to download or hydrate.
+ */
 'use client';
 
 import type { CSSProperties, ReactNode } from 'react';
 import { MotionConfig, motion, useReducedMotion, type Transition, type Variants } from 'motion/react';
 
 export const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+/** Trigger slightly before elements are fully visible; animate once only. */
 export const VIEWPORT = { once: true, margin: '-80px' as const };
+/** A soft, non-cartoonish settle for images and other focal elements. */
 export const SOFT_SPRING = { type: 'spring', stiffness: 80, damping: 13, mass: 0.9 } as const;
 
-type Direction = 'up' | 'down' | 'left' | 'right';
+export type Direction = 'up' | 'down' | 'left' | 'right';
 const TAGS = {
   div: motion.div,
   span: motion.span,
@@ -18,7 +26,7 @@ const TAGS = {
   ol: motion.ol,
   li: motion.li,
 } as const;
-type Tag = keyof typeof TAGS;
+export type Tag = keyof typeof TAGS;
 
 function offsetFor(direction: Direction, distance: number): { x?: number; y?: number } {
   switch (direction) {
@@ -34,6 +42,8 @@ function offsetFor(direction: Direction, distance: number): { x?: number; y?: nu
 }
 
 export function MotionProvider({ children }: { children: ReactNode }) {
+  // Keep scroll reveals consistent with the user's reduced-motion preference;
+  // load reveals apply the same policy in their server-rendered CSS.
   return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
 }
 
@@ -54,10 +64,15 @@ export function ScrollReveal({
   style?: CSSProperties;
   as?: Tag;
   direction?: Direction;
+  /** Travel distance in px; keep small (16-24). */
   distance?: number;
+  /** Delay in seconds before the reveal begins. */
   delay?: number;
+  /** Duration in seconds for the standard eased reveal. */
   duration?: number;
+  /** Initial rotation in degrees, settling to 0 (use tiny values). */
   rotate?: number;
+  /** Use a soft spring settle for images and other quiet focal elements. */
   spring?: boolean;
 }) {
   const reduced = useReducedMotion();
@@ -97,8 +112,11 @@ export function Stagger({
   children: ReactNode;
   className?: string;
   as?: Tag;
+  /** Seconds to wait before the first child enters. */
   delay?: number;
+  /** Seconds between each child's entrance. */
   gap?: number;
+  /** Animate the stagger on mount instead of when scrolled into view. */
   load?: boolean;
 }) {
   const Component = TAGS[as] as typeof motion.div;
@@ -128,6 +146,7 @@ export function StaggerItem({
   children: ReactNode;
   className?: string;
   as?: Tag;
+  /** Render immediately without an entrance animation. */
   instant?: boolean;
 }) {
   const reduced = useReducedMotion();

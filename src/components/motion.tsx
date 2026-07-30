@@ -1,9 +1,21 @@
+/**
+ * Motion primitives for the Dusk Dojo animation language: quiet, once-only
+ * reveals and gently staggered grids. Above-the-fold `load` reveals render as
+ * plain server HTML plus CSS keyframes, so the page paints without waiting for
+ * the motion/react client bundle. Scroll-triggered reveals stay on motion/react
+ * and retain their viewport behavior.
+ */
 import type { CSSProperties, ReactNode } from 'react';
-import { ScrollReveal, MotionProvider, Stagger, StaggerItem } from './motion-client';
+import {
+  ScrollReveal,
+  MotionProvider,
+  Stagger,
+  StaggerItem,
+  type Direction,
+  type Tag,
+} from './motion-client';
 
 export { MotionProvider, Stagger, StaggerItem };
-
-type Direction = 'up' | 'down' | 'left' | 'right';
 
 export function Reveal({
   children,
@@ -17,18 +29,27 @@ export function Reveal({
   rotate = 0,
   spring = false,
   load = false,
+  noFade = false,
 }: {
   children: ReactNode;
   className?: string;
   style?: CSSProperties;
-  as?: 'div' | 'span' | 'p' | 'header' | 'section' | 'ul' | 'ol' | 'li';
+  as?: Tag;
   direction?: Direction;
+  /** Travel distance in px; keep small (16-24). */
   distance?: number;
+  /** Delay in seconds before the reveal begins. */
   delay?: number;
+  /** Duration in seconds for the standard eased reveal. */
   duration?: number;
+  /** Initial rotation in degrees, settling to 0 (use tiny values). */
   rotate?: number;
+  /** Use a soft spring settle for images and other quiet focal elements. */
   spring?: boolean;
+  /** Animate on mount instead of on scroll into view. */
   load?: boolean;
+  /** Keep opacity at 1 and animate only the transform. */
+  noFade?: boolean;
 }) {
   if (load) {
     const cssStyle = {
@@ -41,7 +62,10 @@ export function Reveal({
     } as CSSProperties;
     const Tag = as;
     return (
-      <Tag className={`${className ?? ''} reveal-load${spring ? ' reveal-load-spring' : ''}`.trim()} style={cssStyle}>
+      <Tag
+        className={`${className ?? ''} reveal-load${spring ? ' reveal-load-spring' : ''}${noFade ? ' reveal-load-no-fade' : ''}`.trim()}
+        style={cssStyle}
+      >
         {children}
       </Tag>
     );
