@@ -89,7 +89,9 @@ There are many approaches to this and it almost certainly does not look the same
   <figcaption>The software version of a lights-out floor: everything running, one terminal left out for whoever comes to check on it. Photo by Brett Sayles on Pexels.</figcaption>
 </figure>
 
-R&D has the most obvious headroom, because the loop is already measurable. Andrej Karpathy's [autoresearch](https://github.com/karpathy/autoresearch) is the cleanest example I know: an agent edits one training script, runs a time-boxed experiment, keeps the change or throws it away, and repeats all night. Nothing about that loop is specific to ML. Any workflow where you can state the goal and mechanically score the result can become one, which is also what Cognition is packaging as it takes Devin from a single autonomous engineer to many running at once.
+R&D has the most obvious headroom, because the loop is already measurable. Andrej Karpathy's [autoresearch](https://github.com/karpathy/autoresearch) is the cleanest example I know: an agent edits one training script, runs a time-boxed experiment, keeps the change or throws it away, and repeats all night. Nothing about that loop is specific to ML. Any workflow where you can state the goal and mechanically score the result can become one.
+
+I frequently talk with the guys at Cognition about Devin's goals in this area, and about how they are enabling companies to build their own automations on top of it. Very little of that conversation is about making a single agent smarter. It is about giving a team the scaffolding to define a loop, score it, and then run many of them at once.
 
 In the product work I actually touch, that means two things:
 
