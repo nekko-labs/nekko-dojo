@@ -97,9 +97,9 @@ export const projects: Project[] = [
     website: 'https://vaizer.app',
     community: 'https://discord.gg/nekkolabs',
     description:
-      'Agent and prompt management, made visible: read any skill as a workflow graph before you run it, version the prompts behind it, and watch long-running agent loops from one HUD. A Next.js + TypeScript project, developed in the open.',
+      'Agent and prompt management, made visible: read any skill as a workflow graph before you run it, version the prompts behind it, and watch long-running agent loops from one HUD. The repo is also the Agent Skills marketplace it lists, so adding a skill is a low-barrier way to make your first open-source contribution, not just code. A Next.js + TypeScript project, developed in the open.',
     region: 'Japan',
-    tags: ['TypeScript', 'Next.js', 'AI', 'Agents'],
+    tags: ['TypeScript', 'Next.js', 'AI', 'Agents', 'Claude skills'],
     art: {
       src: '/projects/vaizer.webp',
       alt: 'Vaizer’s site: a skill drawn as a workflow graph of command, context, tool and loop nodes',
@@ -138,22 +138,6 @@ export const projects: Project[] = [
     art: {
       src: '/projects/getsu.webp',
       alt: 'Getsu’s site: a crescent-moon cat mark above “A life you can look back on, one month at a time”',
-    },
-    beginnerFriendly: true,
-  },
-  {
-    id: 'nekko-dojo-skills',
-    name: 'Nekko Dojo Skills',
-    github: 'https://github.com/nekko-labs/nekko-dojo-skills',
-    website: 'https://vaizer.app/skills',
-    community: 'https://discord.gg/nekkolabs',
-    description:
-      'The Agent Skills hub: official and community Claude skills, installable as a Claude Code plugin marketplace (browse and visualize them on Vaizer). A low-barrier way to make your first open-source contribution by adding a skill, not just code.',
-    region: 'Japan',
-    tags: ['Claude skills', 'Open Source', 'Beginner'],
-    art: {
-      src: '/projects/nekko-dojo-skills.webp',
-      alt: 'The skills catalog on Vaizer: searchable cards for Domain Finder, nyaa and Resume Checker',
     },
     beginnerFriendly: true,
   },
