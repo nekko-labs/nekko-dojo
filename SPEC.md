@@ -31,7 +31,7 @@ Philip has both: a proven course/workflow that has helped many people switch car
 1. **Career-changer path:** Home → Courses ("What do you want to learn?", they pick *Become an expert in coding*) → Guide overview (an interactive path they walk stop-by-stop, seeing the "new moves" each section unlocks) → start chapter 1 → progress chapter-to-chapter via prev/next → Community (apply learning to a real project) → Discord for help and accountability.
 2. **Working-engineer path:** Home ("I'm already an engineer") or nav → Courses (they pick *Learn the new Agentic Coding way*) → Applied AI Engineer → read what the role shift means and walk the six-stage path the course covers → Discord to hear when it opens.
 3. **Reader/subscriber path:** Home → Articles → read an essay → Discord CTA at the footer.
-4. **Contributor path:** Home/Community → pick a project (e.g. Nekkos) → external link out + "join Discord for help".
+4. **Contributor path:** Home/Community → pick a project (e.g. Kotrain) → external link out + "join Discord for help".
 5. **Tooling path:** Community → Helpful tools → open a skill on Vaizer (e.g. run the Resume Checker against a job posting before applying).
 
 Interacting with the site should feel like reading a trusted senior engineer's notes: generous reading width for long-form content (on a desktop screen the column and its type widen together, so a big display gets used instead of leaving a narrow ribbon of text beside empty space), clean typography, syntax-highlighted code, and a recurring, low-pressure nudge toward the community.
@@ -46,7 +46,7 @@ The header speaks the same language in miniature, themed as dojo etiquette. Each
 
 - Guide completion / chapter progression (readers moving through chapters)
 - Discord joins attributed to the site
-- Clickthroughs to featured projects/communities (Nekkos, Nekko OSS) and to skills on Vaizer
+- Clickthroughs to featured projects/communities (Kotrain, Nekko OSS) and to skills on Vaizer
 - Article readership and returning visitors
 - Qualitative: career-changers reporting they landed roles / made first OSS contributions
 
@@ -93,12 +93,12 @@ The pitch, in three parts: (1) **the role is shifting** — you were paid to pro
 ### Community & Projects
 A curated directory of OSS projects and communities (starting with the Nekko Labs OSS community and Japan-origin projects) where learners contribute to real teams. *Why:* bridges the gap between learning and employable, collaborative experience.
 
-- Directory page rendering typed community/project data `[shipped]`: Nekkos, Vaizer, Nekko OSS, Misskey featured/listed
-- **Nekkos replaces Open Paw** in the directory (Open Paw evolved into [Nekkos](https://github.com/nekko-labs/nekkos), the local-first AI coding/cowork desktop app; it shipped here under its interim name, Kotrain) `[shipped]`
-- **Auto-imported projects:** project entries pull automatically from their public GitHub repos, with the card content (name, description, overview) sourced from each repo's README rather than hand-written copy; server-fetched and cached, with the typed data remaining as the curation/ordering layer and fallback. Repos that lack a clean overview section get their README updated upstream (in generic, tool-agnostic terms; the repos stay unaware of Dojo) so they import well; Nekkos' README got that treatment. `[shipped]`
+- Directory page rendering typed community/project data `[shipped]`: Kotrain, Vaizer, Nekko OSS, Misskey featured/listed
+- **Kotrain replaces Open Paw** in the directory (Open Paw evolved into [Kotrain](https://github.com/nekko-labs/kotrain), the local-first AI coding/cowork desktop app; it shipped here under its interim name, Kotrain) `[shipped]`
+- **Auto-imported projects:** project entries pull automatically from their public GitHub repos, with the card content (name, description, overview) sourced from each repo's README rather than hand-written copy; server-fetched and cached, with the typed data remaining as the curation/ordering layer and fallback. Repos that lack a clean overview section get their README updated upstream (in generic, tool-agnostic terms; the repos stay unaware of Dojo) so they import well; Kotrain's README got that treatment. `[shipped]`
 - **Interview practice repositioned:** the community "train together" pitch no longer promises free live interview practice; instead it highlights that we're building a dedicated tool for interview practice (teaser, no date). `[shipped]`
 - **Project graphics:** every project card leads with a small 16:9 graphic taken from that project's own site, so a reader can see what the thing *is* before reading a word of copy. Captured into `public/projects/` as small webp files and referenced from the typed data; recaptured when a project redesigns or rebrands. `[shipped]`
-- **Rebrands tracked:** the directory follows its projects when they rename. Nekko MCP became **Hypergate** (hypergate.app), Nekko Journal became **Getsu**, and Kotrain became **Nekkos** (nekkos.app, repo `nekko-labs/nekkos`); each entry carries the new name, repo, site and copy. Private repos are never listed (Lightwrite, ex Nekko Notes, is deliberately absent), and the guide chapter on getting involved points at Nekkos instead of the retired Nekko Notes. `[shipped]`
+- **Rebrands tracked:** the directory follows its projects when they rename. Nekko MCP became **Hypergate** (hypergate.app), Nekko Journal became **Getsu**, and Kotrain became **Kotrain** (kotrain.com, repo `nekko-labs/kotrain`); each entry carries the new name, repo, site and copy. Private repos are never listed (Lightwrite, ex Nekko Notes, is deliberately absent), and the guide chapter on getting involved points at Kotrain instead of the retired Nekko Notes. `[shipped]`
 - Filter by type / location `[in progress]`
 - Skills directory `[moved to Vaizer 2026-07-15]` — the `/skills` catalog + per-skill workflow visualizer (trust tiers, install commands, votes/feedback, `.zip` download) was spun out of Dojo into its own product, [Vaizer](https://vaizer.app) (`nekko-labs/vaizer`). Dojo now links to Vaizer from the Community projects list rather than hosting the hub itself. The installable skills themselves moved into the Vaizer repo on 2026-08-02, when the separate `nekko-labs/nekko-dojo-skills` marketplace repo was deleted; Dojo's own "Nekko Dojo Skills" project card went with it, and the Vaizer card now carries the add-a-skill contribution path.
 - Expand beyond the Nekko Labs OSS community to more Japan-focused projects/communities `[planned]`
@@ -137,5 +137,5 @@ This project is NOT:
 - Travis brand/visual pass: v1 ships a re-skinnable default theme, not a final brand spec.
 - The Skills directory moved out of Dojo into [Vaizer](https://vaizer.app) on 2026-07-15 (repo `nekko-labs/vaizer`). Dojo no longer hosts `/skills`, the skills data/components, or the `/api/vote`, `/api/feedback`, `/api/skills/[slug]/download` routes; those live in Vaizer now. Dojo links to Vaizer from the Community projects list. Supabase is no longer a Dojo dependency (it moved with the skills feature).
 - Dependencies still open: importing remaining Guide source TODOs; expanding the Community directory.
-- The Helpful tools dependencies shipped 2026-07-19: Vaizer's public catalog API (`/api/skills`) and the Resume Checker skill are live, and Nekkos' README gained an importable Overview section. Remaining: other Nekko repos' READMEs (hypergate) could use the same overview polish since their prose now shows on the directory.
+- The Helpful tools dependencies shipped 2026-07-19: Vaizer's public catalog API (`/api/skills`) and the Resume Checker skill are live, and Kotrain's README gained an importable Overview section. Remaining: other Nekko repos' READMEs (hypergate) could use the same overview polish since their prose now shows on the directory.
 - The interview-practice tool being teased is not yet specced; when it becomes real it gets its own project.
