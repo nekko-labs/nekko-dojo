@@ -93,7 +93,7 @@ The pitch, in three parts: (1) **the role is shifting** — you were paid to pro
 ### Community & Projects
 A curated directory of OSS projects and communities (starting with the Nekko Labs OSS community and Japan-origin projects) where learners contribute to real teams. *Why:* bridges the gap between learning and employable, collaborative experience.
 
-- Directory page rendering typed community/project data `[shipped]` — Open Paw, Vaizer, Nekko OSS, Misskey featured/listed
+- Directory page rendering typed community/project data `[shipped]`: Nekkos, Vaizer, Nekko OSS, Misskey featured/listed
 - **Nekkos replaces Open Paw** in the directory (Open Paw evolved into [Nekkos](https://github.com/nekko-labs/nekkos), the local-first AI coding/cowork desktop app; it shipped here under its interim name, Kotrain) `[shipped]`
 - **Auto-imported projects:** project entries pull automatically from their public GitHub repos, with the card content (name, description, overview) sourced from each repo's README rather than hand-written copy; server-fetched and cached, with the typed data remaining as the curation/ordering layer and fallback. Repos that lack a clean overview section get their README updated upstream (in generic, tool-agnostic terms; the repos stay unaware of Dojo) so they import well; Nekkos' README got that treatment. `[shipped]`
 - **Interview practice repositioned:** the community "train together" pitch no longer promises free live interview practice; instead it highlights that we're building a dedicated tool for interview practice (teaser, no date). `[shipped]`
