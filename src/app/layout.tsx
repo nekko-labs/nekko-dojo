@@ -10,11 +10,14 @@ import { Analytics } from '@vercel/analytics/next';
 
 // Rounded, friendly type — the dojo's voice. Latin subset only (content is
 // English); Japanese glyphs still resolve via the system fallback stack.
+// Zen Maru Gothic ships hundreds of unicode-range slices, so preloading is off:
+// the browser fetches only the ranges the page actually renders.
 const zenMaru = Zen_Maru_Gothic({
   subsets: ['latin'],
   weight: ['400', '500', '700', '900'],
   variable: '--font-zen-maru',
   display: 'swap',
+  preload: false,
 });
 
 export const metadata: Metadata = {
