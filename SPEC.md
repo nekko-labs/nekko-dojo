@@ -120,7 +120,7 @@ A persistent CTA throughout the site to join the Nekko Labs Discord community. *
 - 404 page `[shipped]`
 - PostHog analytics `[shipped]`
 - Scroll-triggered and entrance animations site-wide (`motion` library, reduced-motion aware) `[shipped]`
-- Fast, immediately interactive startup on constrained mobile connections: critical content and the hero image load before non-critical font ranges, analytics, and below-fold effects; the page never locks scrolling while the site initializes `[in progress]`
+- Fast, immediately interactive startup on constrained mobile connections: critical content and the hero image load before non-critical font ranges, analytics, and below-fold effects; the page never locks scrolling while the site initializes `[shipped]`
 - Site footer: brand block with the Discord CTA button, Explore + Community link columns (SVG icons, external links announce the new tab), and a legal strip with the mascot strolling along its top edge `[shipped]`
 - Newsletter / email capture for new articles `[planned]`
 
