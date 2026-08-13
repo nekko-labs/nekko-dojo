@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Zen_Maru_Gothic } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 import { SiteHeader } from '@/components/SiteHeader';
 import { SiteFooter } from '@/components/SiteFooter';
@@ -10,11 +10,32 @@ import { Analytics } from '@vercel/analytics/next';
 
 // Rounded, friendly type — the dojo's voice. Latin subset only (content is
 // English); Japanese glyphs still resolve via the system fallback stack.
-const zenMaru = Zen_Maru_Gothic({
-  subsets: ['latin'],
-  weight: ['400', '500', '700', '900'],
+const zenMaru = localFont({
+  src: [
+    {
+      path: '../../node_modules/@fontsource/zen-maru-gothic/files/zen-maru-gothic-latin-400-normal.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../node_modules/@fontsource/zen-maru-gothic/files/zen-maru-gothic-latin-500-normal.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../../node_modules/@fontsource/zen-maru-gothic/files/zen-maru-gothic-latin-700-normal.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: '../../node_modules/@fontsource/zen-maru-gothic/files/zen-maru-gothic-latin-900-normal.woff2',
+      weight: '900',
+      style: 'normal',
+    },
+  ],
   variable: '--font-zen-maru',
   display: 'swap',
+  preload: false,
 });
 
 export const metadata: Metadata = {

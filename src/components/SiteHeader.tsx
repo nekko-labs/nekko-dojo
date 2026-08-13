@@ -19,7 +19,6 @@ export function SiteHeader() {
             width={1100}
             height={683}
             sizes="2.5rem"
-            priority
             className="logo-mark h-9 w-auto sm:h-10"
           />
           <span className="whitespace-nowrap">{site.name}</span>
