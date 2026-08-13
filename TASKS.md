@@ -1,6 +1,6 @@
 ---
 status: draft
-last-updated: 2026-07-19
+last-updated: 2026-08-13
 owner: Philip
 ---
 
@@ -149,6 +149,7 @@ Extends `../../knowledgebase/principles/coding.md` (these deltas override it).
 
 ## Now / In Progress
 
+- [~] **T41**: Restore fast, immediately interactive mobile startup. Baseline Lighthouse on 2026-08-13 reproduced a 33.5s LCP, 387 requests, and 6.9MB transferred because `next/font` preloaded 358 Zen Maru Gothic unicode-range files across four weights. Preserve the locked typeface while removing non-critical font preloads, then verify the built HTML request count, mobile Lighthouse metrics, scrolling, navigation, and reduced-motion behavior. · [spec](SPEC.md#cross-cutting) · Added: 2026-08-13
 - [ ] **T1** — Wire the real Discord invite URL (`NEXT_PUBLIC_DISCORD_URL`) across all CTAs; replace the placeholder. · [spec](SPEC.md#discord) · Added: 2026-06-29
 
 ## Backlog / Planned
