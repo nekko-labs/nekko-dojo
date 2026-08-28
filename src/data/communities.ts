@@ -1,14 +1,16 @@
 /**
- * Data behind the Community pillar, split into three sections:
+ * Data behind the two directory pages:
  *
  *   1. `projects`   — real GitHub / open-source projects you can contribute to.
- *   2. `networking` — communities (Discord, Reddit, ...) to meet people.
- *   3. `jobBoards` + `juniorCompanies` — where to search for a job, and
- *      companies that tend to hire junior / early-career engineers.
+ *                     Rendered by /projects.
+ *   2. `jobBoards` + `juniorCompanies` — where to search for a job, and
+ *                     companies that tend to hire junior / early-career
+ *                     engineers. Rendered by /get-hired.
+ *   3. `networking` — communities (Discord, Reddit, ...) to meet people and
+ *                     hear about openings early. Also rendered by /get-hired.
  *
- * This is structured data (not prose), rendered by /community. Keep entries
- * accurate and verify URLs before adding. `featured: true` pins a project to
- * the top of the directory.
+ * This is structured data (not prose). Keep entries accurate and verify URLs
+ * before adding. `featured: true` pins a project to the top of the directory.
  *
  * A project's `description` here is the fallback: at render time the
  * directory pulls fresher copy from the project's own README when it has a

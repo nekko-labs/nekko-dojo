@@ -1,9 +1,11 @@
 import type { ReactNode } from 'react';
 
 /**
- * The designed surface for "there is no content to read here" moments: an
- * unwritten chapter, a body that failed to compile, or a reading route that
- * errored. Deliberately calm and in-voice rather than a raw stack trace.
+ * The designed surface for a calm, in-voice aside set apart from the page body:
+ * "there is no content to read here" moments (an unwritten chapter, a body that
+ * failed to compile, a reading route that errored) and standing notes about
+ * scope, such as the disclaimer on /get-hired. Deliberately understated rather
+ * than a raw stack trace or a warning banner.
  */
 export function ContentNotice({
   tone = 'info',

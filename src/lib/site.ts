@@ -21,8 +21,31 @@ export const site = {
   parentUrl: 'https://nekkolabs.com',
 } as const;
 
-export const nav: ReadonlyArray<{ label: string; href: string }> = [
+/** A single destination in the primary nav. */
+export type NavLeaf = { label: string; href: string };
+
+/**
+ * A labelled group of destinations. The group itself has no page of its own:
+ * it is a menu trigger in the desktop header and a heading in the mobile
+ * panel, so adding a sibling to `items` needs no nav-component change.
+ */
+export type NavGroup = { label: string; items: ReadonlyArray<NavLeaf> };
+
+export type NavEntry = NavLeaf | NavGroup;
+
+export const isNavGroup = (entry: NavEntry): entry is NavGroup => 'items' in entry;
+
+/** Every leaf in the nav, groups flattened, in reading order. */
+export const navLeaves = (entries: ReadonlyArray<NavEntry>): NavLeaf[] =>
+  entries.flatMap((entry) => (isNavGroup(entry) ? [...entry.items] : [entry]));
+
+export const nav: ReadonlyArray<NavEntry> = [
   { label: 'Articles', href: '/articles' },
   { label: 'Courses', href: '/courses' },
-  { label: 'Community', href: '/community' },
+  { label: 'Get Hired', href: '/get-hired' },
+  { label: 'Projects', href: '/projects' },
+  {
+    label: 'Agentic Coding',
+    items: [{ label: 'Agent Skills', href: '/agentic-coding/skills' }],
+  },
 ];

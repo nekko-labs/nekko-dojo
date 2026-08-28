@@ -28,11 +28,12 @@ Philip has both: a proven course/workflow that has helped many people switch car
 
 ## User Journeys & Experiences
 
-1. **Career-changer path:** Home → Courses ("What do you want to learn?", they pick *Become an expert in coding*) → Guide overview (an interactive path they walk stop-by-stop, seeing the "new moves" each section unlocks) → start chapter 1 → progress chapter-to-chapter via prev/next → Community (apply learning to a real project) → Discord for help and accountability.
+1. **Career-changer path:** Home → Courses ("What do you want to learn?", they pick *Become an expert in coding*) → Guide overview (an interactive path they walk stop-by-stop, seeing the "new moves" each section unlocks) → start chapter 1 → progress chapter-to-chapter via prev/next → Projects (apply learning to a real project) → Discord for help and accountability.
 2. **Working-engineer path:** Home ("I'm already an engineer") or nav → Courses (they pick *Learn the new Agentic Coding way*) → Applied AI Engineer → read what the role shift means and walk the six-stage path the course covers → Discord to hear when it opens.
 3. **Reader/subscriber path:** Home → Articles → read an essay → Discord CTA at the footer.
-4. **Contributor path:** Home/Community → pick a project (e.g. Kotrain) → external link out + "join Discord for help".
-5. **Tooling path:** Community → Helpful tools → open a skill on Vaizer (e.g. run the Resume Checker against a job posting before applying).
+4. **Contributor path:** Home/Projects → pick a project (e.g. Kotrain) → external link out + "join Discord for help".
+5. **Tooling path:** Agentic Coding → Agent Skills → open a skill on Vaizer (e.g. run the Resume Checker against a job posting before applying).
+6. **Job-seeker path:** Get Hired → read what we are and are not (no job board, no 派遣 dispatch) → the open-source edge panel routes them to Projects first → job boards, junior-friendly companies and networking communities → apply directly.
 
 Interacting with the site should feel like reading a trusted senior engineer's notes: generous reading width for long-form content (on a desktop screen the column and its type widen together, so a big display gets used instead of leaving a narrow ribbon of text beside empty space), clean typography, syntax-highlighted code, and a recurring, low-pressure nudge toward the community.
 
@@ -40,7 +41,7 @@ Interacting with the site should feel like reading a trusted senior engineer's n
 
 The site uses a quiet, once-only animation language built on the `motion` library: page headers and the home hero fade and rise into place on load, sections and card grids (articles, skills, projects, link tiles) reveal and cascade in as they scroll into view, and the home page's dotted belt path draws itself in as the visitor scrolls through the stages (belts settle with a soft spring). Both course overviews extend the same language vertically: a dotted rail inks itself in accent as you scroll the path, and earned ranks settle in with the same spring. Cards get a tiny hover lift. The `/courses` chooser is the one place motion carries meaning rather than polish: pointing at a path lifts it, brightens its glow, draws an accent rule under its headline and dims the path not being considered, so the page performs the choice (hover and keyboard focus behave identically, and reduced motion keeps the dimming while dropping the movement). Nothing loops beyond the existing ambient dusk glow, movement is small and eased to match the CSS easings, and `prefers-reduced-motion` users get opacity-only fades (the belt path renders fully drawn).
 
-The header speaks the same language in miniature, themed as dojo etiquette. Each primary nav section carries an icon from the dojo world (a hanging calligraphy scroll for Articles, a torii gate for Courses, a cat paw for Community) that takes a quick bow on hover or keyboard focus; the section the visitor is currently in wears a small amber belt tied under its pill, with the icon in accent. The dojo logo does a little hop when you point at going home, and the Discord mark perks up on the CTA. The inline nav appears from 768px up (icon + label pills plus the wordmark need the room); below that, the mobile menu takes over with the same icons: its hamburger folds into a cross rather than swapping glyphs, the panel drops in, and the links follow in a short stagger, the current section washed in accent. Under `prefers-reduced-motion` all of it degrades to plain fades or nothing.
+The header speaks the same language in miniature, themed as dojo etiquette. Each primary nav section carries an icon from the dojo world (a hanging calligraphy scroll for Articles, a torii gate for Courses, a kanban signboard for Get Hired, crossed bokken for Projects, a shuriken for the Agentic Coding group) that takes a quick bow on hover or keyboard focus; the section the visitor is currently in wears a small amber belt tied under its pill, with the icon in accent. The dojo logo does a little hop when you point at going home, and the Discord mark perks up on the CTA. The inline nav appears from 1024px up, raised from 768px on 2026-08-28 when the nav grew to five entries (at md the wordmark collided with the first pill and the Discord CTA ran off the edge); below that, the mobile menu takes over with the same icons: its hamburger folds into a cross rather than swapping glyphs, the panel drops in, and the links follow in a short stagger, the current section washed in accent. Agentic Coding is a nav group rather than a page: on desktop it opens a small menu of its children (Escape closes, arrows move, focus returns to the trigger), and in the mobile panel it flattens to a heading with its children indented beneath. Under `prefers-reduced-motion` all of it degrades to plain fades or nothing.
 
 ## What Success Looks Like
 
@@ -90,29 +91,37 @@ The pitch, in three parts: (1) **the role is shifting** — you were paid to pro
 - Write the chapters (`content/courses/applied-ai-engineer/`, reusing the guide content layer and path rendering) `[planned]`
 - Signup/notify capture for the launch, if the newsletter work lands first `[planned]`
 
-### Community & Projects
-A curated directory of OSS projects and communities (starting with the Nekko Labs OSS community and Japan-origin projects) where learners contribute to real teams. *Why:* bridges the gap between learning and employable, collaborative experience.
+### Projects
+A curated directory of OSS projects where learners contribute to real teams, at `/projects`. *Why:* bridges the gap between learning and employable, collaborative experience.
 
-- Directory page rendering typed community/project data `[shipped]`: Kotrain, Vaizer, Nekko OSS, Misskey featured/listed
+- Directory page rendering typed project data `[shipped]`: Kotrain, Vaizer, Nekko OSS, Misskey featured/listed
 - **Kotrain replaces Open Paw** in the directory (Open Paw evolved into [Kotrain](https://github.com/nekko-labs/kotrain), the local-first AI coding/cowork desktop app; it shipped here under its interim name, Kotrain) `[shipped]`
 - **Auto-imported projects:** project entries pull automatically from their public GitHub repos, with the card content (name, description, overview) sourced from each repo's README rather than hand-written copy; server-fetched and cached, with the typed data remaining as the curation/ordering layer and fallback. Repos that lack a clean overview section get their README updated upstream (in generic, tool-agnostic terms; the repos stay unaware of Dojo) so they import well; Kotrain's README got that treatment. `[shipped]`
-- **Interview practice repositioned:** the community "train together" pitch no longer promises free live interview practice; instead it highlights that we're building a dedicated tool for interview practice (teaser, no date). `[shipped]`
+- **No interview-practice promise:** the "train together" pitch makes no claim about interview practice, live or tooled. We do not provide it, so the site does not imply it. `[shipped 2026-08-28]`
 - **Project graphics:** every project card leads with a small 16:9 graphic taken from that project's own site, so a reader can see what the thing *is* before reading a word of copy. Captured into `public/projects/` as small webp files and referenced from the typed data; recaptured when a project redesigns or rebrands. `[shipped]`
 - **Rebrands tracked:** the directory follows its projects when they rename. Nekko MCP became **Hypergate** (hypergate.app), Nekko Journal became **Getsu**, and Kotrain became **Kotrain** (kotrain.com, repo `nekko-labs/kotrain`); each entry carries the new name, repo, site and copy. Private repos are never listed (Lightwrite, ex Nekko Notes, is deliberately absent), and the guide chapter on getting involved points at Kotrain instead of the retired Nekko Notes. `[shipped]`
-- Filter by type / location `[in progress]`
-- Skills directory `[moved to Vaizer 2026-07-15]` — the `/skills` catalog + per-skill workflow visualizer (trust tiers, install commands, votes/feedback, `.zip` download) was spun out of Dojo into its own product, [Vaizer](https://vaizer.app) (`nekko-labs/vaizer`). Dojo now links to Vaizer from the Community projects list rather than hosting the hub itself. The installable skills themselves moved into the Vaizer repo on 2026-08-02, when the separate `nekko-labs/nekko-dojo-skills` marketplace repo was deleted; Dojo's own "Nekko Dojo Skills" project card went with it, and the Vaizer card now carries the add-a-skill contribution path.
+- **Filter by location** `[shipped]`. The type filter was retired on 2026-08-28: once projects and job resources became separate pages, a chip row for "which kind of entry" had nothing left to disambiguate. Region (Anywhere / Japan / Global) is shared by `/projects` and `/get-hired` through one `Directory` component.
+- Skills directory `[moved to Vaizer 2026-07-15]` — the `/skills` catalog + per-skill workflow visualizer (trust tiers, install commands, votes/feedback, `.zip` download) was spun out of Dojo into its own product, [Vaizer](https://vaizer.app) (`nekko-labs/vaizer`). Dojo now links to Vaizer from the projects list rather than hosting the hub itself. The installable skills themselves moved into the Vaizer repo on 2026-08-02, when the separate `nekko-labs/nekko-dojo-skills` marketplace repo was deleted; Dojo's own "Nekko Dojo Skills" project card went with it, and the Vaizer card now carries the add-a-skill contribution path.
 - Expand beyond the Nekko Labs OSS community to more Japan-focused projects/communities `[planned]`
 
-### Helpful tools
-A section on the Community page, directly after Projects: practical skills and tools for the job hunt and for working like a modern engineer. *Why:* the guide teaches the path and projects give team experience, but readers also need concrete tools they can run today (resume checks, code-quality skills); it also connects Dojo readers to Vaizer.
+### Get Hired
+The job-search half of what used to be the Community page, at `/get-hired`: the applying workflow from the course, then where to look. *Why:* job boards and junior-friendly employers were the site's most consequential content and sat unlabelled inside "Community", with no statement of what Dojo is and is not doing by listing them.
 
+- **Scope disclaimer, above everything else** `[shipped 2026-08-28]`: Dojo is not a job board and not a 派遣 agency. No hakken dispatch, no paid placement (有料職業紹介), no listing we control or profit from, no cut taken. Readers apply directly. This is a standing statement, not a temporary notice: it stays as long as the page lists employers.
+- **The open-source edge panel** `[shipped 2026-08-28]`: guide chapter 6's argument, quoted rather than rewritten, that contributing to a real team is the strongest signal a junior candidate can send, with a primary route to `/projects` and a secondary link to the chapter. Sits above the listings because chapter 6 precedes chapter 10: do this before you apply.
+- Job boards, companies that hire juniors, and networking communities, all under one region filter `[shipped 2026-08-28]`. Networking moved here from the retired Community page because its own purpose was already a job-search one: hear about openings before they reach the boards.
+
+### Agent Skills
+Practical skills and tools for the job hunt and for working like a modern engineer, at `/agentic-coding/skills` under the Agentic Coding nav group. Renamed from "Helpful tools" on 2026-08-28. *Why:* the guide teaches the path and projects give team experience, but readers also need concrete tools they can run today (resume checks, code-quality skills); it also connects Dojo readers to Vaizer.
+
+- **Agentic Coding is a nav group with no page of its own** `[shipped 2026-08-28]`: a menu holding Agent Skills today, with room for siblings without touching nav code. `/agentic-coding` redirects to `/agentic-coding/skills`.
 - Skills pulled dynamically from Vaizer's skills catalog (Vaizer exposes a public catalog API; Dojo renders the list and links each entry to its Vaizer skill page), so Dojo never hand-maintains the tool list; degrades to a static two-entry fallback when Vaizer is unreachable `[shipped]`
 - First entries: the **Resume Checker** skill (Nekko Labs, built for job-hunting readers; see the Vaizer spec for its full behavior) and the third-party **impeccable** skill, clearly attributed as not from Nekko Labs `[shipped]`
 
 ### Discord
 A persistent CTA throughout the site to join the Nekko Labs Discord community. *Why:* converts readers into an engaged community and support network.
 
-- Reusable Discord CTA block used on home, article/chapter footers, and community `[shipped]`
+- Reusable Discord CTA block used on home, article/chapter footers, and the directory pages `[shipped]`
 - Real Discord invite URL wired via `NEXT_PUBLIC_DISCORD_URL` (set on Vercel) `[shipped]`
 
 ### Cross-cutting
@@ -121,7 +130,7 @@ A persistent CTA throughout the site to join the Nekko Labs Discord community. *
 - PostHog analytics `[shipped]`
 - Scroll-triggered and entrance animations site-wide (`motion` library, reduced-motion aware) `[shipped]`
 - Fast, immediately interactive startup on constrained mobile connections: critical content and the hero image load before non-critical font ranges, analytics, and below-fold effects; the page never locks scrolling while the site initializes `[shipped]`
-- Site footer: brand block with the Discord CTA button, Explore + Community link columns (SVG icons, external links announce the new tab), and a legal strip with the mascot strolling along its top edge `[shipped]`
+- Site footer: brand block with the Discord CTA button, Explore (nav groups flattened, so Agent Skills gets its own row) + Community link columns (SVG icons, external links announce the new tab), and a legal strip with the mascot strolling along its top edge `[shipped]`
 - Newsletter / email capture for new articles `[planned]`
 
 ## Scope Boundaries
@@ -136,7 +145,6 @@ This project is NOT:
 
 - Hosting decided: deployed on Vercel (nekkolabs team, project `nekko-dojo`), GitHub-connected for auto-deploy. Served at its own subdomain `dojo.nekkolabs.com` (DNS via Cloudflare → Vercel), no basePath.
 - Travis brand/visual pass: v1 ships a re-skinnable default theme, not a final brand spec.
-- The Skills directory moved out of Dojo into [Vaizer](https://vaizer.app) on 2026-07-15 (repo `nekko-labs/vaizer`). Dojo no longer hosts `/skills`, the skills data/components, or the `/api/vote`, `/api/feedback`, `/api/skills/[slug]/download` routes; those live in Vaizer now. Dojo links to Vaizer from the Community projects list. Supabase is no longer a Dojo dependency (it moved with the skills feature).
-- Dependencies still open: importing remaining Guide source TODOs; expanding the Community directory.
-- The Helpful tools dependencies shipped 2026-07-19: Vaizer's public catalog API (`/api/skills`) and the Resume Checker skill are live, and Kotrain's README gained an importable Overview section. Remaining: other Nekko repos' READMEs (hypergate) could use the same overview polish since their prose now shows on the directory.
-- The interview-practice tool being teased is not yet specced; when it becomes real it gets its own project.
+- The Skills directory moved out of Dojo into [Vaizer](https://vaizer.app) on 2026-07-15 (repo `nekko-labs/vaizer`). Dojo no longer hosts `/skills`, the skills data/components, or the `/api/vote`, `/api/feedback`, `/api/skills/[slug]/download` routes; those live in Vaizer now. Dojo links to Vaizer from the projects list. Supabase is no longer a Dojo dependency (it moved with the skills feature).
+- Dependencies still open: importing remaining Guide source TODOs; expanding the projects and Get Hired directories.
+- The Agent Skills dependencies (shipped under the name "Helpful tools") shipped 2026-07-19: Vaizer's public catalog API (`/api/skills`) and the Resume Checker skill are live, and Kotrain's README gained an importable Overview section. Remaining: other Nekko repos' READMEs (hypergate) could use the same overview polish since their prose now shows on the directory.

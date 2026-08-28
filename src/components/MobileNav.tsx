@@ -4,7 +4,7 @@ import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { nav, site } from '@/lib/site';
+import { isNavGroup, nav, site } from '@/lib/site';
 import { DiscordIcon, GitHubIcon, NAV_ICONS } from './icons';
 import { isActivePath } from './NavLink';
 
@@ -19,9 +19,9 @@ function focusableWithin(root: HTMLElement): HTMLElement[] {
 }
 
 /**
- * Compact nav for small screens: a hamburger toggle that drops a full-width
- * panel of the site links below the header. The inline desktop nav is hidden
- * at this breakpoint, so the two never fight for the same row.
+ * Compact nav below lg: a hamburger toggle that drops a full-width panel of
+ * the site links below the header. The inline desktop nav is hidden at this
+ * breakpoint, so the two never fight for the same row.
  *
  * The panel behaves as a modal dialog: Escape closes it, Tab is trapped inside
  * it, focus moves to the panel on open and back to the toggle on close, and
@@ -102,7 +102,7 @@ export function MobileNav() {
   }, [open]);
 
   return (
-    <div className="md:hidden">
+    <div className="lg:hidden">
       <button
         ref={triggerRef}
         type="button"
@@ -154,14 +154,43 @@ export function MobileNav() {
             className="mnav-panel absolute inset-x-0 top-full border-b border-border bg-bg shadow-xl"
           >
             <nav aria-label="Mobile" className="mx-auto flex max-w-6xl flex-col gap-1 px-5 py-4">
-              {nav.map((item) => {
-                const Icon = NAV_ICONS[item.href];
+              {nav.map((entry) => {
+                /* A group is flattened into a heading plus indented children:
+                   a disclosure nested inside a modal panel is worse on touch
+                   than simply showing the two or three links it hides. */
+                if (isNavGroup(entry)) {
+                  const GroupIcon = NAV_ICONS[entry.label];
+                  return (
+                    <div key={entry.label} className="mt-2">
+                      <p className="flex items-center gap-2.5 px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-muted">
+                        {GroupIcon && (
+                          <span className="nav-ico" aria-hidden="true">
+                            <GroupIcon className="h-4 w-4" />
+                          </span>
+                        )}
+                        {entry.label}
+                      </p>
+                      {entry.items.map((item) => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          onClick={close}
+                          aria-current={isActivePath(pathname, item.href) ? 'page' : undefined}
+                          className="mnav-item flex items-center gap-2.5 rounded-lg py-2.5 pl-9 pr-3 text-base font-bold text-muted transition-colors hover:bg-surface-2 hover:text-fg"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  );
+                }
+                const Icon = NAV_ICONS[entry.href];
                 return (
                   <Link
-                    key={item.href}
-                    href={item.href}
+                    key={entry.href}
+                    href={entry.href}
                     onClick={close}
-                    aria-current={isActivePath(pathname, item.href) ? 'page' : undefined}
+                    aria-current={isActivePath(pathname, entry.href) ? 'page' : undefined}
                     className="mnav-item flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-base font-bold text-muted transition-colors hover:bg-surface-2 hover:text-fg"
                   >
                     {Icon && (
@@ -169,7 +198,7 @@ export function MobileNav() {
                         <Icon className="h-5 w-5" />
                       </span>
                     )}
-                    {item.label}
+                    {entry.label}
                   </Link>
                 );
               })}

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { nav, site } from '@/lib/site';
+import { nav, navLeaves, site } from '@/lib/site';
 import { DiscordCTA } from './DiscordCTA';
 import { DiscordIcon, GitHubIcon, GlobeIcon } from './icons';
 import { ToriiSeparator } from './ToriiSeparator';
@@ -39,7 +39,10 @@ export function SiteFooter() {
         <nav aria-label="Footer">
           <ColumnHeading>Explore</ColumnHeading>
           <ul className="mt-4 space-y-3">
-            {nav.map((item) => (
+            {/* Groups are flattened here: the footer is a plain link list, so
+                Agent Skills earns its own row rather than hiding behind a
+                heading with nothing to click. */}
+            {navLeaves(nav).map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
