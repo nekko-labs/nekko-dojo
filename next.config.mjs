@@ -13,6 +13,16 @@ const nextConfig = {
   outputFileTracingRoot: projectRoot,
   // MDX is compiled at the component level via next-mdx-remote (see lib/mdx.ts),
   // so no @next/mdx page extension wiring is needed here.
+  async redirects() {
+    return [
+      // /community was split into /projects and /get-hired on 2026-08-28. The
+      // site is live and the old path is linked from articles and elsewhere, so
+      // it lands on its closest successor rather than 404ing.
+      { source: '/community', destination: '/projects', permanent: true },
+      // Agentic Coding is a nav group, not a page: it has no index of its own.
+      { source: '/agentic-coding', destination: '/agentic-coding/skills', permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -37,7 +37,9 @@ ${line('Home', '/', 'what the dojo is and where to start')}
 ${line('Courses', '/courses', 'the two paths through the dojo')}
 ${line('Articles', '/articles', 'every article, newest first')}
 ${line('The Guide', '/guide', 'the flagship course, chapter by chapter')}
-${line('Community', '/community', 'open-source projects and communities to learn in')}
+${line('Get Hired', '/get-hired', 'the job-search workflow, job boards, junior-friendly companies and communities in Japan')}
+${line('Projects', '/projects', 'open-source projects to contribute to for real team experience')}
+${line('Agent Skills', '/agentic-coding/skills', 'agent skills for the job hunt and daily dev work, pulled from Vaizer')}
 
 ## Courses
 

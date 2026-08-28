@@ -1,9 +1,9 @@
 /**
- * The Community page's "Helpful tools" section is fed by Vaizer's public
- * skills catalog API, so Dojo never hand-maintains the tool list: publish a
- * skill on Vaizer and it shows up here. The fetch is cached for an hour and
- * degrades to a small static fallback (mirroring the catalog's flagship
- * entries) when Vaizer is unreachable, so the page always builds and renders.
+ * The Agent Skills page (/agentic-coding/skills) is fed by Vaizer's public
+ * skills catalog API, so Dojo never hand-maintains the list: publish a skill
+ * on Vaizer and it shows up here. The fetch is cached for an hour and degrades
+ * to a small static fallback (mirroring the catalog's flagship entries) when
+ * Vaizer is unreachable, so the page always builds and renders.
  */
 
 export type VaizerSkill = {
@@ -59,8 +59,8 @@ function isVaizerSkill(value: unknown): value is VaizerSkill {
   );
 }
 
-/** The live tool list from Vaizer, or the static fallback. Never throws. */
-export async function getHelpfulTools(): Promise<VaizerSkill[]> {
+/** The live skill list from Vaizer, or the static fallback. Never throws. */
+export async function getAgentSkills(): Promise<VaizerSkill[]> {
   try {
     const res = await fetch(`${VAIZER_URL}/api/skills`, {
       next: { revalidate: 3600 },

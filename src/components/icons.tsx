@@ -50,9 +50,10 @@ export function ToriiIcon(props: SVGProps<SVGSVGElement>) {
 }
 
 /**
- * A cat paw — you don't train alone. Nav icon for Community.
+ * A kanban (看板) — the signboard a shop hangs out front. Literally the
+ * "job board". Nav icon for Get Hired.
  */
-export function PawIcon(props: SVGProps<SVGSVGElement>) {
+export function KanbanIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -64,23 +65,73 @@ export function PawIcon(props: SVGProps<SVGSVGElement>) {
       aria-hidden="true"
       {...props}
     >
-      <circle cx="5.8" cy="9.8" r="1.7" />
-      <circle cx="10" cy="7.4" r="1.8" />
-      <circle cx="14" cy="7.4" r="1.8" />
-      <circle cx="18.2" cy="9.8" r="1.7" />
-      <path d="M12 12c2.5 0 4.3 1.9 4.3 4 0 1.9-1.5 3.1-2.9 2.7-.6-.17-1-.25-1.4-.25s-.8.08-1.4.25c-1.4.4-2.9-.8-2.9-2.7 0-2.1 1.8-4 4.3-4Z" />
+      <rect x="3.5" y="4" width="17" height="10" rx="1.5" />
+      <path d="M7.5 7.8h9" />
+      <path d="M7.5 10.6h5" />
+      <path d="M7.5 14v6" />
+      <path d="M16.5 14v6" />
     </svg>
   );
 }
 
 /**
- * Themed icon for each primary nav section, keyed by route. Both the desktop
- * header and the mobile menu read from this map so the pairing never drifts.
+ * Crossed bokken — the wooden swords you train real forms with, against a
+ * partner rather than alone. Nav icon for Projects.
+ */
+export function BokkenIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M5.4 18.6 18.6 5.4" />
+      <path d="M5.4 5.4 18.6 18.6" />
+      <circle cx="4.6" cy="19.4" r="1.4" />
+      <circle cx="19.4" cy="19.4" r="1.4" />
+    </svg>
+  );
+}
+
+/**
+ * A four-pointed shuriken — the tool you throw so you don't have to close the
+ * distance yourself. Nav icon for the Agentic Coding group.
+ */
+export function ShurikenIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M12 2.6 14.5 9.5 21.4 12 14.5 14.5 12 21.4 9.5 14.5 2.6 12 9.5 9.5Z" />
+      <circle cx="12" cy="12" r="1.5" />
+    </svg>
+  );
+}
+
+/**
+ * Themed icon for each primary nav entry. Leaves are keyed by route; a nav
+ * group has no route of its own, so it is keyed by its label instead. Both the
+ * desktop header and the mobile menu read from this map so the pairing never
+ * drifts.
  */
 export const NAV_ICONS: Record<string, ComponentType<SVGProps<SVGSVGElement>>> = {
   '/articles': ScrollIcon,
   '/courses': ToriiIcon,
-  '/community': PawIcon,
+  '/get-hired': KanbanIcon,
+  '/projects': BokkenIcon,
+  'Agentic Coding': ShurikenIcon,
 };
 
 /**

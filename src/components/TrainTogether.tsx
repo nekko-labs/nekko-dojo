@@ -17,11 +17,6 @@ const benefits = [
     body: 'Kotrain, Misskey and more — real open-source projects where you gain genuine team experience, not just solo side projects.',
   },
   {
-    emoji: '🎯',
-    title: 'Interview practice, incoming',
-    body: 'We’re building a dedicated interview-practice tool for the dojo, shaped by people who have done the hiring. Discord members try it first.',
-  },
-  {
     emoji: '🔁',
     title: 'Then give it back',
     body: 'Hired members stick around to mentor, review, and answer — that is what turns a group chat into a dojo.',

@@ -15,7 +15,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: url('/articles'), changeFrequency: 'weekly', priority: 0.9 },
     { url: url('/courses'), changeFrequency: 'weekly', priority: 0.9 },
     { url: url('/guide'), changeFrequency: 'weekly', priority: 0.9 },
-    { url: url('/community'), changeFrequency: 'monthly', priority: 0.7 },
+    { url: url('/get-hired'), changeFrequency: 'monthly', priority: 0.7 },
+    { url: url('/projects'), changeFrequency: 'monthly', priority: 0.7 },
+    { url: url('/agentic-coding/skills'), changeFrequency: 'weekly', priority: 0.6 },
   ];
 
   const articles: MetadataRoute.Sitemap = getAllArticles().map((article) => ({
