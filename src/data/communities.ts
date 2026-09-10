@@ -76,18 +76,18 @@ export type JobResource = {
 // 1. Projects — actual OSS/GitHub projects you can contribute to.
 export const projects: Project[] = [
   {
-    id: 'kotrain',
-    name: 'Kotrain',
-    github: 'https://github.com/nekko-labs/kotrain',
-    website: 'https://kotrain.com',
+    id: 'agent-nekko',
+    name: 'Agent Nekko',
+    github: 'https://github.com/nekko-labs/agent-nekko',
+    website: 'https://agentnekko.com',
     community: 'https://discord.gg/nekkolabs',
     description:
       'Nekko Labs’ local-first AI coding and cowork desktop app: point it at Ollama, LM Studio or vLLM in one click, or bring your own cloud keys. A modern TypeScript codebase and a great place to contribute alongside our team; say hi in the Discord.',
     region: 'Japan',
     tags: ['TypeScript', 'Desktop', 'Local-first', 'AI'],
     art: {
-      src: '/projects/kotrain.webp',
-      alt: 'Kotrain’ site: “Train your models. Run your agents. Own your machine.”',
+      src: '/projects/agent-nekko.webp',
+      alt: 'Agent Nekko’s site: “AI help on your computer. For coding and everyday work.”',
     },
     beginnerFriendly: true,
     featured: true,
@@ -141,6 +141,30 @@ export const projects: Project[] = [
       src: '/projects/getsu.webp',
       alt: 'Getsu’s site: a crescent-moon cat mark above “A life you can look back on, one month at a time”',
     },
+    beginnerFriendly: true,
+  },
+  {
+    id: 'nekko-dojo-skills',
+    name: 'Nekko Dojo Skills',
+    github: 'https://github.com/nekko-labs/nekko-dojo-skills',
+    website: 'https://vaizer.app/skills',
+    community: 'https://discord.gg/nekkolabs',
+    description:
+      'The Agent Skills hub: official and community Claude skills, installable as a Claude Code plugin marketplace. Skills are mostly markdown, so this is the gentlest way into the Nekko Labs repos: write one, open a PR, see it in the catalog.',
+    region: 'Japan',
+    tags: ['Agent Skills', 'Markdown', 'Claude Code', 'Good first PR'],
+    beginnerFriendly: true,
+  },
+  {
+    id: 'nekko-dojo',
+    name: 'Nekko Dojo',
+    github: 'https://github.com/nekko-labs/nekko-dojo',
+    website: 'https://nekko-dojo.vercel.app',
+    community: 'https://discord.gg/nekkolabs',
+    description:
+      'This site. A Next.js and TypeScript guide to training, learning, and finding work as a developer in Japan. Contributing here means improving the thing you are reading, which makes it easy to tell whether your change helped.',
+    region: 'Japan',
+    tags: ['TypeScript', 'Next.js', 'Content', 'Good first PR'],
     beginnerFriendly: true,
   },
   {
