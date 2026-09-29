@@ -168,6 +168,7 @@ Extends `../../knowledgebase/principles/coding.md` (these deltas override it).
 
 - [ ] **T32** — Write the Applied AI Engineer chapters (`content/courses/applied-ai-engineer/`), reusing the guide content layer + `LearningPath` rendering (drop each stage's `body` and hand it real `stops` as chapters land, keeping the dan-grade ranks), and flip the course status from `coming-soon` to `live` in `src/data/courses.ts`. · [spec](SPEC.md#applied-ai-engineer-course-two) · Added: 2026-07-26 · Updated: 2026-07-30
 - [ ] **T34** — Audit mascot/art intrinsic dimensions site-wide. Several `next/image` calls declare `width={480} height={360}` for mascots whose real PNGs are different shapes (kamae 767×1000, men 599×1000, walk 761×1000, sensei 1463×1200), so the reserved box is the wrong ratio and the image reflows on load (home "Where are you now?" stages, and anywhere else the cats appear). Pass the true dimensions (as `src/data/courses.ts` now does) or size by height in a fixed slot. · Added: 2026-07-30
+- [ ] **T45** — Contributor roll: a section showing Dojo members who have contributed to public Nekko Labs repos. Each member wears the belt they hold in the Nekko Dojo Discord server, and their contributions read as dojo training (spars, missions) rather than raw PR counts. · Added: 2026-09-29
 
 ## Shipped
 
