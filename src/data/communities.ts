@@ -76,18 +76,18 @@ export type JobResource = {
 // 1. Projects — actual OSS/GitHub projects you can contribute to.
 export const projects: Project[] = [
   {
-    id: 'agent-nekko',
-    name: 'Agent Nekko',
-    github: 'https://github.com/nekko-labs/agent-nekko',
-    website: 'https://agentnekko.com',
+    id: 'nekko-agent',
+    name: 'Nekko Agent',
+    github: 'https://github.com/nekko-labs/nekko-agent',
+    website: 'https://nekkoagent.com',
     community: 'https://discord.gg/nekkolabs',
     description:
       'Nekko Labs’ local-first AI coding and cowork desktop app: point it at Ollama, LM Studio or vLLM in one click, or bring your own cloud keys. A modern TypeScript codebase and a great place to contribute alongside our team; say hi in the Discord.',
     region: 'Japan',
     tags: ['TypeScript', 'Desktop', 'Local-first', 'AI'],
     art: {
-      src: '/projects/agent-nekko.webp',
-      alt: 'Agent Nekko’s site: “AI help on your computer. For coding and everyday work.”',
+      src: '/projects/nekko-agent.webp',
+      alt: 'Nekko Agent’s site: “AI help on your computer. For coding and everyday work.”',
     },
     beginnerFriendly: true,
     featured: true,

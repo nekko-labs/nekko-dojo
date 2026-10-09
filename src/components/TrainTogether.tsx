@@ -14,7 +14,7 @@ const benefits = [
   {
     emoji: '🚢',
     title: 'Ship with real teams',
-    body: 'Agent Nekko, Misskey and more, real open-source projects where you gain genuine team experience, not just solo side projects.',
+    body: 'Nekko Agent, Misskey and more, real open-source projects where you gain genuine team experience, not just solo side projects.',
   },
   {
     emoji: '🔁',
