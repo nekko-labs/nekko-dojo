@@ -24,7 +24,7 @@ owner: Philip
 - **Content / MDX:** `next-mdx-remote` (RSC) + `gray-matter` (frontmatter) + `shiki` / `rehype-pretty-code` (syntax highlighting), plus `remark-gfm`, `rehype-slug`, `rehype-autolink-headings`.
 - **Backend bits:** Supabase (skill votes + feedback via `/api/vote`, `/api/feedback`, `supabase/schema.sql`); PostHog analytics.
 - **Animation:** the `motion` library (motion.dev, imported from `motion/react`). Reusable client primitives (`Reveal`, `Stagger`, `StaggerItem`, `MotionProvider`) live in `src/components/motion.tsx`; pages stay server components and compose them via children. All motion is once-only, opacity/transform only, and reduced-motion aware.
-- **Package manager: npm** (matches `nekko-notes`), Node 20+. Lockfile is `package-lock.json`. This overrides the global pnpm default — do not relitigate.
+- **Package manager: npm** (matches `nekko-notes`), Node 20+. Lockfile is `package-lock.json`. This overrides the global pnpm default; do not relitigate.
 - Served at `dojo.nekkolabs.com` on its own subdomain (separate, standalone deploy; no basePath).
 
 ## Architecture Overview
