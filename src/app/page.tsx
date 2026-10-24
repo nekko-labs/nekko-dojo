@@ -150,8 +150,9 @@ export default function HomePage() {
         </Reveal>
         <Reveal delay={0.12}>
           <p className="mt-4 text-base font-medium leading-relaxed text-muted">
-            Many of us live in Japan and want a longer-term career. More often
-            than not, that means English teachers making the switch.
+            Our largest group has by far been English teachers in Japan, who
+            still love Japan and want a longer-term career option. If this
+            sounds like you, come join in!
           </p>
         </Reveal>
       </section>

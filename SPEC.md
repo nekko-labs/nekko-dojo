@@ -129,7 +129,7 @@ A persistent CTA throughout the site to join the Nekko Labs Discord community. *
 ### Cross-cutting
 - Home page: orient + route to all four pillars, hero, four-pillar cards, latest articles, Discord CTA `[shipped]`
 - Home page story, between the hero and "Where are you now?" `[shipped 2026-10-24]`:
-  - **What is Nekko Dojo?** A group of people who never stop growing and learning. It grew out of Philip teaching several hundred people to code through open-source projects and a non-profit he co-founded in Japan; the dojo widens that to a broader audience, much of it people in Japan (often English teachers) moving into a longer-term career.
+  - **What is Nekko Dojo?** A group of people who never stop growing and learning. It grew out of Philip teaching several hundred people to code through open-source projects and a non-profit he co-founded in Japan; the dojo widens that to a broader audience, by far the largest group being English teachers in Japan who still love Japan and want a longer-term career option, invited to join in.
   - **What's happening right now?** The AI shift, and the questions people ask about it ("Will AI delete software jobs?", "Should I still learn to code?", "Where should I even start?"), answered through a guide (coming soon) and the community.
   - **Why should I be a part of the community?** Two cards: learners contribute to open source, which employers can see and which proves teamwork, pace, learning speed and shipped features before a hire; people who already ship (especially agentic coding) help the next person, and that help is what makes the dojo.
   - The former "You don't train alone" rotating band is gone.
