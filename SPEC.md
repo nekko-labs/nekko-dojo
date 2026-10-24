@@ -97,7 +97,7 @@ A curated directory of OSS projects where learners contribute to real teams, at 
 - Directory page rendering typed project data `[shipped]`: Nekko Agent, Vaizer, Nekko OSS, Misskey featured/listed
 - **Nekko Agent** is listed in the directory ([Nekko Agent](https://github.com/nekko-labs/nekko-agent), the local-first AI coding/cowork desktop app, site nekkoagent.com) `[shipped]`
 - **Auto-imported projects:** project entries pull automatically from their public GitHub repos, with the card content (name, description, overview) sourced from each repo's README rather than hand-written copy; server-fetched and cached, with the typed data remaining as the curation/ordering layer and fallback. Repos that lack a clean overview section get their README updated upstream (in generic, tool-agnostic terms; the repos stay unaware of Dojo) so they import well; Nekko Agent's README got that treatment. `[shipped]`
-- **No interview-practice promise:** the "train together" pitch makes no claim about interview practice, live or tooled. We do not provide it, so the site does not imply it. `[shipped 2026-08-28]`
+- **No interview-practice promise:** the site makes no claim about interview practice, live or tooled. We do not provide it, so the site does not imply it. `[shipped 2026-08-28]`
 - **Project graphics:** every project card leads with a small 16:9 graphic taken from that project's own site, so a reader can see what the thing *is* before reading a word of copy. Captured into `public/projects/` as small webp files and referenced from the typed data; recaptured when a project redesigns or rebrands. `[shipped]`
 - **Rebrands tracked:** the directory follows its projects when they rename. Nekko MCP became **Hypergate** (hypergate.app) and Nekko Journal became **Getsu**; each entry carries the new name, repo, site, card art and copy. Private repos are never listed (Lightwrite, ex Nekko Notes, is deliberately absent), and the guide chapter on getting involved points at Nekko Agent instead of the retired Nekko Notes. `[shipped]`
 - **Whole-org coverage:** the directory lists every public, non-archived `nekko-labs` repo, so a reader sees all of them rather than a subset that ages. As of 2026-09-10 that is Nekko Agent, Vaizer, Hypergate, Getsu, Nekko Dojo Skills and Nekko Dojo itself. `[shipped]`
@@ -128,6 +128,11 @@ A persistent CTA throughout the site to join the Nekko Labs Discord community. *
 
 ### Cross-cutting
 - Home page: orient + route to all four pillars, hero, four-pillar cards, latest articles, Discord CTA `[shipped]`
+- Home page story, between the hero and "Where are you now?" `[shipped 2026-10-24]`:
+  - **What is Nekko Dojo?** A group of people who never stop growing and learning. It grew out of Philip teaching several hundred people to code through open-source projects and a non-profit he co-founded in Japan; the dojo widens that to a broader audience, much of it people in Japan (often English teachers) moving into a longer-term career.
+  - **What's happening right now?** The AI shift, and the questions people ask about it ("Will AI delete software jobs?", "Should I still learn to code?", "Where should I even start?"), answered through a guide (coming soon) and the community.
+  - **Why should I be a part of the community?** Two cards: learners contribute to open source, which employers can see and which proves teamwork, pace, learning speed and shipped features before a hire; people who already ship (especially agentic coding) help the next person, and that help is what makes the dojo.
+  - The former "You don't train alone" rotating band is gone.
 - 404 page `[shipped]`
 - PostHog analytics `[shipped]`
 - Scroll-triggered and entrance animations site-wide (`motion` library, reduced-motion aware) `[shipped]`
