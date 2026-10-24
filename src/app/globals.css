@@ -494,73 +494,6 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
-   "You don't train alone" — interactive, auto-rotating, parallax band.
---------------------------------------------------------------------------- */
-.train-glow {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(70px);
-  pointer-events: none;
-  z-index: 0;
-}
-.train-glow-a {
-  width: 340px;
-  height: 340px;
-  top: -130px;
-  right: -70px;
-  background: radial-gradient(circle, var(--accent), transparent 70%);
-  opacity: 0.22;
-  transform: translateY(calc(var(--p, 0) * -55px));
-}
-.train-glow-b {
-  width: 320px;
-  height: 320px;
-  bottom: -150px;
-  left: -60px;
-  background: radial-gradient(circle, var(--belt-green), transparent 70%);
-  opacity: 0.16;
-  transform: translateY(calc(var(--p, 0) * 45px));
-}
-.train-emoji {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: 0;
-  font-size: 200px;
-  line-height: 1;
-  opacity: 0.12;
-  pointer-events: none;
-  transform: translate(-50%, calc(-50% + var(--p, 0) * -34px));
-}
-.train-fade {
-  position: relative;
-  z-index: 1;
-  animation: train-fade 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-@keyframes train-fade {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: none; }
-}
-.train-underline {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 2px;
-  width: 100%;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  animation-name: train-progress;
-  animation-timing-function: linear;
-  animation-fill-mode: forwards;
-}
-.train-underline[data-paused='true'] { animation-play-state: paused; }
-@keyframes train-progress {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
-}
-
-/* ---------------------------------------------------------------------------
    Course chooser — "What do you want to learn?", two paths side by side.
 
    The panels carry no border on purpose (a STYLESEED 3.4 deviation, recorded in
@@ -717,9 +650,6 @@ body {
 @keyframes torii-drop { to { opacity: 1; transform: none; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .train-fade { animation: none; }
-  .train-underline { display: none; }
-  .train-emoji, .train-glow-a, .train-glow-b { transform: none !important; }
   .torii .t { opacity: 1 !important; transform: none !important; animation: none !important; }
   .torii-line { transform: none !important; animation: none !important; }
 }

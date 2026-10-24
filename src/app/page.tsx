@@ -4,7 +4,6 @@ import Image from "next/image";
 import { getAllArticles, getAllGuideChapters } from "@/lib/content";
 import { ArticleCard } from "@/components/ArticleCard";
 import { DiscordIcon } from "@/components/icons";
-import { TrainTogether } from "@/components/TrainTogether";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { StagePath } from "@/components/StagePath";
 import { JsonLd } from "@/components/JsonLd";
@@ -135,9 +134,111 @@ export default function HomePage() {
         </Reveal>
       </section>
 
+      {/* What is Nekko Dojo? — who we are and where the dojo came from */}
+      <section className="mx-auto mt-40 max-w-2xl text-center sm:mt-56">
+        <Reveal>
+          <h2 className="text-3xl font-black">What is Nekko Dojo?</h2>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <p className="mt-5 text-base font-medium leading-relaxed text-muted">
+            We&apos;re a group of people who never stop growing and learning. It
+            started when Philip helped several hundred people learn to code
+            through open-source projects and a non-profit he co-founded in
+            Japan. Nekko Dojo was born to open that kind of place up to more
+            people, and to teach software engineering on a broader scale.
+          </p>
+        </Reveal>
+        <Reveal delay={0.12}>
+          <p className="mt-4 text-base font-medium leading-relaxed text-muted">
+            Many of us live in Japan and want a longer-term career. More often
+            than not, that means English teachers making the switch.
+          </p>
+        </Reveal>
+      </section>
+
+      {/* What's happening right now? — the AI shift, and the questions it raises */}
+      <section className="mx-auto mt-32 max-w-2xl text-center sm:mt-40">
+        <Reveal>
+          <h2 className="text-3xl font-black">What&apos;s happening right now?</h2>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <p className="mt-5 text-base font-medium leading-relaxed text-muted">
+            Lately our focus is helping people understand the industry&apos;s
+            latest shift: AI. Lots of people are asking the same questions:
+          </p>
+        </Reveal>
+        <Stagger className="mt-6 flex flex-col items-center gap-3" gap={0.08}>
+          {[
+            "Will AI delete software jobs?",
+            "Should I still learn to code?",
+            "Where should I even start?",
+          ].map((q) => (
+            <StaggerItem key={q}>
+              <p className="text-xl font-black leading-snug">&ldquo;{q}&rdquo;</p>
+            </StaggerItem>
+          ))}
+        </Stagger>
+        <Reveal delay={0.1}>
+          <p className="mt-6 text-base font-medium leading-relaxed text-muted">
+            We hope to answer them through a guide (coming soon) and through
+            our community.
+          </p>
+        </Reveal>
+      </section>
+
+      {/* Why should I be a part of the community? — learners and shippers */}
+      <section className="mt-32 sm:mt-40">
+        <Reveal>
+          <h2 className="text-center text-3xl font-black">
+            Why should I be a part of the community?
+          </h2>
+        </Reveal>
+        <Stagger className="mx-auto mt-10 grid max-w-4xl gap-5 sm:grid-cols-2">
+          <StaggerItem className="h-full">
+            <div className="h-full rounded-2xl border border-border bg-surface p-7">
+              <h3 className="text-xl font-black leading-snug">
+                If you&apos;re learning
+              </h3>
+              <p className="mt-3 text-sm font-medium leading-relaxed text-muted">
+                One of the best things you can do to learn and land a coding
+                job is to{" "}
+                <Link href="/projects" className="font-bold text-accent hover:underline">
+                  contribute to open-source projects
+                </Link>
+                . Your work is visible to employers, and it&apos;s one of the
+                few industries where you can prove how you work before
+                you&apos;re hired. You show that you can work on a team, how
+                much you get done and how quickly you learn, and real shipped
+                features you can point to.
+              </p>
+            </div>
+          </StaggerItem>
+          <StaggerItem className="h-full">
+            <div className="h-full rounded-2xl border border-border bg-surface p-7">
+              <h3 className="text-xl font-black leading-snug">
+                If you already ship code
+              </h3>
+              <p className="mt-3 text-sm font-medium leading-relaxed text-muted">
+                Especially if you code with agents, you have an amazing chance
+                to help others in the community. We appreciate your help: you
+                make Nekko Dojo what it is today.
+              </p>
+              <a
+                href={site.discordUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex min-h-8 items-center text-sm font-bold text-accent hover:underline"
+              >
+                Join the Discord →
+              </a>
+            </div>
+          </StaggerItem>
+        </Stagger>
+      </section>
+
       {/* Where are you now? — a flowing path, the sensei switching sides at
           each stage, threaded together by a dotted spine */}
-      <section className="mt-40 sm:mt-56">
+      <section className="mt-32 sm:mt-40">
         <Reveal>
           <h2 className="text-center text-3xl font-black">Where are you now?</h2>
         </Reveal>
@@ -244,9 +345,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* You don't train alone — interactive, auto-rotating, parallax hero */}
-      <TrainTogether />
 
       {/* Training never stops — latest articles, in full detail */}
       {latestArticles.length > 0 && (
