@@ -142,7 +142,11 @@ export default function HomePage() {
         <Reveal delay={0.08}>
           <p className="mt-5 text-base font-medium leading-relaxed text-muted">
             We&apos;re a group of people who never stop growing and learning. It
-            started when Philip helped several hundred people learn to code
+            started when{" "}
+            <a href={site.founderUrl} className="font-bold text-accent hover:underline">
+              Philip
+            </a>{" "}
+            helped several hundred people learn to code
             through open-source projects and a non-profit he co-founded in
             Japan. Nekko Dojo was born to open that kind of place up to more
             people, and to teach software engineering on a broader scale.
@@ -150,8 +154,9 @@ export default function HomePage() {
         </Reveal>
         <Reveal delay={0.12}>
           <p className="mt-4 text-base font-medium leading-relaxed text-muted">
-            Many of us live in Japan and want a longer-term career. More often
-            than not, that means English teachers making the switch.
+            Our largest group has by far been English teachers in Japan, who
+            still love Japan and want a longer-term career option. If this
+            sounds like you, come join in!
           </p>
         </Reveal>
       </section>

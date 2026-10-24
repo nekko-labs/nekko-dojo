@@ -157,7 +157,7 @@ export function Directory({
             </Reveal>
 
             {section.kind === 'projects' ? (
-              <Stagger className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <Stagger className="mt-6 grid gap-5 sm:grid-cols-2">
                 {section.items.map((project) => (
                   <StaggerItem key={project.id} instant className="h-full">
                     <ProjectCard project={project} />
