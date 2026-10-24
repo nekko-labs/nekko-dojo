@@ -19,6 +19,9 @@ export const site = {
     process.env.NEXT_PUBLIC_GITHUB_URL || 'https://github.com/nekko-labs/nekko-dojo',
   parentName: 'Nekko Labs',
   parentUrl: 'https://nekkolabs.com',
+  // The dojo has no About page of its own; the Nekko Labs team page is it.
+  aboutUrl: 'https://nekkolabs.com/our-team',
+  founderUrl: 'https://nekkolabs.com/our-team#philip',
 } as const;
 
 /** A single destination in the primary nav. */
@@ -48,4 +51,5 @@ export const nav: ReadonlyArray<NavEntry> = [
     label: 'Agentic Coding',
     items: [{ label: 'Agent Skills', href: '/agentic-coding/skills' }],
   },
+  { label: 'About us', href: site.aboutUrl },
 ];

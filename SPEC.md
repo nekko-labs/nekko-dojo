@@ -94,7 +94,8 @@ The pitch, in three parts: (1) **the role is shifting** — you were paid to pro
 ### Projects
 A curated directory of OSS projects where learners contribute to real teams, at `/projects`. *Why:* bridges the gap between learning and employable, collaborative experience.
 
-- Directory page rendering typed project data `[shipped]`: Nekko Agent, Vaizer, Nekko OSS, Misskey featured/listed
+- Directory page rendering typed project data `[shipped]`
+- Project cards sit two per row on tablet and up, and each card's graphic links to the project's website (its GitHub repo when it has no site), tracked as `project-art`. `[shipped 2026-10-24]`: Nekko Agent, Vaizer, Nekko OSS, Misskey featured/listed
 - **Nekko Agent** is listed in the directory ([Nekko Agent](https://github.com/nekko-labs/nekko-agent), the local-first AI coding/cowork desktop app, site nekkoagent.com) `[shipped]`
 - **Auto-imported projects:** project entries pull automatically from their public GitHub repos, with the card content (name, description, overview) sourced from each repo's README rather than hand-written copy; server-fetched and cached, with the typed data remaining as the curation/ordering layer and fallback. Repos that lack a clean overview section get their README updated upstream (in generic, tool-agnostic terms; the repos stay unaware of Dojo) so they import well; Nekko Agent's README got that treatment. `[shipped]`
 - **No interview-practice promise:** the site makes no claim about interview practice, live or tooled. We do not provide it, so the site does not imply it. `[shipped 2026-08-28]`
@@ -133,6 +134,8 @@ A persistent CTA throughout the site to join the Nekko Labs Discord community. *
   - **What's happening right now?** The AI shift, and the questions people ask about it ("Will AI delete software jobs?", "Should I still learn to code?", "Where should I even start?"), answered through a guide (coming soon) and the community.
   - **Why should I be a part of the community?** Two cards: learners contribute to open source, which employers can see and which proves teamwork, pace, learning speed and shipped features before a hire; people who already ship (especially agentic coding) help the next person, and that help is what makes the dojo.
   - The former "You don't train alone" rotating band is gone.
+  - "Philip" links to his section on the Nekko Labs team page (`nekkolabs.com/our-team#philip`). `[shipped 2026-10-24]`
+- **About us:** the dojo has no About page of its own; an "About us" entry at the end of the primary nav (and so the footer's Explore column) points to `nekkolabs.com/our-team`. `[shipped 2026-10-24]`
 - 404 page `[shipped]`
 - PostHog analytics `[shipped]`
 - Scroll-triggered and entrance animations site-wide (`motion` library, reduced-motion aware) `[shipped]`

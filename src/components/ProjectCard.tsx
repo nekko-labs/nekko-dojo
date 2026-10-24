@@ -15,6 +15,7 @@ export function ProjectCard({ project }: { project: Project }) {
   const isSlack = project.community?.includes('slack.com');
   const CommunityIcon = isSlack ? SlackIcon : DiscordIcon;
   const communityLabel = isSlack ? 'Slack' : 'Discord';
+  const artHref = project.website ?? project.github;
 
   return (
     <div
@@ -22,15 +23,27 @@ export function ProjectCard({ project }: { project: Project }) {
         project.featured ? 'border-accent/50' : 'border-border'
       }`}
     >
-      {project.art && (
-        <Image
-          src={project.art.src}
-          alt={project.art.alt}
-          width={880}
-          height={495}
-          sizes="(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 90vw"
-          className="aspect-video w-full border-b border-border bg-gate object-cover"
-        />
+      {project.art && artHref && (
+        // The graphic opens the project's site (its repo when it has none). The
+        // labelled links below cover keyboard and screen-reader users.
+        <TrackedLink
+          href={artHref}
+          section="projects"
+          name={project.name}
+          kind="project-art"
+          tabIndex={-1}
+          aria-hidden
+          className="block overflow-hidden border-b border-border"
+        >
+          <Image
+            src={project.art.src}
+            alt=""
+            width={880}
+            height={495}
+            sizes="(min-width: 1152px) 34rem, (min-width: 640px) 45vw, 90vw"
+            className="aspect-video w-full bg-gate object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+          />
+        </TrackedLink>
       )}
 
       <div className="flex flex-1 flex-col p-5 sm:p-6">

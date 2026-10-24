@@ -142,7 +142,11 @@ export default function HomePage() {
         <Reveal delay={0.08}>
           <p className="mt-5 text-base font-medium leading-relaxed text-muted">
             We&apos;re a group of people who never stop growing and learning. It
-            started when Philip helped several hundred people learn to code
+            started when{" "}
+            <a href={site.founderUrl} className="font-bold text-accent hover:underline">
+              Philip
+            </a>{" "}
+            helped several hundred people learn to code
             through open-source projects and a non-profit he co-founded in
             Japan. Nekko Dojo was born to open that kind of place up to more
             people, and to teach software engineering on a broader scale.
