@@ -8,7 +8,7 @@ A learning / content platform from [Nekko Labs](https://nekkolabs.com). Three th
 
 …all funneling into the **Nekko Labs Discord**.
 
-Served in production at **dojo.nekkolabs.com** (standalone app on its own subdomain).
+Served in production at **nekkodojo.com** (standalone app on its own domain).
 
 ## Stack
 
@@ -57,8 +57,8 @@ src/
 Copy `.env.example` to `.env.local` and set:
 
 - `NEXT_PUBLIC_DISCORD_URL` — Discord invite link (CTA target)
-- `NEXT_PUBLIC_SITE_URL` — absolute site URL for metadata (default `https://dojo.nekkolabs.com`)
+- `NEXT_PUBLIC_SITE_URL` — absolute site URL for metadata (default `https://nekkodojo.com`)
 
 ## Deployment
 
-Deployed as its own app on Vercel and served at its own subdomain, `dojo.nekkolabs.com` (DNS via Cloudflare → Vercel). No basePath — the app lives at the domain root.
+Deployed as its own app on Vercel and served at its own domain, `nekkodojo.com`; the old subdomain `dojo.nekkolabs.com` redirects there (see `next.config.mjs`). No basePath — the app lives at the domain root.

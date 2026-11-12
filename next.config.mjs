@@ -5,8 +5,8 @@ const projectRoot = dirname(fileURLToPath(import.meta.url));
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Nekko Dojo is served at its own subdomain (dojo.nekkolabs.com), so it lives
-  // at the domain root — no basePath.
+  // Nekko Dojo is served at its own domain (nekkodojo.com), so it lives at the
+  // domain root — no basePath.
   reactStrictMode: true,
   // Other lockfiles exist higher up the tree (C:\Users\phili). Pin the tracing
   // root to this project so file tracing for deployment is correct.
@@ -21,6 +21,14 @@ const nextConfig = {
       { source: '/community', destination: '/projects', permanent: true },
       // Agentic Coding is a nav group, not a page: it has no index of its own.
       { source: '/agentic-coding', destination: '/agentic-coding/skills', permanent: true },
+      // nekkodojo.com is the Dojo's one address. The old subdomain redirects so
+      // search engines index the Dojo as its own site, not part of nekkolabs.com.
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'dojo.nekkolabs.com' }],
+        destination: 'https://nekkodojo.com/:path*',
+        permanent: true,
+      },
     ];
   },
 };
