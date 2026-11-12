@@ -9,10 +9,11 @@ export const site = {
   tagline: 'Train into tech. Grow your engineering career.',
   description:
     'On a mission to help you break into software engineering and never stop growing. Learn in a community of career-changers and working engineers, guided by experienced leaders who have done the hiring.',
-  // Absolute URL used for metadata. Dojo lives at its own subdomain.
+  // Absolute URL used for metadata: nekkodojo.com is the Dojo's own domain
+  // (dojo.nekkolabs.com redirects here, see next.config.mjs).
   // Use `||` (not `??`) so an empty-string env var falls back too — Vercel
   // currently has these set to "", which `??` would pass straight through.
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://dojo.nekkolabs.com',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://nekkodojo.com',
   discordUrl:
     process.env.NEXT_PUBLIC_DISCORD_URL || 'https://discord.gg/nekkolabs',
   githubUrl:

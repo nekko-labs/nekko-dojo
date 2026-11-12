@@ -10,6 +10,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
+  title: { absolute: "Nekko Dojo | Free learning and community by NekkoLabs" },
   alternates: { canonical: "/" },
 };
 
@@ -34,8 +35,9 @@ const siteSchema = {
     {
       "@type": "WebSite",
       "@id": `${site.url}/#website`,
-      url: site.url,
+      url: `${site.url}/`,
       name: site.name,
+      alternateName: "Nekko Dojo by NekkoLabs",
       description: site.description,
       inLanguage: "en",
       publisher: { "@id": `${site.url}/#organization` },
